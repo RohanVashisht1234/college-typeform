@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Form - Typeform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 24px;
+            margin: 0 auto;
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-tab.active {
+            color: #111827;
+            border-bottom-color: #10b981;
+        }
+
+        .nav-tab:hover {
+            color: #374151;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #374151;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            border-color: #9ca3af;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+        }
+
+        .btn-dark {
+            background: #374151;
+            color: white;
+            border-color: #374151;
+        }
+
+        .btn-dark:hover {
+            background: #1f2937;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .share-option:hover {
+            background: #f9fafb;
+        }
+
+        .share-option.active {
+            background: #f0fdf4;
+            border-color: #10b981;
+        }
+
+        .share-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .share-option.active .share-icon {
+            background: #10b981;
+            color: white;
+        }
+
+        .share-text {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: #f8f9fa;
+        }
+
+        .share-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .copy-link-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-link-btn:hover {
+            background: #1f2937;
+        }
+
+        .form-url {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #f9fafb;
+            color: #6b7280;
+        }
+
+        .customize-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid #d1d5db;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        /* Form Preview */
+        .form-preview {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .question-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        .rating-options {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .rating-option {
+            width: 48px;
+            height: 48px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rating-option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .rating-option.selected {
+            border-color: #3b82f6;
+            background: #3b82f6;
+            color: white;
+        }
+
+        .ok-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 32px;
+        }
+
+        .ok-button:hover {
+            background: #2563eb;
+        }
+
+        .form-branding {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .typeform-logo {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 320px;
+            background: white;
+            border-left: 1px solid #e5e7eb;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .sidebar-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-tab {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .sidebar-tab.active {
+            color: #111827;
+            border-bottom-color: #111827;
+        }
+
+        .sidebar-tab:hover {
+            color: #374151;
+        }
+
+        .sidebar-section {
+            margin-bottom: 32px;
+        }
+
+        .sidebar-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+
+        .social-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .social-btn.facebook {
+            color: #1877f2;
+        }
+
+        .social-btn.linkedin {
+            color: #0a66c2;
+        }
+
+        .social-btn.twitter {
+            color: #1da1f2;
+        }
+
+        .social-btn.buffer {
+            color: #168eea;
+        }
+
+        .social-btn.more {
+            color: #6b7280;
+        }
+
+        .link-settings {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .link-settings:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .setting-icon {
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .preview-section {
+            margin-bottom: 24px;
+        }
+
+        .preview-thumbnail {
+            width: 100%;
+            height: 120px;
+            background: #1f2937;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .thumbnail-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .thumbnail-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #6b7280;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .thumbnail-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #d1d5db;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .toggle-switch.active {
+            background: #10b981;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        .embed-code {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #374151;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-bottom: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .right-sidebar {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .main-content {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .nav-tabs {
+                order: 2;
+                margin: 0;
+            }
+
+            .rating-options {
+                gap: 4px;
+            }
+
+            .rating-option {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="breadcrumb">
+            <div class="breadcrumb-item">
+                <i class="fas fa-th"></i>
+                <span>My workspace</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="breadcrumb-item">
+                <span>My new form</span>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <div class="nav-tab">Content</div>
+            <div class="nav-tab">Workflow</div>
+            <div class="nav-tab">Connect</div>
+            <div class="nav-tab active">Share</div>
+            <div class="nav-tab">Results</div>
+        </div>
+
+        <div class="top-actions">
+            <button class="btn">
+                <i class="fas fa-link"></i>
+            </button>
+            <button class="btn btn-primary">View plans</button>
+            <button class="btn">
+                <i class="fas fa-question-circle"></i>
+            </button>
+            <div class="user-avatar">RV</div>
+        </div>
+    </nav>
+
+    <div class="main-layout">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="share-option active" data-option="link">
+                <div class="share-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div class="share-text">Share the link</div>
+            </div>
+
+            <div class="share-option" data-option="email">
+                <div class="share-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="share-text">Embed in an email</div>
+            </div>
+
+            <div class="share-option" data-option="webpage">
+                <div class="share-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="share-text">Embed in a web page</div>
+            </div>
+
+            <div class="share-option" data-option="targeted">
+                <div class="share-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="share-text">Get targeted respondents</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Share Header -->
+            <div class="share-header">
+                <button class="copy-link-btn" onclick="copyLink()">
+                    <i class="fas fa-link"></i>
+                    Copy link
+                </button>
+                <input type="text" class="form-url" value="https://form.typeform.com/to/BpHhpOXh" readonly id="formUrl">
+                <div class="customize-actions">
+                    <button class="action-btn" title="Customize">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <button class="action-btn" title="QR Code">
+                        <i class="fas fa-qrcode"></i>
+                    </button>
+                    <button class="action-btn" title="Mobile">
+                        <i class="fas fa-mobile-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form Preview -->
+            <div class="form-preview">
+                <div class="question-number">
+                    <span>1</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <h2 class="question-title">How did you like the website?</h2>
+                
+                <div class="rating-options">
+                    <div class="rating-option" onclick="selectRating(this)">0</div>
+                    <div class="rating-option" onclick="selectRating(this)">1</div>
+                    <div class="rating-option" onclick="selectRating(this)">2</div>
+                    <div class="rating-option" onclick="selectRating(this)">3</div>
+                    <div class="rating-option" onclick="selectRating(this)">4</div>
+                    <div class="rating-option" onclick="selectRating(this)">5</div>
+                    <div class="rating-option" onclick="selectRating(this)">6</div>
+                    <div class="rating-option" onclick="selectRating(this)">7</div>
+                    <div class="rating-option" onclick="selectRating(this)">8</div>
+                    <div class="rating-option" onclick="selectRating(this)">9</div>
+                    <div class="rating-option" onclick="selectRating(this)">10</div>
+                </div>
+
+                <button class="ok-button">OK</button>
+
+                <div class="form-branding">
+                    <i class="fas fa-chevron-up"></i>
+                    <i class="fas fa-chevron-down"></i>
+                    <span>Powered by</span>
+                    <span class="typeform-logo">Typeform</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="sidebar-tabs">
+                <div class="sidebar-tab active">Share options</div>
+                <div class="sidebar-tab">Advanced</div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Share in:</div>
+                <div class="social-buttons">
+                    <button class="social-btn facebook" onclick="shareToSocial('facebook')">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="social-btn linkedin" onclick="shareToSocial('linkedin')">
+                        <i class="fab fa-linkedin-in"></i>
+                    </button>
+                    <button class="social-btn twitter" onclick="shareToSocial('twitter')">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button class="social-btn buffer" onclick="shareToSocial('buffer')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button class="social-btn more" onclick="shareToSocial('more')">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="link-settings">
+                    <span class="setting-label">Link settings</span>
+                    <i class="fas fa-chevron-right setting-icon"></i>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Preview</div>
+                <div class="preview-thumbnail">
+                    Typeform
+                </div>
+                <div class="thumbnail-actions">
+                    <button class="thumbnail-btn">Upload</button>
+                    <button class="thumbnail-btn">
+                        <i class="fas fa-palette"></i>
+                        Design with Canva
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="form-group">
+                    <label class="form-label" for="formTitle">Title</label>
+                    <input type="text" class="form-input" id="formTitle" value="My new form">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="formDescription">Description</label>
+                    <textarea class="form-textarea" id="formDescription" placeholder="Turn data collection into an experience with Typeform. Create beautiful online forms, surveys, quizzes, and so much more. Try it for FREE."></textarea>
+                </div>
+
+                <div class="link-settings">
+                    <span class="setting-label">Show in search results</span>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Embed Code Modal -->
+    <div class="modal" id="embedModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Embed Code</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="embed-code" id="embedCode">
+&lt;iframe src="https://form.typeform.com/to/BpHhpOXh" width="100%" height="500" frameborder="0"&gt;&lt;/iframe&gt;
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="btn" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" onclick="copyEmbedCode()">Copy Code</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal" id="qrModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">QR Code</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="text-align: center; padding: 20px;">
+                <div style="width: 200px; height: 200px; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fas fa-qrcode" style="font-size: 48px; color: #6b7280;"></i>
+                </div>
+                <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">Scan this QR code to access your form</p>
+                <div style="display: flex; gap: 12px; justify-content: center;">
+                    <button class="btn">Download PNG</button>
+                    <button class="btn">Download SVG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentShareOption = 'link';
+        let selectedRating = null;
+
+        // Initialize the application
+        function init() {
+            setupEventListeners();
+            updateFormDescription();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Share option switching
+            document.querySelectorAll('.share-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.share-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    currentShareOption = this.dataset.option;
+                    updateMainContent();
+                });
+            });
+
+            // Tab switching
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            document.querySelectorAll('.sidebar-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Action buttons
+            document.querySelector('.action-btn[title="Email"]').addEventListener('click', () => openEmailModal());
+            document.querySelector('.action-btn[title="QR Code"]').addEventListener('click', () => openQRModal());
+
+            // Form inputs
+            document.getElementById('formTitle').addEventListener('input', updateFormTitle);
+            document.getElementById('formDescription').addEventListener('input', updateFormDescription);
+
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal();
+                    }
+                });
+            });
+        }
+
+        // Update main content based on selected share option
+        function updateMainContent() {
+            const mainContent = document.querySelector('.main-content');
+            
+            switch(currentShareOption) {
+                case 'email':
+                    showEmbedCode('email');
+                    break;
+                case 'webpage':
+                    showEmbedCode('webpage');
+                    break;
+                case 'targeted':
+                    showTargetedOptions();
+                    break;
+                default:
+                    // Keep the current link sharing view
+                    break;
+            }
+        }
+
+        // Show embed code for email or webpage
+        function showEmbedCode(type) {
+            const embedCode = type === 'email' 
+                ? `<a href="https://form.typeform.com/to/BpHhpOXh">Take our survey</a>`
+                : `<iframe src="https://form.typeform.com/to/BpHhpOXh" width="100%" height="500" frameborder="0"></iframe>`;
+            
+            document.getElementById('embedCode').textContent = embedCode;
+            document.getElementById('embedModal').classList.add('active');
+        }
+
+        // Show targeted respondents options
+        function showTargetedOptions() {
+            showNotification('Targeted respondents feature coming soon!', 'info');
+        }
+
+        // Copy form link to clipboard
+        function copyLink() {
+            const urlInput = document.getElementById('formUrl');
+            urlInput.select();
+            urlInput.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                showNotification('Link copied to clipboard!', 'success');
+            } catch (err) {
+                // Fallback for modern browsers
+                navigator.clipboard.writeText(urlInput.value).then(() => {
+                    showNotification('Link copied to clipboard!', 'success');
+                }).catch(() => {
+                    showNotification('Failed to copy link', 'error');
+                });
+            }
+        }
+
+        // Copy embed code to clipboard
+        function copyEmbedCode() {
+            const embedCode = document.getElementById('embedCode').textContent;
+            
+            try {
+                navigator.clipboard.writeText(embedCode).then(() => {
+                    showNotification('Embed code copied to clipboard!', 'success');
+                    closeModal();
+                }).catch(() => {
+                    showNotification('Failed to copy embed code', 'error');
+                });
+            } catch (err) {
+                showNotification('Failed to copy embed code', 'error');
+            }
+        }
+
+        // Select rating option
+        function selectRating(element) {
+            document.querySelectorAll('.rating-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedRating = element.textContent;
+        }
+
+        // Share to social media
+        function shareToSocial(platform) {
+            const url = encodeURIComponent('https://form.typeform.com/to/BpHhpOXh');
+            const title = encodeURIComponent('My new form');
+            const description = encodeURIComponent('Check out this form I created with Typeform');
+            
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'buffer':
+                    shareUrl = `https://buffer.com/add?url=${url}&text=${title}`;
+                    break;
+                default:
+                    showNotification('More sharing options coming soon!', 'info');
+                    return;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        // Toggle switch
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+
+        // Open email modal
+        function openEmailModal() {
+            showEmbedCode('email');
+        }
+
+        // Open QR code modal
+        function openQRModal() {
+            document.getElementById('qrModal').classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('active');
+            });
+        }
+
+        // Update form title
+        function updateFormTitle() {
+            const title = document.getElementById('formTitle').value;
+            // In a real app, this would update the form title in the preview
+            showNotification('Form title updated', 'success');
+        }
+
+        // Update form description
+        function updateFormDescription() {
+            const description = document.getElementById('formDescription');
+            if (!description.value) {
+                description.value = 'Turn data collection into an experience with Typeform. Create beautiful online forms, surveys, quizzes, and so much more. Try it for FREE.';
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                success: '#10b981',
+                warning: '#f59e0b',
+                error: '#ef4444',
+                info: '#3b82f6'
+            };
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 2000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

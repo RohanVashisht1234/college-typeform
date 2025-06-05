@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typeform - Centered Navigation</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header and navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #f0f0f0;
+      position: relative;
+      background-color: #ffffff;
+      min-height: 70px;
+      z-index: 1001;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 1.5rem;
+      z-index: 1002;
+      flex: 0 0 auto;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background-color: #3e2c41;
+      border-radius: 6px;
+      margin-right: 10px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .logo-icon::before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: 50%;
+      top: 8px;
+      left: 8px;
+    }
+
+    /* Mobile menu toggle */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1002;
+    }
+
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Centered navigation */
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-item {
+      margin: 0 1rem;
+      position: relative;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #6b46c1;
+    }
+
+    .nav-link.has-dropdown::after {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      margin-left: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item:hover .nav-link.has-dropdown::after {
+      transform: rotate(180deg);
+    }
+
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1002;
+      flex: 0 0 auto;
+    }
+
+    .login-btn {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .login-btn:hover {
+      color: #6b46c1;
+    }
+
+    .signup-btn {
+      background-color: #3e2c41;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .signup-btn:hover {
+      background-color: #2d1f30;
+    }
+
+    /* Full screen dropdown overlay */
+    .dropdown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      display: none;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .dropdown-overlay.active {
+      display: block;
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu {
+      position: relative;
+      width: 100%;
+      background-color: transparent;
+      padding: 120px 2rem 2rem;
+      display: block;
+      min-height: 100vh;
+    }
+
+    .dropdown-container {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 4rem;
+      justify-content: center;
+    }
+
+    .dropdown-column {
+      flex: 1;
+      min-width: 0;
+      max-width: 350px;
+    }
+
+    .dropdown-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      color: #666;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dropdown-header-icon {
+      margin-right: 0.5rem;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .dropdown-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .dropdown-link {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .dropdown-link:hover {
+      color: #6b46c1;
+    }
+
+    .dropdown-description {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .templates-preview, .blog-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .template-image, .blog-image {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+    }
+
+    .template-caption, .blog-caption {
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .choose-link, .browse-link {
+      color: #6b46c1;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      transition: color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .choose-link:hover, .browse-link:hover {
+      color: #553c9a;
+    }
+
+    .choose-link::after, .browse-link::after {
+      content: "→";
+      margin-left: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .choose-link:hover::after, .browse-link:hover::after {
+      transform: translateX(3px);
+    }
+
+    /* Close button for dropdown */
+    .dropdown-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #666;
+      z-index: 1003;
+      display: none;
+    }
+
+    /* Tablet styles (768px - 1024px) */
+    @media (max-width: 1024px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      .dropdown-menu {
+        padding: 100px 1.5rem 2rem;
+      }
+
+      .dropdown-container {
+        gap: 2rem;
+      }
+
+      .nav-item {
+        margin: 0 0.75rem;
+      }
+    }
+
+    /* Mobile styles (max-width: 768px) */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+        order: 2;
+      }
+
+      .logo {
+        order: 1;
+      }
+
+      .auth-buttons {
+        order: 3;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 2rem 2rem;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+        transform: none;
+      }
+
+      nav.active {
+        left: 0;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .nav-item {
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .nav-link {
+        padding: 1rem 0;
+        width: 100%;
+        font-size: 1.1rem;
+      }
+
+      .auth-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 2rem;
+        gap: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        right: 2rem;
+        width: calc(100% - 4rem);
+      }
+
+      .login-btn, .signup-btn {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .signup-btn {
+        border-radius: 8px;
+      }
+
+      /* Mobile dropdown styles */
+      .dropdown-overlay {
+        position: static;
+        width: 100%;
+        height: auto;
+        background-color: #f8f9fa;
+        backdrop-filter: none;
+        min-height: auto;
+      }
+
+      .dropdown-menu {
+        padding: 1rem 0;
+        min-height: auto;
+      }
+
+      .dropdown-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        max-width: none;
+      }
+
+      .dropdown-column {
+        width: 100%;
+        max-width: none;
+      }
+
+      .dropdown-header {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .dropdown-item {
+        margin-bottom: 1rem;
+      }
+
+      .template-image, .blog-image {
+        max-width: 200px;
+      }
+
+      /* Mobile hover behavior */
+      .nav-item:hover .dropdown-overlay {
+        display: none;
+      }
+
+      .nav-item.mobile-active .dropdown-overlay {
+        display: block;
+      }
+
+      .dropdown-close {
+        display: block;
+      }
+    }
+
+    /* Small mobile styles (max-width: 480px) */
+    @media (max-width: 480px) {
+      header {
+        padding: 0.75rem;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+      }
+
+      .logo-icon {
+        width: 28px;
+        height: 28px;
+        margin-right: 8px;
+      }
+
+      .logo-icon::before {
+        width: 14px;
+        height: 14px;
+        top: 7px;
+        left: 7px;
+      }
+
+      nav {
+        padding: 70px 1rem 1rem;
+      }
+
+      .dropdown-menu {
+        padding: 0.75rem 0;
+      }
+
+      .dropdown-container {
+        gap: 1rem;
+      }
+
+      .dropdown-header {
+        font-size: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .dropdown-link {
+        font-size: 0.95rem;
+      }
+
+      .dropdown-description {
+        font-size: 0.85rem;
+      }
+
+      .template-image, .blog-image {
+        max-width: 150px;
+      }
+
+      .template-caption, .blog-caption {
+        font-size: 0.9rem;
+      }
+
+      .auth-buttons {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        width: calc(100% - 2rem);
+      }
+    }
+
+    /* Large desktop styles (min-width: 1200px) */
+    @media (min-width: 1200px) {
+      header {
+        padding: 1rem 3rem;
+      }
+
+      .dropdown-menu {
+        padding: 140px 3rem 3rem;
+      }
+
+      .dropdown-container {
+        max-width: 1400px;
+        gap: 5rem;
+      }
+    }
+
+    /* Extra large desktop styles (min-width: 1600px) */
+    @media (min-width: 1600px) {
+      header {
+        padding: 1rem 4rem;
+      }
+
+      .dropdown-menu {
+        padding: 160px 4rem 4rem;
+      }
+
+      .dropdown-container {
+        max-width: 1600px;
+        gap: 6rem;
+      }
+    }
+
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .logo-icon::before {
+        border-radius: 50%;
+      }
+    }
+
+    /* Landscape orientation on mobile */
+    @media (max-width: 768px) and (orientation: landscape) {
+      nav {
+        padding: 60px 1rem 1rem;
+      }
+
+      .nav-link {
+        padding: 0.75rem 0;
+      }
+
+      .auth-buttons {
+        margin-top: 1rem;
+        flex-direction: row;
+        position: static;
+        width: 100%;
+      }
+
+      .login-btn, .signup-btn {
+        width: auto;
+        padding: 0.75rem 1.5rem;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .mobile-menu-toggle,
+      .dropdown-overlay,
+      .auth-buttons {
+        display: none;
+      }
+
+      header {
+        border-bottom: 2px solid #000;
+      }
+
+      .nav-links {
+        flex-direction: row;
+      }
+
+      .nav-item {
+        margin: 0 1rem;
+      }
+    }
+
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .nav-link.has-dropdown::after,
+      .choose-link::after,
+      .browse-link::after,
+      .mobile-menu-toggle span,
+      nav,
+      .signup-btn,
+      .login-btn,
+      .dropdown-overlay {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="logo">
+      <div class="logo-icon"></div>
+      Typeform
+    </a>
+
+    <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="nav">
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="#" class="nav-link has-dropdown" onclick="toggleMobileDropdown(event, this)">Products</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link has-dropdown" onclick="toggleMobileDropdown(event, this)">Solutions</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link has-dropdown" onclick="toggleMobileDropdown(event, this)">Resources</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">Enterprise</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Pricing</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="auth-buttons">
+      <a href="#" class="login-btn">Log in</a>
+      <a href="#" class="signup-btn">Sign up</a>
+    </div>
+  </header>
+
+  <!-- Full screen dropdown overlays -->
+  <div class="dropdown-overlay" id="products-dropdown">
+    <button class="dropdown-close" onclick="closeDropdown()">&times;</button>
+    <div class="dropdown-menu">
+      <div class="dropdown-container">
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+            PLATFORM
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Product overview</a>
+            <p class="dropdown-description">What is Typeform?</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Typeform AI</a>
+            <p class="dropdown-description">Your AI know-pilot</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Integrations</a>
+            <p class="dropdown-description">Connect all your apps</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">What's new</a>
+            <p class="dropdown-description">Latest product updates</p>
+          </div>
+        </div>
+
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            TOOLS
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Form builder</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Survey maker</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Quiz maker</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Test maker</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Poll builder</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Application form builder</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Landing page builder</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">NPS form builder</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Registration form builder</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Short form builder</a>
+          </div>
+        </div>
+
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <rect x="7" y="7" width="3" height="9"></rect>
+              <rect x="14" y="7" width="3" height="5"></rect>
+            </svg>
+            TEMPLATES
+          </div>
+          <div class="templates-preview">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-v4xNq1ZG2qurvuBk6f8H4VhTSDGWot.png" alt="Template preview" class="template-image">
+            <p class="template-caption">Free form, survey, and quiz templates</p>
+            <a href="#" class="choose-link">Choose one</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dropdown-overlay" id="solutions-dropdown">
+    <button class="dropdown-close" onclick="closeDropdown()">&times;</button>
+    <div class="dropdown-menu">
+      <div class="dropdown-container">
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="m22 21-3-3m0 0a5.5 5.5 0 1 0-7.78-7.78 5.5 5.5 0 0 0 7.78 7.78Z"></path>
+            </svg>
+            TEAMS
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Marketing</a>
+            <p class="dropdown-description">For B2B and B2C marketing</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Product</a>
+            <p class="dropdown-description">For product, UX, and research</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Human resources</a>
+            <p class="dropdown-description">For HR, ops, and talent</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Customer success</a>
+            <p class="dropdown-description">For CS and education</p>
+          </div>
+        </div>
+
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"></path>
+              <path d="m19 9-5 5-4-4-3 3"></path>
+            </svg>
+            USE CASES
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Lead generation</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Employee onboarding</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Employee satisfaction</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Employee engagement</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Customer feedback</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Customer satisfaction</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Event planning</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Customer engagement</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Customer testimonials</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Candidate feedback</a>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Market research</a>
+          </div>
+        </div>
+
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            PLANS
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Core</a>
+            <p class="dropdown-description">Plans for everyone</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Growth</a>
+            <p class="dropdown-description">Plans for GTM teams</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Enterprise</a>
+            <p class="dropdown-description">Plans for larger orgs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dropdown-overlay" id="resources-dropdown">
+    <button class="dropdown-close" onclick="closeDropdown()">&times;</button>
+    <div class="dropdown-menu">
+      <div class="dropdown-container">
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12l2 2 4-4"></path>
+              <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1h9l4 4V12z"></path>
+            </svg>
+            SUPPORT
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Help center</a>
+            <p class="dropdown-description">Find quick answers</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Community</a>
+            <p class="dropdown-description">Share and interact</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Contact us</a>
+            <p class="dropdown-description">Speak to our team</p>
+          </div>
+        </div>
+
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            </svg>
+            COMPANY
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Partners</a>
+            <p class="dropdown-description">Browse or join</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Careers</a>
+            <p class="dropdown-description">Join our team</p>
+          </div>
+          <div class="dropdown-item">
+            <a href="#" class="dropdown-link">Webinars</a>
+            <p class="dropdown-description">Learn and get inspired</p>
+          </div>
+        </div>
+
+        <div class="dropdown-column">
+          <div class="dropdown-header">
+            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            BLOG
+          </div>
+          <div class="blog-preview">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lVtKpFeAOBmOkQ4c3cgnJEl8VnkD1D.png" alt="Blog preview" class="blog-image">
+            <p class="blog-caption">Our guides, latest news, and more.</p>
+            <a href="#" class="browse-link">Browse blog</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentDropdown = null;
+
+    function showDropdown(dropdownId) {
+      // Close any open dropdown first
+      closeDropdown();
+      
+      const dropdown = document.getElementById(dropdownId);
+      if (dropdown) {
+        dropdown.classList.add('active');
+        currentDropdown = dropdown;
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeDropdown() {
+      if (currentDropdown) {
+        currentDropdown.classList.remove('active');
+        currentDropdown = null;
+        document.body.style.overflow = '';
+      }
+    }
+
+    function toggleMobileMenu() {
+      const nav = document.getElementById('nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      nav.classList.toggle('active');
+      toggle.classList.toggle('active');
+      
+      // Prevent body scroll when menu is open
+      if (nav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+        // Close all mobile dropdowns when menu closes
+        const activeItems = document.querySelectorAll('.nav-item.mobile-active');
+        activeItems.forEach(item => item.classList.remove('mobile-active'));
+      }
+    }
+
+    function toggleMobileDropdown(event, link) {
+      if (window.innerWidth <= 768) {
+        event.preventDefault();
+        const navItem = link.parentElement;
+        const wasActive = navItem.classList.contains('mobile-active');
+        
+        // Close all other dropdowns
+        const allItems = document.querySelectorAll('.nav-item');
+        allItems.forEach(item => item.classList.remove('mobile-active'));
+        
+        // Toggle current dropdown
+        if (!wasActive) {
+          navItem.classList.add('mobile-active');
+          
+          // Show corresponding dropdown overlay
+          const linkText = link.textContent.toLowerCase();
+          if (linkText === 'products') {
+            showDropdown('products-dropdown');
+          } else if (linkText === 'solutions') {
+            showDropdown('solutions-dropdown');
+          } else if (linkText === 'resources') {
+            showDropdown('resources-dropdown');
+          }
+        }
+      }
+    }
+
+    // Desktop hover events
+    document.addEventListener('DOMContentLoaded', function() {
+      const navItems = document.querySelectorAll('.nav-item');
+      
+      navItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const linkText = link.textContent.toLowerCase();
+        
+        if (linkText === 'products' || linkText === 'solutions' || linkText === 'resources') {
+          item.addEventListener('mouseenter', function() {
+            if (window.innerWidth > 768) {
+              if (linkText === 'products') {
+                showDropdown('products-dropdown');
+              } else if (linkText === 'solutions') {
+                showDropdown('solutions-dropdown');
+              } else if (linkText === 'resources') {
+                showDropdown('resources-dropdown');
+              }
+            }
+          });
+        }
+      });
+
+      // Close dropdown when mouse leaves the dropdown area
+      const dropdownOverlays = document.querySelectorAll('.dropdown-overlay');
+      dropdownOverlays.forEach(overlay => {
+        overlay.addEventListener('mouseleave', function() {
+          if (window.innerWidth > 768) {
+            closeDropdown();
+          }
+        });
+      });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const nav = document.getElementById('nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const header = document.querySelector('header');
+      const dropdownOverlays = document.querySelectorAll('.dropdown-overlay');
+      
+      // Check if click is outside header and dropdown overlays
+      let clickedOutside = !header.contains(event.target);
+      dropdownOverlays.forEach(overlay => {
+        if (overlay.contains(event.target)) {
+          clickedOutside = false;
+        }
+      });
+      
+      if (clickedOutside) {
+        closeDropdown();
+        
+        if (nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          toggle.classList.remove('active');
+          document.body.style.overflow = '';
+          
+          // Close all mobile dropdowns
+          const activeItems = document.querySelectorAll('.nav-item.mobile-active');
+          activeItems.forEach(item => item.classList.remove('mobile-active'));
+        }
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const nav = document.getElementById('nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (window.innerWidth > 768) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Close all mobile dropdowns
+        const activeItems = document.querySelectorAll('.nav-item.mobile-active');
+        activeItems.forEach(item => item.classList.remove('mobile-active'));
+      } else {
+        closeDropdown();
+      }
+    });
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeDropdown();
+        
+        const nav = document.getElementById('nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        
+        if (nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          toggle.classList.remove('active');
+          document.body.style.overflow = '';
+          
+          // Close all mobile dropdowns
+          const activeItems = document.querySelectorAll('.nav-item.mobile-active');
+          activeItems.forEach(item => item.classList.remove('mobile-active'));
+        }
+      }
+    });
+  </script>
+</body>
+</html>

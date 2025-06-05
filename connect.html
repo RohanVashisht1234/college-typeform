@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect - Form Integrations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 24px;
+            margin: 0 auto;
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-tab.active {
+            color: #111827;
+            border-bottom-color: #10b981;
+        }
+
+        .nav-tab:hover {
+            color: #374151;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #374151;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            border-color: #9ca3af;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+        }
+
+        .btn-dark {
+            background: #374151;
+            color: white;
+            border-color: #374151;
+        }
+
+        .btn-dark:hover {
+            background: #1f2937;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Secondary Navigation */
+        .secondary-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .secondary-tabs {
+            display: flex;
+            gap: 32px;
+        }
+
+        .secondary-tab {
+            padding: 16px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .secondary-tab.active {
+            color: #111827;
+            border-bottom-color: #111827;
+        }
+
+        .secondary-tab:hover {
+            color: #374151;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 320px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-description {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 12px 10px 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #f9fafb;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #10b981;
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .categories-section {
+            margin-bottom: 24px;
+        }
+
+        .categories-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #374151;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .category-item:hover {
+            background: #f3f4f6;
+        }
+
+        .category-item.active {
+            background: #f0fdf4;
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        .category-count {
+            background: #e5e7eb;
+            color: #6b7280;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .category-item.active .category-count {
+            background: #dcfce7;
+            color: #10b981;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .zapier-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .zapier-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .zapier-icon {
+            width: 24px;
+            height: 24px;
+            color: #10b981;
+        }
+
+        .zapier-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .zapier-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .zapier-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 16px;
+        }
+
+        .zapier-textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .zapier-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .zapier-powered {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .zapier-logo {
+            height: 16px;
+        }
+
+        .integrations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 16px;
+        }
+
+        .integration-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .integration-card:hover {
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+        }
+
+        .integration-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .integration-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .integration-icon.google-sheets {
+            background: #34a853;
+        }
+
+        .integration-icon.google-analytics {
+            background: #ff9800;
+        }
+
+        .integration-icon.hubspot {
+            background: #ff7a59;
+        }
+
+        .integration-icon.slack {
+            background: #4a154b;
+        }
+
+        .integration-icon.mailchimp {
+            background: #ffe01b;
+            color: #333;
+        }
+
+        .integration-icon.salesforce {
+            background: #00a1e0;
+        }
+
+        .integration-info {
+            flex: 1;
+        }
+
+        .integration-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .premium-badge {
+            background: #fbbf24;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .integration-description {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .connect-btn {
+            margin-left: auto;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #10b981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .left-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .integrations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .nav-tabs {
+                order: 2;
+                margin: 0;
+            }
+
+            .main-content {
+                padding: 16px;
+            }
+
+            .left-sidebar {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="breadcrumb">
+            <div class="breadcrumb-item">
+                <i class="fas fa-th"></i>
+                <span>My workspace</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="breadcrumb-item">
+                <span>My new form</span>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <div class="nav-tab">Content</div>
+            <div class="nav-tab">Workflow</div>
+            <div class="nav-tab active">Connect</div>
+            <div class="nav-tab">Share</div>
+            <div class="nav-tab">Results</div>
+        </div>
+
+        <div class="top-actions">
+            <button class="btn">
+                <i class="fas fa-link"></i>
+            </button>
+            <button class="btn btn-primary">View plans</button>
+            <button class="btn">
+                <i class="fas fa-question-circle"></i>
+            </button>
+            <div class="user-avatar">RV</div>
+        </div>
+    </nav>
+
+    <!-- Secondary Navigation -->
+    <div class="secondary-nav">
+        <div class="secondary-tabs">
+            <div class="secondary-tab active">Integrations</div>
+            <div class="secondary-tab">Webhooks</div>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">Connect Typeform to your favorite apps</h1>
+                <p class="sidebar-description">
+                    Create workflows that work for you. Spend more time walking Kobe, your pet lizard.
+                </p>
+            </div>
+
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search integrations" id="searchInput">
+                <button class="clear-search" id="clearSearch" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="categories-section">
+                <h2 class="categories-title">Categories</h2>
+                <div class="category-item active" data-category="all">
+                    <span>All</span>
+                    <span class="category-count">79</span>
+                </div>
+                <div class="category-item" data-category="analytics">
+                    <span>Analytics & reporting</span>
+                    <span class="category-count">20</span>
+                </div>
+                <div class="category-item" data-category="automation">
+                    <span>Automation</span>
+                    <span class="category-count">1</span>
+                </div>
+                <div class="category-item" data-category="cms">
+                    <span>CMS</span>
+                    <span class="category-count">2</span>
+                </div>
+                <div class="category-item" data-category="collaboration">
+                    <span>Collaboration</span>
+                    <span class="category-count">16</span>
+                </div>
+                <div class="category-item" data-category="customer-support">
+                    <span>Customer support</span>
+                    <span class="category-count">5</span>
+                </div>
+                <div class="category-item" data-category="developer-tools">
+                    <span>Developer tools</span>
+                    <span class="category-count">6</span>
+                </div>
+                <div class="category-item" data-category="documents">
+                    <span>Documents</span>
+                    <span class="category-count">6</span>
+                </div>
+                <div class="category-item" data-category="file-management">
+                    <span>File management</span>
+                    <span class="category-count">4</span>
+                </div>
+                <div class="category-item" data-category="lead-generation">
+                    <span>Lead generation</span>
+                    <span class="category-count">19</span>
+                </div>
+                <div class="category-item" data-category="marketing">
+                    <span>Marketing automation</span>
+                    <span class="category-count">32</span>
+                </div>
+                <div class="category-item" data-category="payments">
+                    <span>Payments & e-commerce</span>
+                    <span class="category-count">5</span>
+                </div>
+                <div class="category-item" data-category="productivity">
+                    <span>Productivity</span>
+                    <span class="category-count">16</span>
+                </div>
+                <div class="category-item" data-category="research">
+                    <span>Research and customer</span>
+                    <span class="category-count">2</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Zapier AI Section -->
+            <div class="zapier-section">
+                <div class="zapier-header">
+                    <i class="fas fa-magic zapier-icon"></i>
+                    <h2 class="zapier-title">Generate a custom flow with Zapier AI</h2>
+                </div>
+                <p class="zapier-description">Describe what you want to do with your data</p>
+                <textarea 
+                    class="zapier-textarea" 
+                    placeholder="E.g. When the typeform is submitted, check if leads exist in Salesforce and send details to Slack"
+                    id="zapierDescription"
+                ></textarea>
+                <div class="zapier-footer">
+                    <div class="zapier-powered">
+                        <span>Powered by</span>
+                        <svg class="zapier-logo" viewBox="0 0 100 20" fill="currentColor">
+                            <path d="M10 0L20 10L10 20L0 10L10 0Z"/>
+                            <text x="25" y="14" font-size="12" font-weight="bold">zapier</text>
+                        </svg>
+                    </div>
+                    <button class="btn btn-dark" id="generateFlow">Generate flow</button>
+                </div>
+            </div>
+
+            <!-- Integrations Grid -->
+            <div class="integrations-grid" id="integrationsGrid">
+                <!-- Integrations will be populated by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Connection Modal -->
+    <div class="modal" id="connectionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Connect to Google Sheets</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="connectionForm">
+                <div class="form-group">
+                    <label class="form-label" for="connectionName">Connection Name</label>
+                    <input type="text" class="form-input" id="connectionName" placeholder="My Google Sheets Connection" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="spreadsheetUrl">Spreadsheet URL</label>
+                    <input type="url" class="form-input" id="spreadsheetUrl" placeholder="https://docs.google.com/spreadsheets/..." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="worksheetName">Worksheet Name</label>
+                    <input type="text" class="form-input" id="worksheetName" placeholder="Sheet1" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="updateMode">Update Mode</label>
+                    <select class="form-select" id="updateMode">
+                        <option value="append">Append new rows</option>
+                        <option value="update">Update existing rows</option>
+                        <option value="replace">Replace all data</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Connect</span>
+                        <span class="loading" style="display: none;"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample integrations data
+        const integrations = [
+            {
+                id: 'google-sheets',
+                name: 'Google Sheets',
+                description: 'Send your data straight to Google Sheets. Automatically syncs as results come in.',
+                icon: 'fas fa-table',
+                iconClass: 'google-sheets',
+                category: 'documents',
+                premium: false
+            },
+            {
+                id: 'google-analytics',
+                name: 'Google Analytics',
+                description: 'Discover how people find and interact with your typeform. Get the data you need to measure campaigns, improve conversions, and more.',
+                icon: 'fas fa-chart-bar',
+                iconClass: 'google-analytics',
+                category: 'analytics',
+                premium: true
+            },
+            {
+                id: 'hubspot',
+                name: 'HubSpot',
+                description: 'Send contact, company, or deal info to HubSpot to quickly follow up on new leads or update existing details to your free HubSpot account.',
+                icon: 'fas fa-bullhorn',
+                iconClass: 'hubspot',
+                category: 'lead-generation',
+                premium: false
+            },
+            {
+                id: 'slack',
+                name: 'Slack',
+                description: 'Get instant notifications in Slack when someone submits your typeform. Perfect for team collaboration.',
+                icon: 'fab fa-slack',
+                iconClass: 'slack',
+                category: 'collaboration',
+                premium: false
+            },
+            {
+                id: 'mailchimp',
+                name: 'Mailchimp',
+                description: 'Add new subscribers to your Mailchimp audience automatically when they submit your typeform.',
+                icon: 'fas fa-envelope',
+                iconClass: 'mailchimp',
+                category: 'marketing',
+                premium: false
+            },
+            {
+                id: 'salesforce',
+                name: 'Salesforce',
+                description: 'Create leads, contacts, or custom objects in Salesforce from your typeform responses.',
+                icon: 'fas fa-cloud',
+                iconClass: 'salesforce',
+                category: 'lead-generation',
+                premium: true
+            }
+        ];
+
+        let currentCategory = 'all';
+        let searchTerm = '';
+        let connectedIntegrations = new Set();
+
+        // Initialize the application
+        function init() {
+            renderIntegrations();
+            setupEventListeners();
+        }
+
+        // Render integrations based on current filters
+        function renderIntegrations() {
+            const grid = document.getElementById('integrationsGrid');
+            const filteredIntegrations = integrations.filter(integration => {
+                const matchesCategory = currentCategory === 'all' || integration.category === currentCategory;
+                const matchesSearch = integration.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    integration.description.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            grid.innerHTML = filteredIntegrations.map(integration => `
+                <div class="integration-card" onclick="openConnectionModal('${integration.id}')">
+                    <div class="integration-header">
+                        <div class="integration-icon ${integration.iconClass}">
+                            <i class="${integration.icon}"></i>
+                        </div>
+                        <div class="integration-info">
+                            <div class="integration-name">
+                                ${integration.name}
+                                ${integration.premium ? '<span class="premium-badge">Premium</span>' : ''}
+                            </div>
+                            <div class="integration-description">${integration.description}</div>
+                        </div>
+                        <button class="btn btn-dark connect-btn" onclick="event.stopPropagation(); ${connectedIntegrations.has(integration.id) ? 'disconnectIntegration' : 'openConnectionModal'}('${integration.id}')">
+                            ${connectedIntegrations.has(integration.id) ? 'Connected' : 'Connect'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+
+            searchInput.addEventListener('input', function() {
+                searchTerm = this.value;
+                clearSearch.style.display = searchTerm ? 'block' : 'none';
+                renderIntegrations();
+            });
+
+            clearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                searchTerm = '';
+                this.style.display = 'none';
+                renderIntegrations();
+            });
+
+            // Category filtering
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    renderIntegrations();
+                });
+            });
+
+            // Tab switching
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            document.querySelectorAll('.secondary-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.secondary-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Zapier AI flow generation
+            document.getElementById('generateFlow').addEventListener('click', function() {
+                const description = document.getElementById('zapierDescription').value;
+                if (description.trim()) {
+                    generateZapierFlow(description);
+                } else {
+                    showNotification('Please describe what you want to do with your data', 'warning');
+                }
+            });
+
+            // Connection form
+            document.getElementById('connectionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitConnection();
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('connectionModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Open connection modal
+        function openConnectionModal(integrationId) {
+            const integration = integrations.find(i => i.id === integrationId);
+            if (!integration) return;
+
+            document.getElementById('modalTitle').textContent = `Connect to ${integration.name}`;
+            document.getElementById('connectionName').value = `My ${integration.name} Connection`;
+            
+            // Customize form fields based on integration type
+            customizeModalForIntegration(integration);
+            
+            document.getElementById('connectionModal').classList.add('active');
+        }
+
+        // Customize modal form based on integration
+        function customizeModalForIntegration(integration) {
+            const form = document.getElementById('connectionForm');
+            
+            // Reset form to default state
+            form.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label" for="connectionName">Connection Name</label>
+                    <input type="text" class="form-input" id="connectionName" placeholder="My ${integration.name} Connection" required>
+                </div>
+            `;
+
+            // Add integration-specific fields
+            switch (integration.id) {
+                case 'google-sheets':
+                    form.innerHTML += `
+                        <div class="form-group">
+                            <label class="form-label" for="spreadsheetUrl">Spreadsheet URL</label>
+                            <input type="url" class="form-input" id="spreadsheetUrl" placeholder="https://docs.google.com/spreadsheets/..." required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="worksheetName">Worksheet Name</label>
+                            <input type="text" class="form-input" id="worksheetName" placeholder="Sheet1" required>
+                        </div>
+                    `;
+                    break;
+                case 'slack':
+                    form.innerHTML += `
+                        <div class="form-group">
+                            <label class="form-label" for="slackChannel">Slack Channel</label>
+                            <input type="text" class="form-input" id="slackChannel" placeholder="#general" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="messageTemplate">Message Template</label>
+                            <textarea class="form-input" id="messageTemplate" placeholder="New form submission from {{name}}" required></textarea>
+                        </div>
+                    `;
+                    break;
+                case 'mailchimp':
+                    form.innerHTML += `
+                        <div class="form-group">
+                            <label class="form-label" for="audienceId">Audience ID</label>
+                            <input type="text" class="form-input" id="audienceId" placeholder="abc123def456" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="doubleOptin">Double Opt-in</label>
+                            <select class="form-select" id="doubleOptin">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                default:
+                    form.innerHTML += `
+                        <div class="form-group">
+                            <label class="form-label" for="apiKey">API Key</label>
+                            <input type="password" class="form-input" id="apiKey" placeholder="Enter your API key" required>
+                        </div>
+                    `;
+            }
+
+            // Add action buttons
+            form.innerHTML += `
+                <div class="modal-actions">
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Connect</span>
+                        <span class="loading" style="display: none;"></span>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Close connection modal
+        function closeModal() {
+            document.getElementById('connectionModal').classList.remove('active');
+        }
+
+        // Submit connection
+        function submitConnection() {
+            const submitBtn = document.querySelector('#connectionForm button[type="submit"]');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const loading = submitBtn.querySelector('.loading');
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            loading.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const connectionName = document.getElementById('connectionName').value;
+                const integrationId = getCurrentIntegrationId();
+                
+                // Mark as connected
+                connectedIntegrations.add(integrationId);
+                
+                // Hide loading state
+                btnText.style.display = 'inline';
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+                
+                closeModal();
+                renderIntegrations();
+                showNotification(`Successfully connected to ${connectionName}!`, 'success');
+            }, 2000);
+        }
+
+        // Get current integration ID from modal title
+        function getCurrentIntegrationId() {
+            const title = document.getElementById('modalTitle').textContent;
+            const integration = integrations.find(i => title.includes(i.name));
+            return integration ? integration.id : null;
+        }
+
+        // Disconnect integration
+        function disconnectIntegration(integrationId) {
+            const integration = integrations.find(i => i.id === integrationId);
+            if (confirm(`Are you sure you want to disconnect ${integration.name}?`)) {
+                connectedIntegrations.delete(integrationId);
+                renderIntegrations();
+                showNotification(`Disconnected from ${integration.name}`, 'info');
+            }
+        }
+
+        // Generate Zapier flow
+        function generateZapierFlow(description) {
+            const btn = document.getElementById('generateFlow');
+            const originalText = btn.textContent;
+            
+            btn.innerHTML = '<span class="loading"></span> Generating...';
+            btn.disabled = true;
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+                
+                showNotification('Zapier flow generated! Check your Zapier dashboard.', 'success');
+                
+                // Clear the textarea
+                document.getElementById('zapierDescription').value = '';
+            }, 3000);
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                success: '#10b981',
+                warning: '#f59e0b',
+                error: '#ef4444',
+                info: '#3b82f6'
+            };
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type]};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 2000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
