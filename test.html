@@ -3,224 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typeform Landing Section</title>
+    <title>Customer Intelligence</title>
     <style>
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #ffffff;
             color: #333;
             line-height: 1.6;
         }
 
-        /* Container for the entire page */
         .container {
+            display: flex;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            min-height: 100vh;
         }
 
-        /* Logo section */
-        .logo-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 0;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo {
-            height: 30px;
-            object-fit: contain;
-        }
-
-        /* Main heading */
-        .main-heading {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 500;
-            margin: 60px 0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.2;
-            color: #333;
-        }
-
-        /* Landing section with video and text */
-        .landing-section {
-            display: flex;
-            gap: 40px;
-            margin: 40px 0 80px;
-            align-items: center;
-            min-height: 500px;
-            max-height: 80vh;
-        }
-
-        /* Video container */
-        .video-container {
+        /* Video Section */
+        .video-section {
             flex: 1;
-            border-radius: 8px;
+            position: relative;
+            background-color: #c27deb;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            height: 100%;
-            min-height: 400px;
-            background-color: #f5f5f5;
         }
 
-        .video-container video {
+        .video-section video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Content section */
+        /* Content Section */
         .content-section {
             flex: 1;
-            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            padding: 40px;
         }
 
-        .category {
-            color: #7b68ee;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .content-heading {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .content-description {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 30px;
+        .content-wrapper {
             max-width: 500px;
         }
 
-        .cta-button {
-            background-color: #3a3347;
+        .subtitle {
+            display: block;
+            color: #b75db9;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 32px;
+        }
+
+        .sign-up-btn {
+            background-color: #3a2f3b;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1rem;
+            border-radius: 8px;
+            padding: 14px 32px;
+            font-size: 16px;
             font-weight: 600;
-            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .cta-button:hover {
-            background-color: #4a4357;
+        .sign-up-btn:hover {
+            background-color: #4e3e50;
         }
 
-        /* Responsive styles */
-        @media (max-width: 992px) {
-            .main-heading {
-                font-size: 2.5rem;
-                margin: 40px 0;
-            }
-            
-            .landing-section {
-                flex-direction: column;
-                max-height: none;
-            }
-            
-            .video-container, .content-section {
-                width: 100%;
-                max-width: 600px;
-            }
-            
-            .content-heading {
-                font-size: 2rem;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .logo-section {
-                justify-content: center;
+            .container {
+                flex-direction: column;
             }
             
-            .logo {
-                height: 24px;
-                margin: 0 10px;
+            .video-section {
+                height: 400px;
             }
             
-            .main-heading {
-                font-size: 2rem;
+            h1 {
+                font-size: 36px;
             }
             
-            .content-heading {
-                font-size: 1.8rem;
-            }
-            
-            .content-description {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-heading {
-                font-size: 1.8rem;
-                margin: 30px 0;
-            }
-            
-            .logo {
-                height: 20px;
-                margin: 5px;
-            }
-            
-            .content-heading {
-                font-size: 1.5rem;
-            }
-            
-            .cta-button {
-                width: 100%;
+            p {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo section -->
-        <div class="logo-section">
-            <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" alt="Webflow" class="logo">
-            <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" alt="Zapier" class="logo">
-            <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" alt="Barry's" class="logo">
-            <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" alt="HubSpot" class="logo">
-            <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" alt="Hermes" class="logo">
+        <div class="video-section">
+            <video autoplay loop muted playsinline>
+                <source src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708%2F6731d779ad2f2aa71ae14d7e_section-2-transcode.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
-
-        <!-- Main heading -->
-        <h1 class="main-heading">Typeform helps you understand customers</h1>
-
-        <!-- Landing section with video and text -->
-        <div class="landing-section">
-            <!-- Video container (left side) -->
-            <div class="video-container">
-                <video autoplay loop muted playsinline>
-                    <source src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708%2F67288b2fb22e7ee7c157fe73_home%205050%201-transcode.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <!-- Content section (right side) -->
-            <div class="content-section">
-                <div class="category">FORMS, QUIZZES, AND SURVEY</div>
-                <h2 class="content-heading">Get up to 3.5x more data about them</h2>
-                <p class="content-description">When your forms break the norm, more people fill them out. Think branded designs, video content, and relevant follow-up questions.</p>
-                <button class="cta-button">Sign up</button>
+        
+        <div class="content-section">
+            <div class="content-wrapper">
+                <span class="subtitle">CUSTOMER INTELLIGENCE</span>
+                
+                <h1>Use that data to guide your next move</h1>
+                
+                <p>What led customers to you. Their opinions. How they decide what to buy. Data can tell you a lot and our AI analysis can help you make sense of it all.</p>
+                
+                <button class="sign-up-btn">Sign up</button>
             </div>
         </div>
     </div>

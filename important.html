@@ -495,7 +495,6 @@
       }
     }
   </style>
-  <!-- Additional landing section style -->
   <style>
     .container {
       display: flex;
@@ -513,138 +512,27 @@
       min-height: 70vh;
     }
 
-    .phone-mockup {
-      position: relative;
-      width: 320px;
-      height: 640px;
-      background: #fff;
-      border-radius: 30px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      border: 8px solid #fff;
-    }
-
-    .phone-header {
-      height: 60px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .brand-logo {
-      width: 32px;
-      height: 32px;
-      background: #A855C7;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .menu-dots {
-      font-size: 20px;
-      color: #666;
-      font-weight: bold;
-    }
-
-    .phone-content {
-      height: calc(100% - 60px);
-      position: relative;
-    }
-
-    .main-image {
+    .left-video-wrapper {
       width: 100%;
-      height: 400px;
-      background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1LCGTUeBcMHr2eGmNL9RxaAENvULrE.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .shop-button {
-      position: absolute;
-      bottom: 120px;
-      left: 20px;
-      right: 20px;
-      background: #A855C7;
-      color: white;
-      border: none;
-      padding: 16px 24px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
+      max-width: 440px;
+      aspect-ratio: 16/9;
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     }
 
-    .shop-button::after {
-      content: '>';
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .interaction-bar {
-      position: absolute;
-      bottom: 60px;
-      left: 20px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .heart-icon {
-      width: 24px;
-      height: 24px;
-      color: #ff4757;
-      font-size: 20px;
-    }
-
-    .circle-icon {
-      width: 20px;
-      height: 20px;
-      border: 2px solid #ddd;
-      border-radius: 50%;
-    }
-
-    .share-icon {
-      width: 20px;
-      height: 20px;
-      color: #666;
-      font-size: 16px;
-    }
-
-    .bookmark-icon {
-      width: 20px;
-      height: 20px;
-      color: #666;
-      font-size: 16px;
-      margin-left: auto;
-    }
-
-    .progress-bar {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      height: 4px;
-      background: #f0f0f0;
-      border-radius: 2px;
-    }
-
-    .progress-fill {
-      width: 60%;
+    .left-video-wrapper iframe {
+      width: 100%;
       height: 100%;
-      background: #A855C7;
-      border-radius: 2px;
+      min-height: 240px;
+      max-height: 340px;
+      border: none;
+      display: block;
+      background: #000;
     }
 
     .right-section {
@@ -701,9 +589,9 @@
         order: 2;
       }
 
-      .phone-mockup {
-        width: 280px;
-        height: 560px;
+      .left-video-wrapper {
+        max-width: 100vw;
+        border-radius: 12px;
       }
 
       .right-section {
@@ -717,13 +605,12 @@
     }
 
     @media (max-width: 768px) {
-      .phone-mockup {
-        width: 240px;
-        height: 480px;
-      }
-
-      .main-image {
-        height: 320px;
+      .left-video-wrapper {
+        aspect-ratio: 16/9;
+        min-width: 200px;
+        min-height: 150px;
+        max-width: 100vw;
+        border-radius: 10px;
       }
 
       .right-section {
@@ -739,9 +626,7 @@
       }
     }
 
-    < !DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Typeform - Centered Navigation</title>< !-- Begin: Existing CSS (header/nav/landing/hero etc.) --><style>
 
-    /* ...[All your original CSS, unchanged]... */
     * {
       margin: 0;
       padding: 0;
@@ -756,7 +641,6 @@
       overflow-x: hidden;
     }
 
-    /* ...[rest of original CSS]... */
     @media (prefers-reduced-motion:reduce) {
 
       .nav-link.has-dropdown::after,
@@ -770,11 +654,7 @@
       }
     }
   </style>
-  <!-- End: Existing CSS -->
-
-  <!-- Begin: Additional inserted CSS - NAMESPACED to avoid collisions -->
   <style>
-    /* ----- Begin insert: company-logos-section ----- */
     .tf-insert-header {
       padding: 60px 0 40px;
       background-color: #fafafa;
@@ -1218,31 +1098,11 @@
     </div>
   </div>
 
-  <!-- Landing/hero section starts here -->
   <div class="container">
     <div class="left-section">
-      <a href="https://www.typeform.com/try/typeformbrand?gclsrc=aw.ds&&tf_campaign=T2-Brand-Core-English-Combined_18008307797&tf_source=google&tf_medium=paid&tf_content=161645355533_698132693252&tf_term=typeform&tf_dv=c&tf_matchtype=e&tf_location=9197306&gad_source=1&gad_campaignid=18008307797&gclid=CjwKCAjwo4rCBhAbEiwAxhJlCQAEyqnTYU6SE6MYsHa1PrfaahbH8eUBDCNhWpEjgqqNqQTCQIvvDRoCTBYQAvD_BwE&wvideo=ghbzey8pqt"
-        style="text-decoration: none;">
-        <div class="phone-mockup">
-          <div class="phone-header">
-            <div class="brand-logo">only</div>
-            <div class="menu-dots">⋯</div>
-          </div>
-          <div class="phone-content">
-            <div class="main-image"></div>
-            <button class="shop-button">Shop now</button>
-            <div class="interaction-bar">
-              <div class="heart-icon">♥</div>
-              <div class="circle-icon"></div>
-              <div class="share-icon">↗</div>
-              <div class="bookmark-icon">🔖</div>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill"></div>
-            </div>
-          </div>
-        </div>
-      </a>
+      <div class="left-video-wrapper">
+        <iframe src="https://fast.wistia.net/embed/iframe/ghbzey8pqt" allowfullscreen title="Typeform Video"></iframe>
+      </div>
     </div>
     <div class="right-section">
       <h1 class="main-heading">Get to know your customers with forms worth filling out</h1>
@@ -1251,7 +1111,6 @@
       <button class="cta-button">Get started—it's free</button>
     </div>
   </div>
-  <!-- Landing/hero section ends here -->
   <div class="tf-insert-header">
     <div class="tf-insert-container">
       <div class="tf-insert-logo-grid">
@@ -1276,7 +1135,6 @@
 
   <main class="tf-insert-main-content">
     <div class="tf-insert-container">
-      <!-- Hero heading -->
       <section class="tf-insert-hero-section">
         <h1 class="tf-insert-hero-title">
           Typeform helps you<br>
@@ -1284,10 +1142,8 @@
         </h1>
       </section>
 
-      <!-- Content section with text and visual -->
       <section class="tf-insert-content-section">
         <div class="tf-insert-content-grid">
-          <!-- Left column with text content -->
           <div class="tf-insert-text-content">
             <div class="tf-insert-section-label">FORMS, SURVEYS, AND QUIZZES</div>
             <h2 class="tf-insert-section-title">
@@ -1300,7 +1156,6 @@
             </p>
             <button class="tf-insert-cta-button">Sign up</button>
           </div>
-          <!-- Right column with visual element -->
           <div class="tf-insert-visual-content">
             <div class="tf-insert-response-card">
               <div class="tf-insert-response-number">+200</div>
