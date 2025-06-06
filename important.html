@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Typeform - Centered Navigation</title>
   <style>
-    /* Reset and base styles */
     * {
       margin: 0;
       padding: 0;
@@ -14,22 +14,21 @@
     }
 
     body {
-      background-color: #ffffff;
+      background: #fff;
       color: #333;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* Header and navigation */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
+      background: #fff;
+      min-height: 70px;
       border-bottom: 1px solid #f0f0f0;
       position: relative;
-      background-color: #ffffff;
-      min-height: 70px;
       z-index: 1001;
     }
 
@@ -40,14 +39,13 @@
       color: #333;
       font-weight: bold;
       font-size: 1.5rem;
-      z-index: 1002;
       flex: 0 0 auto;
     }
 
     .logo-icon {
       width: 32px;
       height: 32px;
-      background-color: #3e2c41;
+      background: #3e2c41;
       border-radius: 6px;
       margin-right: 10px;
       position: relative;
@@ -59,13 +57,12 @@
       position: absolute;
       width: 16px;
       height: 16px;
-      background-color: white;
+      background: #fff;
       border-radius: 50%;
       top: 8px;
       left: 8px;
     }
 
-    /* Mobile menu toggle */
     .mobile-menu-toggle {
       display: none;
       flex-direction: column;
@@ -77,7 +74,7 @@
     .mobile-menu-toggle span {
       width: 25px;
       height: 3px;
-      background-color: #333;
+      background: #333;
       margin: 3px 0;
       transition: 0.3s;
       border-radius: 2px;
@@ -95,7 +92,6 @@
       transform: rotate(45deg) translate(-5px, -6px);
     }
 
-    /* Centered navigation */
     nav {
       position: absolute;
       left: 50%;
@@ -121,9 +117,9 @@
       font-size: 1rem;
       display: flex;
       align-items: center;
-      padding: 0.5rem 0;
+      padding: .5rem 0;
       white-space: nowrap;
-      transition: color 0.3s ease;
+      transition: color .3s;
     }
 
     .nav-link:hover {
@@ -135,10 +131,9 @@
       display: inline-block;
       width: 10px;
       height: 10px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-size: contain;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center/contain;
       margin-left: 5px;
-      transition: transform 0.3s ease;
+      transition: transform .3s;
     }
 
     .nav-item:hover .nav-link.has-dropdown::after {
@@ -157,7 +152,7 @@
       text-decoration: none;
       color: #333;
       font-size: 1rem;
-      transition: color 0.3s ease;
+      transition: color .3s;
       white-space: nowrap;
     }
 
@@ -166,48 +161,42 @@
     }
 
     .signup-btn {
-      background-color: #3e2c41;
-      color: white;
+      background: #3e2c41;
+      color: #fff;
       border: none;
       border-radius: 50px;
-      padding: 0.75rem 1.5rem;
+      padding: .75rem 1.5rem;
       font-size: 1rem;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      transition: background .3s;
       white-space: nowrap;
     }
 
     .signup-btn:hover {
-      background-color: #2d1f30;
+      background: #2d1f30;
     }
 
-    /* Full screen dropdown overlay */
     .dropdown-overlay {
-      position: fixed;
-      top: 0;
+      position: absolute;
+      top: 70px;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, .05);
+      border-bottom: 1px solid #f0f0f0;
       display: none;
       z-index: 1000;
-      overflow-y: auto;
     }
 
     .dropdown-overlay.active {
       display: block;
     }
 
-    /* Dropdown menu */
     .dropdown-menu {
-      position: relative;
       width: 100%;
-      background-color: transparent;
-      padding: 120px 2rem 2rem;
-      display: block;
-      min-height: 100vh;
+      background: transparent;
+      padding: 3rem 2rem;
     }
 
     .dropdown-container {
@@ -221,7 +210,6 @@
 
     .dropdown-column {
       flex: 1;
-      min-width: 0;
       max-width: 350px;
     }
 
@@ -233,11 +221,11 @@
       font-size: 0.85rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: .5px;
     }
 
     .dropdown-header-icon {
-      margin-right: 0.5rem;
+      margin-right: .5rem;
       width: 18px;
       height: 18px;
       flex-shrink: 0;
@@ -252,9 +240,9 @@
       color: #333;
       font-weight: 500;
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: .5rem;
       font-size: 1.1rem;
-      transition: color 0.3s ease;
+      transition: color .3s;
     }
 
     .dropdown-link:hover {
@@ -263,17 +251,19 @@
 
     .dropdown-description {
       color: #666;
-      font-size: 0.95rem;
+      font-size: .95rem;
       line-height: 1.4;
     }
 
-    .templates-preview, .blog-preview {
+    .templates-preview,
+    .blog-preview {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
 
-    .template-image, .blog-image {
+    .template-image,
+    .blog-image {
       width: 100%;
       max-width: 280px;
       border-radius: 8px;
@@ -281,42 +271,46 @@
       object-fit: cover;
     }
 
-    .template-caption, .blog-caption {
+    .template-caption,
+    .blog-caption {
       margin-bottom: 1.5rem;
       color: #333;
       font-size: 1rem;
       line-height: 1.4;
     }
 
-    .choose-link, .browse-link {
+    .choose-link,
+    .browse-link {
       color: #6b46c1;
       text-decoration: none;
       font-weight: 500;
       display: flex;
       align-items: center;
-      transition: color 0.3s ease;
+      transition: color .3s;
       font-size: 1rem;
     }
 
-    .choose-link:hover, .browse-link:hover {
+    .choose-link:hover,
+    .browse-link:hover {
       color: #553c9a;
     }
 
-    .choose-link::after, .browse-link::after {
+    .choose-link::after,
+    .browse-link::after {
       content: "→";
       margin-left: 5px;
-      transition: transform 0.3s ease;
+      transition: transform .3s;
     }
 
-    .choose-link:hover::after, .browse-link:hover::after {
+    .choose-link:hover::after,
+    .browse-link:hover::after {
       transform: translateX(3px);
     }
 
-    /* Close button for dropdown */
     .dropdown-close {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: 1rem;
+      right: 1.5rem;
       background: none;
       border: none;
       font-size: 2rem;
@@ -326,14 +320,13 @@
       display: none;
     }
 
-    /* Tablet styles (768px - 1024px) */
-    @media (max-width: 1024px) {
+    @media (max-width:1024px) {
       header {
         padding: 1rem 1.5rem;
       }
 
       .dropdown-menu {
-        padding: 100px 1.5rem 2rem;
+        padding: 2rem 1.5rem;
       }
 
       .dropdown-container {
@@ -341,16 +334,13 @@
       }
 
       .nav-item {
-        margin: 0 0.75rem;
+        margin: 0 .75rem;
       }
     }
 
-    /* Mobile styles (max-width: 768px) */
-    @media (max-width: 768px) {
+    @media (max-width:768px) {
       header {
-        padding: 1rem;
         flex-wrap: nowrap;
-        justify-content: space-between;
       }
 
       .mobile-menu-toggle {
@@ -363,7 +353,20 @@
       }
 
       .auth-buttons {
-        order: 3;
+        display: none;
+      }
+
+      nav.active~.auth-buttons {
+        display: flex;
+        width: calc(100% - 4rem);
+        justify-content: flex-start;
+        margin-top: 2rem;
+        gap: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
       }
 
       nav {
@@ -372,12 +375,12 @@
         left: -100%;
         width: 100%;
         height: 100vh;
-        background-color: white;
+        background: #fff;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
         padding: 80px 2rem 2rem;
-        transition: left 0.3s ease;
+        transition: left .3s;
         z-index: 1000;
         overflow-y: auto;
         transform: none;
@@ -405,21 +408,8 @@
         font-size: 1.1rem;
       }
 
-      .auth-buttons {
-        width: 100%;
-        justify-content: flex-start;
-        margin-top: 2rem;
-        gap: 1rem;
-        flex-direction: column;
-        align-items: flex-start;
-        position: fixed;
-        bottom: 2rem;
-        left: 2rem;
-        right: 2rem;
-        width: calc(100% - 4rem);
-      }
-
-      .login-btn, .signup-btn {
+      .login-btn,
+      .signup-btn {
         width: 100%;
         text-align: center;
         padding: 1rem;
@@ -429,19 +419,21 @@
         border-radius: 8px;
       }
 
-      /* Mobile dropdown styles */
       .dropdown-overlay {
         position: static;
         width: 100%;
-        height: auto;
-        background-color: #f8f9fa;
-        backdrop-filter: none;
-        min-height: auto;
+        background: #f8f9fa;
+        box-shadow: none;
+        border-bottom: none;
+        display: none;
+      }
+
+      .nav-item.mobile-active .dropdown-overlay {
+        display: block;
       }
 
       .dropdown-menu {
-        padding: 1rem 0;
-        min-height: auto;
+        padding: 1.5rem;
       }
 
       .dropdown-container {
@@ -464,17 +456,9 @@
         margin-bottom: 1rem;
       }
 
-      .template-image, .blog-image {
+      .template-image,
+      .blog-image {
         max-width: 200px;
-      }
-
-      /* Mobile hover behavior */
-      .nav-item:hover .dropdown-overlay {
-        display: none;
-      }
-
-      .nav-item.mobile-active .dropdown-overlay {
-        display: block;
       }
 
       .dropdown-close {
@@ -482,637 +466,853 @@
       }
     }
 
-    /* Small mobile styles (max-width: 480px) */
-    @media (max-width: 480px) {
+    @media (max-width:480px) {
       header {
-        padding: 0.75rem;
+        padding: .75rem 1rem;
       }
 
       .logo {
         font-size: 1.3rem;
       }
 
-      .logo-icon {
-        width: 28px;
-        height: 28px;
-        margin-right: 8px;
-      }
-
-      .logo-icon::before {
-        width: 14px;
-        height: 14px;
-        top: 7px;
-        left: 7px;
-      }
-
-      nav {
-        padding: 70px 1rem 1rem;
-      }
-
-      .dropdown-menu {
-        padding: 0.75rem 0;
-      }
-
-      .dropdown-container {
-        gap: 1rem;
-      }
-
-      .dropdown-header {
-        font-size: 0.75rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .dropdown-link {
-        font-size: 0.95rem;
-      }
-
-      .dropdown-description {
-        font-size: 0.85rem;
-      }
-
-      .template-image, .blog-image {
-        max-width: 150px;
-      }
-
-      .template-caption, .blog-caption {
-        font-size: 0.9rem;
-      }
-
       .auth-buttons {
         bottom: 1rem;
         left: 1rem;
-        right: 1rem;
         width: calc(100% - 2rem);
       }
     }
 
-    /* Large desktop styles (min-width: 1200px) */
-    @media (min-width: 1200px) {
-      header {
-        padding: 1rem 3rem;
-      }
+    @media (prefers-reduced-motion:reduce) {
 
-      .dropdown-menu {
-        padding: 140px 3rem 3rem;
-      }
-
-      .dropdown-container {
-        max-width: 1400px;
-        gap: 5rem;
-      }
-    }
-
-    /* Extra large desktop styles (min-width: 1600px) */
-    @media (min-width: 1600px) {
-      header {
-        padding: 1rem 4rem;
-      }
-
-      .dropdown-menu {
-        padding: 160px 4rem 4rem;
-      }
-
-      .dropdown-container {
-        max-width: 1600px;
-        gap: 6rem;
-      }
-    }
-
-    /* High DPI displays */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-      .logo-icon::before {
-        border-radius: 50%;
-      }
-    }
-
-    /* Landscape orientation on mobile */
-    @media (max-width: 768px) and (orientation: landscape) {
-      nav {
-        padding: 60px 1rem 1rem;
-      }
-
-      .nav-link {
-        padding: 0.75rem 0;
-      }
-
-      .auth-buttons {
-        margin-top: 1rem;
-        flex-direction: row;
-        position: static;
-        width: 100%;
-      }
-
-      .login-btn, .signup-btn {
-        width: auto;
-        padding: 0.75rem 1.5rem;
-      }
-    }
-
-    /* Print styles */
-    @media print {
-      .mobile-menu-toggle,
-      .dropdown-overlay,
-      .auth-buttons {
-        display: none;
-      }
-
-      header {
-        border-bottom: 2px solid #000;
-      }
-
-      .nav-links {
-        flex-direction: row;
-      }
-
-      .nav-item {
-        margin: 0 1rem;
-      }
-    }
-
-    /* Reduced motion preferences */
-    @media (prefers-reduced-motion: reduce) {
       .nav-link.has-dropdown::after,
       .choose-link::after,
       .browse-link::after,
       .mobile-menu-toggle span,
       nav,
       .signup-btn,
-      .login-btn,
-      .dropdown-overlay {
+      .login-btn {
         transition: none;
       }
     }
   </style>
+  <!-- Additional landing section style -->
+  <style>
+    .container {
+      display: flex;
+      min-height: 70vh;
+      align-items: center;
+    }
+
+    .left-section {
+      flex: 1;
+      background: linear-gradient(135deg, #8B5A96 0%, #A855C7 50%, #9333EA 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+      min-height: 70vh;
+    }
+
+    .phone-mockup {
+      position: relative;
+      width: 320px;
+      height: 640px;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: 8px solid #fff;
+    }
+
+    .phone-header {
+      height: 60px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: #A855C7;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .menu-dots {
+      font-size: 20px;
+      color: #666;
+      font-weight: bold;
+    }
+
+    .phone-content {
+      height: calc(100% - 60px);
+      position: relative;
+    }
+
+    .main-image {
+      width: 100%;
+      height: 400px;
+      background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1LCGTUeBcMHr2eGmNL9RxaAENvULrE.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .shop-button {
+      position: absolute;
+      bottom: 120px;
+      left: 20px;
+      right: 20px;
+      background: #A855C7;
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .shop-button::after {
+      content: '>';
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .interaction-bar {
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .heart-icon {
+      width: 24px;
+      height: 24px;
+      color: #ff4757;
+      font-size: 20px;
+    }
+
+    .circle-icon {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+    }
+
+    .share-icon {
+      width: 20px;
+      height: 20px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .bookmark-icon {
+      width: 20px;
+      height: 20px;
+      color: #666;
+      font-size: 16px;
+      margin-left: auto;
+    }
+
+    .progress-bar {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      height: 4px;
+      background: #f0f0f0;
+      border-radius: 2px;
+    }
+
+    .progress-fill {
+      width: 60%;
+      height: 100%;
+      background: #A855C7;
+      border-radius: 2px;
+    }
+
+    .right-section {
+      flex: 1;
+      padding: 80px 60px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .main-heading {
+      font-size: 4rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: #333;
+      margin-bottom: 30px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .description {
+      font-size: 1.25rem;
+      color: #666;
+      margin-bottom: 40px;
+      line-height: 1.5;
+      max-width: 500px;
+    }
+
+    .cta-button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: #555;
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-section {
+        min-height: 50vh;
+        padding: 40px 20px;
+        order: 2;
+      }
+
+      .phone-mockup {
+        width: 280px;
+        height: 560px;
+      }
+
+      .right-section {
+        padding: 60px 40px;
+        order: 1;
+      }
+
+      .main-heading {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .phone-mockup {
+        width: 240px;
+        height: 480px;
+      }
+
+      .main-image {
+        height: 320px;
+      }
+
+      .right-section {
+        padding: 40px 20px;
+      }
+
+      .main-heading {
+        font-size: 2.5rem;
+      }
+
+      .description {
+        font-size: 1.1rem;
+      }
+    }
+
+    < !DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Typeform - Centered Navigation</title>< !-- Begin: Existing CSS (header/nav/landing/hero etc.) --><style>
+
+    /* ...[All your original CSS, unchanged]... */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ...[rest of original CSS]... */
+    @media (prefers-reduced-motion:reduce) {
+
+      .nav-link.has-dropdown::after,
+      .choose-link::after,
+      .browse-link::after,
+      .mobile-menu-toggle span,
+      nav,
+      .signup-btn,
+      .login-btn {
+        transition: none;
+      }
+    }
+  </style>
+  <!-- End: Existing CSS -->
+
+  <!-- Begin: Additional inserted CSS - NAMESPACED to avoid collisions -->
+  <style>
+    /* ----- Begin insert: company-logos-section ----- */
+    .tf-insert-header {
+      padding: 60px 0 40px;
+      background-color: #fafafa;
+    }
+
+    .tf-insert-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .tf-insert-logo-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .tf-insert-logo-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tf-insert-logo {
+      height: 32px;
+      width: auto;
+      opacity: 0.6;
+      filter: grayscale(100%);
+      transition: opacity 0.3s ease;
+    }
+
+    .tf-insert-logo:hover {
+      opacity: 0.8;
+    }
+
+    .tf-insert-main-content {
+      padding: 40px 0 80px;
+    }
+
+    .tf-insert-hero-section {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .tf-insert-hero-title {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 3.5rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: #2c2c2c;
+      margin-bottom: 0;
+    }
+
+    .tf-insert-content-section {
+      margin-top: 60px;
+    }
+
+    .tf-insert-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .tf-insert-text-content {
+      padding-right: 40px;
+    }
+
+    .tf-insert-section-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b5cf6;
+      margin-bottom: 24px;
+    }
+
+    .tf-insert-section-title {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 2.75rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: #2c2c2c;
+      margin-bottom: 24px;
+    }
+
+    .tf-insert-section-description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: #666;
+      margin-bottom: 32px;
+    }
+
+    .tf-insert-cta-button {
+      background-color: #4c3b5c;
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .tf-insert-cta-button:hover {
+      background-color: #3d2f47;
+      transform: translateY(-1px);
+    }
+
+    .tf-insert-cta-button:active {
+      transform: translateY(0);
+    }
+
+    .tf-insert-visual-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .tf-insert-response-card {
+      background: linear-gradient(135deg, #fde4d8 0%, #f4c2a1 100%);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      min-width: 200px;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tf-insert-response-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c2c2c;
+      margin-bottom: 8px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 12px 24px;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .tf-insert-response-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2c2c2c;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .tf-insert-hero-title {
+        font-size: 2.5rem;
+      }
+
+      .tf-insert-section-title {
+        font-size: 2rem;
+      }
+
+      .tf-insert-content-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .tf-insert-text-content {
+        padding-right: 0;
+      }
+
+      .tf-insert-logo-grid {
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tf-insert-container {
+        padding: 0 16px;
+      }
+
+      .tf-insert-hero-title {
+        font-size: 2rem;
+        line-height: 1.3;
+      }
+
+      .tf-insert-section-title {
+        font-size: 1.75rem;
+      }
+
+      .tf-insert-section-description {
+        font-size: 1rem;
+      }
+
+      .tf-insert-logo-grid {
+        gap: 30px;
+      }
+
+      .tf-insert-logo {
+        height: 28px;
+      }
+
+      .tf-insert-response-card {
+        padding: 30px;
+        min-width: 160px;
+        min-height: 120px;
+      }
+
+      .tf-insert-response-number {
+        font-size: 2rem;
+        padding: 8px 16px;
+      }
+
+      .tf-insert-cta-button {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .tf-insert-logo,
+      .tf-insert-cta-button {
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .tf-insert-cta-button:focus {
+      outline: 2px solid #8b5cf6;
+      outline-offset: 2px;
+    }
+
+    @media (prefers-contrast: high) {
+      .tf-insert-logo {
+        opacity: 1;
+        filter: none;
+      }
+
+      .tf-insert-section-description {
+        color: #333;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <a href="#" class="logo">
-      <div class="logo-icon"></div>
-      Typeform
+      <div class="logo-icon"></div> Typeform
     </a>
-
-    <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="mobile-menu-toggle">
+      <span></span><span></span><span></span>
     </div>
-
     <nav id="nav">
       <ul class="nav-links">
         <li class="nav-item">
-          <a href="#" class="nav-link has-dropdown" onclick="toggleMobileDropdown(event, this)">Products</a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link has-dropdown" onclick="toggleMobileDropdown(event, this)">Solutions</a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link has-dropdown" onclick="toggleMobileDropdown(event, this)">Resources</a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link">Enterprise</a>
+          <a href="#" class="nav-link has-dropdown" data-dropdown-target="products-dropdown">Products</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">Pricing</a>
+          <a href="#" class="nav-link has-dropdown" data-dropdown-target="solutions-dropdown">Solutions</a>
         </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link has-dropdown" data-dropdown-target="resources-dropdown">Resources</a>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-link">Enterprise</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
       </ul>
     </nav>
-
     <div class="auth-buttons">
       <a href="#" class="login-btn">Log in</a>
       <a href="#" class="signup-btn">Sign up</a>
     </div>
   </header>
-
-  <!-- Full screen dropdown overlays -->
   <div class="dropdown-overlay" id="products-dropdown">
-    <button class="dropdown-close" onclick="closeDropdown()">&times;</button>
+    <button class="dropdown-close" aria-label="Close menu">&times;</button>
     <div class="dropdown-menu">
       <div class="dropdown-container">
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
               <line x1="3" y1="9" x2="21" y2="9"></line>
               <line x1="9" y1="21" x2="9" y2="9"></line>
-            </svg>
-            PLATFORM
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Product overview</a>
+            </svg> PLATFORM </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Product overview</a>
             <p class="dropdown-description">What is Typeform?</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Typeform AI</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Typeform AI</a>
             <p class="dropdown-description">Your AI know-pilot</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Integrations</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Integrations</a>
             <p class="dropdown-description">Connect all your apps</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">What's new</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">What's new</a>
             <p class="dropdown-description">Latest product updates</p>
           </div>
         </div>
-
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>
               <line x1="16" y1="17" x2="8" y2="17"></line>
               <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            TOOLS
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Form builder</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Survey maker</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Quiz maker</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Test maker</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Poll builder</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Application form builder</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Landing page builder</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">NPS form builder</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Registration form builder</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Short form builder</a>
-          </div>
+            </svg> TOOLS </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Form builder</a></div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Survey maker</a></div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Quiz maker</a></div>
         </div>
-
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
               <rect x="7" y="7" width="3" height="9"></rect>
               <rect x="14" y="7" width="3" height="5"></rect>
-            </svg>
-            TEMPLATES
-          </div>
-          <div class="templates-preview">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-v4xNq1ZG2qurvuBk6f8H4VhTSDGWot.png" alt="Template preview" class="template-image">
-            <p class="template-caption">Free form, survey, and quiz templates</p>
-            <a href="#" class="choose-link">Choose one</a>
+            </svg> TEMPLATES </div>
+          <div class="templates-preview"><img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-v4xNq1ZG2qurvuBk6f8H4VhTSDGWot.png"
+              alt="Template preview" class="template-image">
+            <p class="template-caption">Free form, survey, and quiz templates</p><a href="#" class="choose-link">Choose
+              one</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="dropdown-overlay" id="solutions-dropdown">
-    <button class="dropdown-close" onclick="closeDropdown()">&times;</button>
+    <button class="dropdown-close" aria-label="Close menu">&times;</button>
     <div class="dropdown-menu">
       <div class="dropdown-container">
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
               <path d="m22 21-3-3m0 0a5.5 5.5 0 1 0-7.78-7.78 5.5 5.5 0 0 0 7.78 7.78Z"></path>
-            </svg>
-            TEAMS
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Marketing</a>
+            </svg> TEAMS </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Marketing</a>
             <p class="dropdown-description">For B2B and B2C marketing</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Product</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Product</a>
             <p class="dropdown-description">For product, UX, and research</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Human resources</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Human resources</a>
             <p class="dropdown-description">For HR, ops, and talent</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Customer success</a>
-            <p class="dropdown-description">For CS and education</p>
-          </div>
         </div>
-
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M3 3v18h18"></path>
               <path d="m19 9-5 5-4-4-3 3"></path>
-            </svg>
-            USE CASES
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Lead generation</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Employee onboarding</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Employee satisfaction</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Employee engagement</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Customer feedback</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Customer satisfaction</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Event planning</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Customer engagement</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Customer testimonials</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Candidate feedback</a>
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Market research</a>
-          </div>
+            </svg> USE CASES </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Lead generation</a></div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Customer feedback</a></div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Market research</a></div>
         </div>
-
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
-            PLANS
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Core</a>
+            </svg> PLANS </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Core</a>
             <p class="dropdown-description">Plans for everyone</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Growth</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Growth</a>
             <p class="dropdown-description">Plans for GTM teams</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Enterprise</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Enterprise</a>
             <p class="dropdown-description">Plans for larger orgs</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="dropdown-overlay" id="resources-dropdown">
-    <button class="dropdown-close" onclick="closeDropdown()">&times;</button>
+    <button class="dropdown-close" aria-label="Close menu">&times;</button>
     <div class="dropdown-menu">
       <div class="dropdown-container">
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M9 12l2 2 4-4"></path>
-              <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1h9l4 4V12z"></path>
-            </svg>
-            SUPPORT
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Help center</a>
+              <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1h9l4 4V12z">
+              </path>
+            </svg> SUPPORT </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Help center</a>
             <p class="dropdown-description">Find quick answers</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Community</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Community</a>
             <p class="dropdown-description">Share and interact</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Contact us</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Contact us</a>
             <p class="dropdown-description">Speak to our team</p>
           </div>
         </div>
-
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
               <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-            </svg>
-            COMPANY
-          </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Partners</a>
+            </svg> COMPANY </div>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Partners</a>
             <p class="dropdown-description">Browse or join</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Careers</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Careers</a>
             <p class="dropdown-description">Join our team</p>
           </div>
-          <div class="dropdown-item">
-            <a href="#" class="dropdown-link">Webinars</a>
+          <div class="dropdown-item"><a href="#" class="dropdown-link">Webinars</a>
             <p class="dropdown-description">Learn and get inspired</p>
           </div>
         </div>
-
         <div class="dropdown-column">
-          <div class="dropdown-header">
-            <svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropdown-header"><svg class="dropdown-header-icon" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-            </svg>
-            BLOG
-          </div>
-          <div class="blog-preview">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lVtKpFeAOBmOkQ4c3cgnJEl8VnkD1D.png" alt="Blog preview" class="blog-image">
-            <p class="blog-caption">Our guides, latest news, and more.</p>
-            <a href="#" class="browse-link">Browse blog</a>
+            </svg> BLOG </div>
+          <div class="blog-preview"><img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lVtKpFeAOBmOkQ4c3cgnJEl8VnkD1D.png"
+              alt="Blog preview" class="blog-image">
+            <p class="blog-caption">Our guides, latest news, and more.</p><a href="#" class="browse-link">Browse
+              blog</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    let currentDropdown = null;
+  <!-- Landing/hero section starts here -->
+  <div class="container">
+    <div class="left-section">
+      <a href="https://www.typeform.com/try/typeformbrand?gclsrc=aw.ds&&tf_campaign=T2-Brand-Core-English-Combined_18008307797&tf_source=google&tf_medium=paid&tf_content=161645355533_698132693252&tf_term=typeform&tf_dv=c&tf_matchtype=e&tf_location=9197306&gad_source=1&gad_campaignid=18008307797&gclid=CjwKCAjwo4rCBhAbEiwAxhJlCQAEyqnTYU6SE6MYsHa1PrfaahbH8eUBDCNhWpEjgqqNqQTCQIvvDRoCTBYQAvD_BwE&wvideo=ghbzey8pqt"
+        style="text-decoration: none;">
+        <div class="phone-mockup">
+          <div class="phone-header">
+            <div class="brand-logo">only</div>
+            <div class="menu-dots">⋯</div>
+          </div>
+          <div class="phone-content">
+            <div class="main-image"></div>
+            <button class="shop-button">Shop now</button>
+            <div class="interaction-bar">
+              <div class="heart-icon">♥</div>
+              <div class="circle-icon"></div>
+              <div class="share-icon">↗</div>
+              <div class="bookmark-icon">🔖</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="right-section">
+      <h1 class="main-heading">Get to know your customers with forms worth filling out</h1>
+      <p class="description">Collect all the data you need to understand customers with forms designed to be
+        refreshingly different.</p>
+      <button class="cta-button">Get started—it's free</button>
+    </div>
+  </div>
+  <!-- Landing/hero section ends here -->
+  <div class="tf-insert-header">
+    <div class="tf-insert-container">
+      <div class="tf-insert-logo-grid">
+        <div class="tf-insert-logo-item">
+          <img src="/placeholder.svg?height=40&width=120" alt="Calendly" class="tf-insert-logo">
+        </div>
+        <div class="tf-insert-logo-item">
+          <img src="/placeholder.svg?height=40&width=40" alt="Company Logo" class="tf-insert-logo">
+        </div>
+        <div class="tf-insert-logo-item">
+          <img src="/placeholder.svg?height=40&width=140" alt="L'Occitane en Provence" class="tf-insert-logo">
+        </div>
+        <div class="tf-insert-logo-item">
+          <img src="/placeholder.svg?height=40&width=120" alt="WeTransfer" class="tf-insert-logo">
+        </div>
+        <div class="tf-insert-logo-item">
+          <img src="/placeholder.svg?height=40&width=80" alt="Slack" class="tf-insert-logo">
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function showDropdown(dropdownId) {
-      // Close any open dropdown first
-      closeDropdown();
-      
-      const dropdown = document.getElementById(dropdownId);
-      if (dropdown) {
-        dropdown.classList.add('active');
-        currentDropdown = dropdown;
-        document.body.style.overflow = 'hidden';
-      }
-    }
+  <main class="tf-insert-main-content">
+    <div class="tf-insert-container">
+      <!-- Hero heading -->
+      <section class="tf-insert-hero-section">
+        <h1 class="tf-insert-hero-title">
+          Typeform helps you<br>
+          understand customers
+        </h1>
+      </section>
 
-    function closeDropdown() {
-      if (currentDropdown) {
-        currentDropdown.classList.remove('active');
-        currentDropdown = null;
-        document.body.style.overflow = '';
-      }
-    }
-
-    function toggleMobileMenu() {
-      const nav = document.getElementById('nav');
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      
-      nav.classList.toggle('active');
-      toggle.classList.toggle('active');
-      
-      // Prevent body scroll when menu is open
-      if (nav.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-        // Close all mobile dropdowns when menu closes
-        const activeItems = document.querySelectorAll('.nav-item.mobile-active');
-        activeItems.forEach(item => item.classList.remove('mobile-active'));
-      }
-    }
-
-    function toggleMobileDropdown(event, link) {
-      if (window.innerWidth <= 768) {
-        event.preventDefault();
-        const navItem = link.parentElement;
-        const wasActive = navItem.classList.contains('mobile-active');
-        
-        // Close all other dropdowns
-        const allItems = document.querySelectorAll('.nav-item');
-        allItems.forEach(item => item.classList.remove('mobile-active'));
-        
-        // Toggle current dropdown
-        if (!wasActive) {
-          navItem.classList.add('mobile-active');
-          
-          // Show corresponding dropdown overlay
-          const linkText = link.textContent.toLowerCase();
-          if (linkText === 'products') {
-            showDropdown('products-dropdown');
-          } else if (linkText === 'solutions') {
-            showDropdown('solutions-dropdown');
-          } else if (linkText === 'resources') {
-            showDropdown('resources-dropdown');
-          }
-        }
-      }
-    }
-
-    // Desktop hover events
-    document.addEventListener('DOMContentLoaded', function() {
-      const navItems = document.querySelectorAll('.nav-item');
-      
-      navItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        const linkText = link.textContent.toLowerCase();
-        
-        if (linkText === 'products' || linkText === 'solutions' || linkText === 'resources') {
-          item.addEventListener('mouseenter', function() {
-            if (window.innerWidth > 768) {
-              if (linkText === 'products') {
-                showDropdown('products-dropdown');
-              } else if (linkText === 'solutions') {
-                showDropdown('solutions-dropdown');
-              } else if (linkText === 'resources') {
-                showDropdown('resources-dropdown');
-              }
-            }
-          });
-        }
-      });
-
-      // Close dropdown when mouse leaves the dropdown area
-      const dropdownOverlays = document.querySelectorAll('.dropdown-overlay');
-      dropdownOverlays.forEach(overlay => {
-        overlay.addEventListener('mouseleave', function() {
-          if (window.innerWidth > 768) {
-            closeDropdown();
-          }
-        });
-      });
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-      const nav = document.getElementById('nav');
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      const header = document.querySelector('header');
-      const dropdownOverlays = document.querySelectorAll('.dropdown-overlay');
-      
-      // Check if click is outside header and dropdown overlays
-      let clickedOutside = !header.contains(event.target);
-      dropdownOverlays.forEach(overlay => {
-        if (overlay.contains(event.target)) {
-          clickedOutside = false;
-        }
-      });
-      
-      if (clickedOutside) {
-        closeDropdown();
-        
-        if (nav.classList.contains('active')) {
-          nav.classList.remove('active');
-          toggle.classList.remove('active');
-          document.body.style.overflow = '';
-          
-          // Close all mobile dropdowns
-          const activeItems = document.querySelectorAll('.nav-item.mobile-active');
-          activeItems.forEach(item => item.classList.remove('mobile-active'));
-        }
-      }
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-      const nav = document.getElementById('nav');
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      
-      if (window.innerWidth > 768) {
-        nav.classList.remove('active');
-        toggle.classList.remove('active');
-        document.body.style.overflow = '';
-        
-        // Close all mobile dropdowns
-        const activeItems = document.querySelectorAll('.nav-item.mobile-active');
-        activeItems.forEach(item => item.classList.remove('mobile-active'));
-      } else {
-        closeDropdown();
-      }
-    });
-
-    // Keyboard navigation support
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeDropdown();
-        
-        const nav = document.getElementById('nav');
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        
-        if (nav.classList.contains('active')) {
-          nav.classList.remove('active');
-          toggle.classList.remove('active');
-          document.body.style.overflow = '';
-          
-          // Close all mobile dropdowns
-          const activeItems = document.querySelectorAll('.nav-item.mobile-active');
-          activeItems.forEach(item => item.classList.remove('mobile-active'));
-        }
-      }
-    });
+      <!-- Content section with text and visual -->
+      <section class="tf-insert-content-section">
+        <div class="tf-insert-content-grid">
+          <!-- Left column with text content -->
+          <div class="tf-insert-text-content">
+            <div class="tf-insert-section-label">FORMS, SURVEYS, AND QUIZZES</div>
+            <h2 class="tf-insert-section-title">
+              Get up to 3.5x more<br>
+              data about them
+            </h2>
+            <p class="tf-insert-section-description">
+              When your forms break the norm, more people fill them out. Think branded designs, video content, and
+              relevant follow-up questions.
+            </p>
+            <button class="tf-insert-cta-button">Sign up</button>
+          </div>
+          <!-- Right column with visual element -->
+          <div class="tf-insert-visual-content">
+            <div class="tf-insert-response-card">
+              <div class="tf-insert-response-number">+200</div>
+              <div class="tf-insert-response-label">Responses</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="./index.js">
   </script>
 </body>
+
 </html>
