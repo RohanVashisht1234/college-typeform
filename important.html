@@ -10,7 +10,7 @@
       --color-primary: #3e2c41;
       --color-accent: #6b46c1;
       --color-accent-dark: #553c9a;
-      --color-bg: #fff;
+      --color-bg: #faf9fb;
       --color-text: #333;
       --color-muted: #666;
       --color-light-bg: #fafafa;
@@ -1154,6 +1154,196 @@
         font-size: 0.9rem;
       }
     }
+
+
+
+    .part-4-sponsors-section {
+      padding: 80px 20px;
+      background-color: #ffffff;
+      text-align: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      border-radius: 50px;
+    }
+
+    .part-4-sponsors-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #9f7aea;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    .part-4-sponsors-title {
+      font-size: 3rem;
+      font-weight: 300;
+      color: #2d3748;
+      margin-bottom: 60px;
+      line-height: 1.2;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .part-4-sponsors-carousel {
+      overflow: hidden;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .part-4-sponsors-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .part-4-sponsors-track.part-4-left-to-right {
+      animation: part-4-scrollLeft 30s linear infinite;
+    }
+
+    .part-4-sponsors-track.part-4-right-to-left {
+      animation: part-4-scrollRight 30s linear infinite;
+    }
+
+    .part-4-sponsor-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 40px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #4a5568;
+      min-width: 120px;
+      height: 60px;
+      flex-shrink: 0;
+    }
+
+    .part-4-sponsor-logo.part-4-tally::before {
+      content: "tally";
+      font-weight: 400;
+    }
+
+    .part-4-sponsor-logo.part-4-callrail::before {
+      content: "CallRail";
+    }
+
+    .part-4-sponsor-logo.part-4-intercom::before {
+      content: "⬛ INTERCOM";
+      font-size: 1.2rem;
+    }
+
+    .part-4-sponsor-logo.part-4-klaviyo::before {
+      content: "klaviyo";
+      font-weight: 400;
+    }
+
+    .part-4-sponsor-logo.part-4-make::before {
+      content: "/// make";
+      font-weight: 700;
+    }
+
+    .part-4-sponsor-logo.part-4-slack::before {
+      content: "🔗 slack";
+    }
+
+    .part-4-sponsor-logo.part-4-stripe::before {
+      content: "stripe";
+      font-weight: 400;
+    }
+
+    .part-4-sponsor-logo.part-4-calendly::before {
+      content: "© Calendly";
+    }
+
+    .part-4-sponsor-logo.part-4-activecampaign::before {
+      content: "ActiveCampaign >";
+    }
+
+    .part-4-sponsor-logo.part-4-zapier::before {
+      content: "—zapier";
+      font-weight: 700;
+    }
+
+    .part-4-sponsor-logo.part-4-webflow::before {
+      content: "/// Webflow";
+      font-weight: 700;
+    }
+
+    @keyframes part-4-scrollLeft {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes part-4-scrollRight {
+      0% {
+        transform: translateX(-50%);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .part-4-sponsors-cta {
+      margin-top: 40px;
+    }
+
+    .part-4-sponsors-btn {
+      background-color: #4a5568;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .part-4-sponsors-btn:hover {
+      background-color: #2d3748;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .part-4-sponsors-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+      }
+
+      .part-4-sponsor-logo {
+        margin: 0 20px;
+        font-size: 1.2rem;
+        min-width: 100px;
+      }
+
+      .part-4-sponsors-track.part-4-left-to-right {
+        animation: part-4-scrollLeft 20s linear infinite;
+      }
+
+      .part-4-sponsors-track.part-4-right-to-left {
+        animation: part-4-scrollRight 20s linear infinite;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .part-4-sponsors-title {
+        font-size: 1.5rem;
+      }
+
+      .part-4-sponsor-logo {
+        margin: 0 15px;
+        font-size: 1rem;
+        min-width: 80px;
+      }
+    }
   </style>
 </head>
 
@@ -1514,6 +1704,61 @@
       <div class="part-3-cta-buttons">
         <a href="#" class="part-3-btn-primary">Compare plans</a>
         <a href="#" class="part-3-btn-secondary">Browse all templates</a>
+      </div>
+    </section>
+    <section class="part-4-sponsors-section">
+      <div class="part-4-sponsors-label">INTEGRATIONS</div>
+      <h2 class="part-4-sponsors-title">
+        Connect with hundreds of<br>
+        your mission-critical tools
+      </h2>
+
+      <!-- Top row - Left to Right -->
+      <div class="part-4-sponsors-carousel">
+        <div class="part-4-sponsors-track part-4-left-to-right">
+          <div class="part-4-sponsor-logo part-4-tally"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-make"></div>
+          <div class="part-4-sponsor-logo part-4-slack"></div>
+          <div class="part-4-sponsor-logo part-4-stripe"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="part-4-sponsor-logo part-4-tally"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-make"></div>
+          <div class="part-4-sponsor-logo part-4-slack"></div>
+          <div class="part-4-sponsor-logo part-4-stripe"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+        </div>
+      </div>
+
+      <!-- Bottom row - Right to Left -->
+      <div class="part-4-sponsors-carousel">
+        <div class="part-4-sponsors-track part-4-right-to-left">
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-calendly"></div>
+          <div class="part-4-sponsor-logo part-4-activecampaign"></div>
+          <div class="part-4-sponsor-logo part-4-zapier"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-calendly"></div>
+          <div class="part-4-sponsor-logo part-4-activecampaign"></div>
+          <div class="part-4-sponsor-logo part-4-zapier"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+        </div>
+      </div>
+
+      <div class="part-4-sponsors-cta">
+        <a href="#" class="part-4-sponsors-btn">View all 300+ integrations</a>
       </div>
     </section>
   </main>
