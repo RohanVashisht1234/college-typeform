@@ -1,135 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Intelligence</title>
+    <title>Image Display Section</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         body {
-            background-color: #ffffff;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
             line-height: 1.6;
+            color: #2d3748;
         }
 
-        .container {
-            display: flex;
-            max-width: 1200px;
+        .part-3-section-container {
+            padding: 80px 20px;
+            max-width: 1400px;
             margin: 0 auto;
-            min-height: 100vh;
+            border-radius: 12px;
         }
 
-        /* Video Section */
-        .video-section {
-            flex: 1;
-            position: relative;
-            background-color: #c27deb;
-            overflow: hidden;
+        .part-3-section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: #2d3748;
+            margin-bottom: 60px;
+            line-height: 1.2;
+            padding: 0 10px;
         }
 
-        .video-section video {
+        .part-3-image-cards-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+            justify-items: center;
+        }
+
+        .part-3-image-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .part-3-image {
             width: 100%;
-            height: 100%;
+            max-width: 320px;
+            height: auto;
             object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        /* Content Section */
-        .content-section {
-            flex: 1;
+        .part-3-image:hover {
+            transform: translateY(-5px);
+        }
+
+        .part-3-image-content-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .part-3-image-content-description {
+            font-size: 1rem;
+            color: #4a5568;
+            line-height: 1.6;
+            max-width: 320px;
+        }
+
+        .part-3-cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 10px;
+        }
+
+        .part-3-btn-primary {
+            background-color: #3e3040;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .part-3-btn-primary:hover {
+            background-color: #564b58;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .part-3-btn-secondary {
+            background-color: transparent;
+            color: #3e3040;
+            text-decoration: underline;
+            width: fit-content;
             display: flex;
             align-items: center;
-            padding: 40px;
         }
 
-        .content-wrapper {
-            max-width: 500px;
+        .part-3-btn-secondary:hover {
+            color: purple;
         }
 
-        .subtitle {
-            display: block;
-            color: #b75db9;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 48px;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            color: #333;
-            font-weight: 700;
-        }
-
-        p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 32px;
-        }
-
-        .sign-up-btn {
-            background-color: #3a2f3b;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 14px 32px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .sign-up-btn:hover {
-            background-color: #4e3e50;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
+            .part-3-section-title {
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            }
+
+            .part-3-image-cards-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .part-3-image {
+                max-width: 280px;
+            }
+
+            .part-3-cta-buttons {
                 flex-direction: column;
+                align-items: center;
             }
-            
-            .video-section {
-                height: 400px;
+
+            .part-3-btn-primary,
+            .part-3-btn-secondary {
+                width: 80%;
+                max-width: 250px;
             }
-            
-            h1 {
-                font-size: 36px;
+        }
+
+        @media (max-width: 480px) {
+            .part-3-section-container {
+                padding: 60px 15px;
             }
-            
-            p {
-                font-size: 16px;
+
+            .part-3-section-title {
+                font-size: 2rem;
+            }
+
+            .part-3-image {
+                max-width: 240px;
+            }
+
+            .part-3-image-content-title {
+                font-size: 1.25rem;
+            }
+
+            .part-3-image-content-description {
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="video-section">
-            <video autoplay loop muted playsinline>
-                <source src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708%2F6731d779ad2f2aa71ae14d7e_section-2-transcode.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        
-        <div class="content-section">
-            <div class="content-wrapper">
-                <span class="subtitle">CUSTOMER INTELLIGENCE</span>
-                
-                <h1>Use that data to guide your next move</h1>
-                
-                <p>What led customers to you. Their opinions. How they decide what to buy. Data can tell you a lot and our AI analysis can help you make sense of it all.</p>
-                
-                <button class="sign-up-btn">Sign up</button>
+    <section class="part-3-section-container">
+        <h1 class="part-3-section-title">
+            With a superior form<br>
+            of data collection
+        </h1>
+
+        <div class="part-3-image-cards-wrapper">
+            <div class="part-3-image-card">
+                <img src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284d8cbc0d0bc71ff4092_designed-to-attract.webp"
+                    alt="Designed to attract form interface" class="part-3-image">
+                <div>
+                    <h3 class="part-3-image-content-title">Designed to attract</h3>
+                    <p class="part-3-image-content-description">Your forms will look anything but ordinary. Customize
+                        the entire design, embed it in all the
+                        right places, and strike a chord with engaging video content.</p>
+                </div>
+            </div>
+
+            <div class="part-3-image-card">
+                <img src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284e7a3a06823b55ae1a3_deeper-insights.webp"
+                    alt="Deeper insights form interface" class="part-3-image">
+                <div>
+                    <h3 class="part-3-image-content-title">Gathers deeper insights</h3>
+                    <p class="part-3-image-content-description">More data is just a follow-up question away. Encourage
+                        customers to elaborate by asking questions
+                        based on their previous answers.</p>
+                </div>
+            </div>
+
+            <div class="part-3-image-card">
+                <img src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284e741f4aebe6337d5ac_unique-data.webp"
+                    alt="Unique data collection interface" class="part-3-image">
+                <div>
+                    <h3 class="part-3-image-content-title">Prioritizes unique data</h3>
+                    <p class="part-3-image-content-description">Some data is harder to come by. Collect
+                        readily-available data without having to ask so your
+                        customers can focus on sharing everything else.</p>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="part-3-cta-buttons">
+            <a href="#" class="part-3-btn-primary">Compare plans</a>
+            <a href="#" class="part-3-btn-secondary">Browse all templates</a>
+        </div>
+    </section>
 </body>
+
 </html>

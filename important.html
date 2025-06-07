@@ -877,109 +877,282 @@
     }
 
     .cs-testimonial-container {
-        max-width: 1200px;
-        width: 100%;
-        background-color: #fff5f2;
-        border-radius: 32px;
-        padding: 60px;
-        position: relative;
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        margin: 80px auto; /* Space above and below */
+      max-width: 1200px;
+      width: 100%;
+      background-color: #fff5f2;
+      border-radius: 32px;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin: 80px auto;
+      /* Space above and below */
     }
+
     .cs-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cs-quote {
+      font-size: 42px;
+      line-height: 1.2;
+      color: #2d2d2d;
+      font-family: Georgia, 'Times New Roman', serif;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .cs-attribution {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #666;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .cs-read-button {
+      background-color: #4a3c4a;
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      width: fit-content;
+    }
+
+    .cs-read-button:hover {
+      background-color: #3a2c3a;
+    }
+
+    .cs-image-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .cs-decorative-image {
+      max-width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .cs-testimonial-container {
+        grid-template-columns: 1fr;
+        padding: 40px;
+        gap: 30px;
+      }
+
+      .cs-content-wrapper {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+      }
+
+      .cs-quote {
+        font-size: 32px;
+        margin-bottom: 24px;
+        order: 1;
+      }
+
+      .cs-attribution {
+        margin-bottom: 24px;
+        order: 2;
+      }
+
+      .cs-image-area {
+        order: 3;
+        margin: 20px 0;
+        height: 300px;
+      }
+
+      .cs-read-button {
+        order: 4;
+        margin-top: 20px;
+      }
+
+      .cs-decorative-image {
+        max-height: 100%;
+        width: auto;
+      }
     }
-    .cs-quote {
-        font-size: 42px;
-        line-height: 1.2;
-        color: #2d2d2d;
-        font-family: Georgia, 'Times New Roman', serif;
-        margin-bottom: 32px;
-        font-weight: 400;
-    }
-    .cs-attribution {
-        font-size: 16px;
-        line-height: 1.5;
-        color: #666;
-        margin-bottom: 32px;
-        font-weight: 400;
-    }
-    .cs-read-button {
-        background-color: #4a3c4a;
-        color: white;
-        border: none;
-        padding: 16px 32px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        width: fit-content;
-    }
-    .cs-read-button:hover {
-        background-color: #3a2c3a;
-    }
-    .cs-image-area {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-    .cs-decorative-image {
-        max-width: 100%;
-        height: auto;
-        max-height: 500px;
-        object-fit: contain;
-    }
-    @media (max-width: 768px) {
-        .cs-testimonial-container {
-            grid-template-columns: 1fr;
-            padding: 40px;
-            gap: 30px;
-        }
-        .cs-content-wrapper {
-            display: flex;
-            flex-direction: column;
-        }
-        .cs-quote {
-            font-size: 32px;
-            margin-bottom: 24px;
-            order: 1;
-        }
-        .cs-attribution {
-            margin-bottom: 24px;
-            order: 2;
-        }
-        .cs-image-area {
-            order: 3;
-            margin: 20px 0;
-            height: 300px;
-        }
-        .cs-read-button {
-            order: 4;
-            margin-top: 20px;
-        }
-        .cs-decorative-image {
-            max-height: 100%;
-            width: auto;
-        }
-    }
+
     @media (max-width: 480px) {
-        .cs-testimonial-container {
-            padding: 30px;
-        }
-        .cs-quote {
-            font-size: 28px;
-        }
-        .cs-image-area {
-            height: 200px;
-        }
+      .cs-testimonial-container {
+        padding: 30px;
+      }
+
+      .cs-quote {
+        font-size: 28px;
+      }
+
+      .cs-image-area {
+        height: 200px;
+      }
+    }
+
+    .part-3-section-container {
+      padding: 80px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+
+    .part-3-section-title {
+      text-align: center;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: #2d3748;
+      margin-bottom: 60px;
+      line-height: 1.2;
+      padding: 0 10px;
+    }
+
+    .part-3-image-cards-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+      justify-items: center;
+    }
+
+    .part-3-image-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .part-3-image {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .part-3-image:hover {
+      transform: translateY(-5px);
+    }
+
+    .part-3-image-content-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 15px;
+    }
+
+    .part-3-image-content-description {
+      font-size: 1rem;
+      color: #4a5568;
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    .part-3-cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 10px;
+    }
+
+    .part-3-btn-primary {
+      background-color: #3e3040;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .part-3-btn-primary:hover {
+      background-color: #564b58;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .part-3-btn-secondary {
+      background-color: transparent;
+      color: #3e3040;
+      text-decoration: underline;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+    }
+
+    .part-3-btn-secondary:hover {
+      color: purple;
+    }
+
+    @media (max-width: 768px) {
+      .part-3-section-title {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+      }
+
+      .part-3-image-cards-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .part-3-image {
+        max-width: 280px;
+      }
+
+      .part-3-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .part-3-btn-primary,
+      .part-3-btn-secondary {
+        width: 80%;
+        max-width: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .part-3-section-container {
+        padding: 60px 15px;
+      }
+
+      .part-3-section-title {
+        font-size: 2rem;
+      }
+
+      .part-3-image {
+        max-width: 240px;
+      }
+
+      .part-3-image-content-title {
+        font-size: 1.25rem;
+      }
+
+      .part-3-image-content-description {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -1294,6 +1467,55 @@
         </div>
       </div>
     </div>
+    <section class="part-3-section-container">
+      <h1 class="part-3-section-title">
+        With a superior form<br>
+        of data collection
+      </h1>
+
+      <div class="part-3-image-cards-wrapper">
+        <div class="part-3-image-card">
+          <img
+            src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284d8cbc0d0bc71ff4092_designed-to-attract.webp"
+            alt="Designed to attract form interface" class="part-3-image">
+          <div>
+            <h3 class="part-3-image-content-title">Designed to attract</h3>
+            <p class="part-3-image-content-description">Your forms will look anything but ordinary. Customize
+              the entire design, embed it in all the
+              right places, and strike a chord with engaging video content.</p>
+          </div>
+        </div>
+
+        <div class="part-3-image-card">
+          <img
+            src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284e7a3a06823b55ae1a3_deeper-insights.webp"
+            alt="Deeper insights form interface" class="part-3-image">
+          <div>
+            <h3 class="part-3-image-content-title">Gathers deeper insights</h3>
+            <p class="part-3-image-content-description">More data is just a follow-up question away. Encourage
+              customers to elaborate by asking questions
+              based on their previous answers.</p>
+          </div>
+        </div>
+
+        <div class="part-3-image-card">
+          <img
+            src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284e741f4aebe6337d5ac_unique-data.webp"
+            alt="Unique data collection interface" class="part-3-image">
+          <div>
+            <h3 class="part-3-image-content-title">Prioritizes unique data</h3>
+            <p class="part-3-image-content-description">Some data is harder to come by. Collect
+              readily-available data without having to ask so your
+              customers can focus on sharing everything else.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="part-3-cta-buttons">
+        <a href="#" class="part-3-btn-primary">Compare plans</a>
+        <a href="#" class="part-3-btn-secondary">Browse all templates</a>
+      </div>
+    </section>
   </main>
   <script src="./index.js"></script>
 </body>
