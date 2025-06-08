@@ -2,1160 +2,497 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Builder - My Workspace</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            width: 280px;
-            background: white;
-            border-right: 1px solid #e5e7eb;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 30px;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: #10b981;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-        }
-
-        .create-form-btn {
-            width: 100%;
-            background: #374151;
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.2s;
-        }
-
-        .create-form-btn:hover {
-            background: #1f2937;
-        }
-
-        .search-box {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px 12px 10px 40px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            background: #f9fafb;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #10b981;
-            background: white;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .nav-section {
-            margin-bottom: 30px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #6b7280;
-            transition: all 0.2s;
-        }
-
-        .nav-item:hover {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .nav-item.active {
-            background: #f3f4f6;
-            color: #374151;
-            font-weight: 500;
-        }
-
-        .workspace-section h3 {
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .workspace-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #6b7280;
-            cursor: pointer;
-        }
-
-        .workspace-item:hover {
-            background: #f3f4f6;
-        }
-
-        .workspace-badge {
-            background: #e5e7eb;
-            color: #6b7280;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: auto;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 20px 30px;
-            overflow-y: auto;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: between;
-            margin-bottom: 30px;
-            gap: 20px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-        }
-
-        .header-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #111827;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid #d1d5db;
-            background: white;
-            color: #374151;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn:hover {
-            border-color: #9ca3af;
-        }
-
-        .btn-primary {
-            background: #10b981;
-            color: white;
-            border-color: #10b981;
-        }
-
-        .btn-primary:hover {
-            background: #059669;
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #10b981;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Template Cards */
-        .templates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .template-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .template-card:hover {
-            border-color: #10b981;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
-        }
-
-        .template-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: #9ca3af;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .template-icon {
-            width: 40px;
-            height: 40px;
-            background: #f3f4f6;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            color: #10b981;
-            font-size: 18px;
-        }
-
-        .template-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .template-description {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .template-action {
-            color: #10b981;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        /* Forms Table */
-        .forms-section {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            overflow: hidden;
-        }
-
-        .forms-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .forms-tabs {
-            display: flex;
-            gap: 24px;
-        }
-
-        .forms-tab {
-            padding: 8px 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: #6b7280;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .forms-tab.active {
-            color: #111827;
-            border-bottom-color: #10b981;
-        }
-
-        .view-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .view-toggle {
-            display: flex;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .view-btn {
-            padding: 6px 10px;
-            background: white;
-            border: none;
-            cursor: pointer;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .view-btn.active {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .forms-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .forms-table th {
-            text-align: left;
-            padding: 12px 24px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            background: #f9fafb;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .forms-table td {
-            padding: 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-            font-size: 14px;
-        }
-
-        .forms-table tr:hover {
-            background: #f9fafb;
-        }
-
-        .form-name {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .form-icon {
-            width: 32px;
-            height: 32px;
-            background: #10b981;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-        }
-
-        .form-title {
-            font-weight: 500;
-            color: #111827;
-        }
-
-        .stats-badge {
-            background: #f3f4f6;
-            color: #6b7280;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .more-btn {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-        }
-
-        .more-btn:hover {
-            background: #f3f4f6;
-            color: #6b7280;
-        }
-
-        /* Response Stats */
-        .response-stats {
-            padding: 20px 24px;
-            border-top: 1px solid #e5e7eb;
-            background: #f9fafb;
-        }
-
-        .stats-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 4px;
-        }
-
-        .stats-count {
-            font-size: 24px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 4px;
-        }
-
-        .stats-meta {
-            font-size: 12px;
-            color: #6b7280;
-            margin-bottom: 16px;
-        }
-
-        .stats-action {
-            color: #10b981;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #111827;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: #9ca3af;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 6px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #10b981;
-        }
-
-        .form-textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .form-textarea:focus {
-            outline: none;
-            border-color: #10b981;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 24px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #e5e7eb;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
-
-            .templates-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-
-            .header-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Typeform - Centered Navigation</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">R</div>
-                <span>rohanprogrammer1</span>
-                <i class="fas fa-chevron-down" style="margin-left: auto; font-size: 12px; color: #9ca3af;"></i>
-            </div>
+  <header class="site-header">
+    <a href="#" class="site-logo">
+      <div class="site-logo-icon"></div> Typeform
+    </a>
+    <button class="nav-toggle" aria-label="Open menu"><span class="nav-toggle-bar"></span><span
+        class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+    <nav class="main-nav" id="nav">
+      <ul class="nav-list">
+        <li class="nav-list-item"><a href="#" class="nav-link nav-link--dropdown"
+            data-dropdown-target="products-dropdown">Products</a></li>
+        <li class="nav-list-item"><a href="#" class="nav-link nav-link--dropdown"
+            data-dropdown-target="solutions-dropdown">Solutions</a></li>
+        <li class="nav-list-item"><a href="#" class="nav-link nav-link--dropdown"
+            data-dropdown-target="resources-dropdown">Resources</a></li>
+        <li class="nav-list-item"><a href="#" class="nav-link">Enterprise</a></li>
+        <li class="nav-list-item"><a href="#" class="nav-link">Pricing</a></li>
+      </ul>
+    </nav>
+    <div class="auth-actions"><a href="#" class="btn-login">Log in</a><a href="#" class="btn-signup">Sign up</a></div>
+  </header>
 
-            <button class="create-form-btn" onclick="openCreateFormModal()">
-                <i class="fas fa-plus"></i>
-                Create a new form
-            </button>
-
-            <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search" id="searchInput">
-            </div>
-
-            <nav class="nav-section">
-                <div class="nav-item active">
-                    <i class="fas fa-file-alt"></i>
-                    Forms
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-plug"></i>
-                    Integrations
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-palette"></i>
-                    Brand kit
-                </div>
-            </nav>
-
-            <div class="workspace-section">
-                <h3>
-                    <i class="fas fa-folder"></i>
-                    Workspaces
-                    <i class="fas fa-plus" style="font-size: 12px; cursor: pointer;"></i>
-                </h3>
-                <div style="margin-bottom: 16px;">
-                    <div style="font-size: 12px; color: #9ca3af; margin-bottom: 8px;">Private</div>
-                    <div class="workspace-item">
-                        My workspace
-                        <span class="workspace-badge">1</span>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <div class="header-left">
-                    <h1 class="header-title">My workspace</h1>
-                    <i class="fas fa-ellipsis-h" style="color: #9ca3af; cursor: pointer;"></i>
-                </div>
-                <div class="header-actions">
-                    <button class="btn">
-                        <i class="fas fa-user-plus"></i>
-                        Invite
-                    </button>
-                    <button class="btn">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-primary">View plans</button>
-                    <div class="user-avatar">RV</div>
-                </div>
-            </header>
-
-            <!-- Template Cards -->
-            <div class="templates-grid">
-                <div class="template-card" onclick="useTemplate('open-ended')">
-                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="template-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3 class="template-title">Create an Open-ended survey for collecting detailed qualitative data.
-                    </h3>
-                    <p class="template-description">Perfect for gathering in-depth feedback and insights from your
-                        audience.</p>
-                    <a href="#" class="template-action">Use this form</a>
-                </div>
-
-                <div class="template-card" onclick="useTemplate('demographic')">
-                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="template-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3 class="template-title">Create a Demographic survey to gather participant background information.
-                    </h3>
-                    <p class="template-description">Collect essential demographic data to better understand your
-                        audience.</p>
-                    <a href="#" class="template-action">Use this form</a>
-                </div>
-
-                <div class="template-card" onclick="useTemplate('likert')">
-                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="template-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3 class="template-title">Create a Likert scale questionnaire for measuring attitudes and opinions.
-                    </h3>
-                    <p class="template-description">Use standardized rating scales to measure participant responses
-                        effectively.</p>
-                    <a href="#" class="template-action">Use this form</a>
-                </div>
-            </div>
-
-            <!-- Forms Section -->
-            <div class="forms-section">
-                <div class="forms-header">
-                    <div class="forms-tabs">
-                        <div class="forms-tab active">Responses</div>
-                        <div class="forms-tab">Completion</div>
-                        <div class="forms-tab">Updated</div>
-                        <div class="forms-tab">Integrations</div>
-                    </div>
-                    <div class="view-controls">
-                        <button class="btn">
-                            <i class="fas fa-calendar"></i>
-                            Date created
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="view-toggle">
-                            <button class="view-btn active">
-                                <i class="fas fa-list"></i>
-                                List
-                            </button>
-                            <button class="view-btn">
-                                <i class="fas fa-th"></i>
-                                Grid
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <table class="forms-table">
-                    <thead>
-                        <tr>
-                            <th>Form Name</th>
-                            <th>Responses</th>
-                            <th>Completion</th>
-                            <th>Updated</th>
-                            <th>Integrations</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="formsTableBody">
-                        <tr>
-                            <td>
-                                <div class="form-name">
-                                    <div class="form-icon">
-                                        <i class="fas fa-file-alt"></i>
-                                    </div>
-                                    <span class="form-title">My new form</span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="stats-badge">0</span>
-                            </td>
-                            <td>-</td>
-                            <td>04 Jun 2025</td>
-                            <td>
-                                <span class="stats-badge">0</span>
-                            </td>
-                            <td>
-                                <button class="more-btn">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="response-stats">
-                    <div class="stats-title">Responses collected</div>
-                    <div class="stats-count">0<span style="font-size: 14px; color: #6b7280; font-weight: 400;"> /
-                            10</span></div>
-                    <div class="stats-meta">Resets on Jul 4</div>
-                    <a href="#" class="stats-action">Increase response limit</a>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Create Form Modal -->
-    <div class="modal" id="createFormModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Create New Form</h2>
-                <button class="modal-close" onclick="closeCreateFormModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="createFormForm">
-                <div class="form-group">
-                    <label class="form-label" for="formName">Form Name</label>
-                    <input type="text" class="form-input" id="formName" placeholder="Enter form name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="formDescription">Description (Optional)</label>
-                    <textarea class="form-textarea" id="formDescription" placeholder="Describe your form"></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="formType">Form Type</label>
-                    <select class="form-input" id="formType">
-                        <option value="survey">Survey</option>
-                        <option value="feedback">Feedback Form</option>
-                        <option value="registration">Registration</option>
-                        <option value="contact">Contact Form</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn" onclick="closeCreateFormModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create Form</button>
-                </div>
-            </form>
+  <!-- Dropdown Menus -->
+  <div class="dropdown-menu-overlay" id="products-dropdown">
+    <button class="dropdown-close-btn" aria-label="Close menu">&times;</button>
+    <div class="dropdown-menu-content">
+      <div class="dropdown-columns">
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+            PLATFORM
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Product overview</a>
+            <p class="dropdown-menu-desc">What is Typeform?</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Typeform AI</a>
+            <p class="dropdown-menu-desc">Your AI know-pilot</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Integrations</a>
+            <p class="dropdown-menu-desc">Connect all your apps</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">What's new</a>
+            <p class="dropdown-menu-desc">Latest product updates</p>
+          </div>
         </div>
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            TOOLS
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Form builder</a></div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Survey maker</a></div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Quiz maker</a></div>
+        </div>
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <rect x="7" y="7" width="3" height="9"></rect>
+              <rect x="14" y="7" width="3" height="5"></rect>
+            </svg>
+            TEMPLATES
+          </div>
+          <div class="dropdown-media-preview">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-v4xNq1ZG2qurvuBk6f8H4VhTSDGWot.png"
+              alt="Template preview" class="dropdown-media-img">
+            <p class="dropdown-media-caption">Free form, survey, and quiz templates</p>
+            <a href="#" class="dropdown-media-link">Choose one</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dropdown-menu-overlay" id="solutions-dropdown">
+    <button class="dropdown-close-btn" aria-label="Close menu">&times;</button>
+    <div class="dropdown-menu-content">
+      <div class="dropdown-columns">
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="m22 21-3-3m0 0a5.5 5.5 0 1 0-7.78-7.78 5.5 5.5 0 0 0 7.78 7.78Z"></path>
+            </svg>
+            TEAMS
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Marketing</a>
+            <p class="dropdown-menu-desc">For B2B and B2C marketing</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Product</a>
+            <p class="dropdown-menu-desc">For product, UX, and research</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Human resources</a>
+            <p class="dropdown-menu-desc">For HR, ops, and talent</p>
+          </div>
+        </div>
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"></path>
+              <path d="m19 9-5 5-4-4-3 3"></path>
+            </svg>
+            USE CASES
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Lead generation</a></div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Customer feedback</a></div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Market research</a></div>
+        </div>
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            PLANS
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Core</a>
+            <p class="dropdown-menu-desc">Plans for everyone</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Growth</a>
+            <p class="dropdown-menu-desc">Plans for GTM teams</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Enterprise</a>
+            <p class="dropdown-menu-desc">Plans for larger orgs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dropdown-menu-overlay" id="resources-dropdown">
+    <button class="dropdown-close-btn" aria-label="Close menu">&times;</button>
+    <div class="dropdown-menu-content">
+      <div class="dropdown-columns">
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12l2 2 4-4"></path>
+              <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1h9l4 4V12z">
+              </path>
+            </svg>
+            SUPPORT
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Help center</a>
+            <p class="dropdown-menu-desc">Find quick answers</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Community</a>
+            <p class="dropdown-menu-desc">Share and interact</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Contact us</a>
+            <p class="dropdown-menu-desc">Speak to our team</p>
+          </div>
+        </div>
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            </svg>
+            COMPANY
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Partners</a>
+            <p class="dropdown-menu-desc">Browse or join</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Careers</a>
+            <p class="dropdown-menu-desc">Join our team</p>
+          </div>
+          <div class="dropdown-menu-item"><a href="#" class="dropdown-menu-link">Webinars</a>
+            <p class="dropdown-menu-desc">Learn and get inspired</p>
+          </div>
+        </div>
+        <div class="dropdown-col">
+          <div class="dropdown-col-header">
+            <svg class="dropdown-col-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            BLOG
+          </div>
+          <div class="dropdown-media-preview">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lVtKpFeAOBmOkQ4c3cgnJEl8VnkD1D.png"
+              alt="Blog preview" class="dropdown-media-img">
+            <p class="dropdown-media-caption">Our guides, latest news, and more.</p>
+            <a href="#" class="dropdown-media-link">Browse blog</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-container">
+    <div class="hero-media">
+      <div class="hero-media-video-wrap">
+        <iframe src="https://fast.wistia.net/embed/iframe/ghbzey8pqt" allowfullscreen title="Typeform Video"></iframe>
+      </div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Get to know your customers with forms worth filling out</h1>
+      <p class="hero-desc">Collect all the data you need to understand customers with forms designed to be refreshingly
+        different.</p>
+      <button class="hero-cta">Get started—it's free</button>
+    </div>
+  </div>
+
+  <div class="logo-bar-section">
+    <div class="logo-bar-container">
+      <div class="logo-bar-list">
+        <div class="logo-bar-item"><img src="/placeholder.svg?height=40&width=120" alt="Calendly" class="logo-bar-img">
+        </div>
+        <div class="logo-bar-item"><img src="/placeholder.svg?height=40&width=40" alt="Company Logo"
+            class="logo-bar-img"></div>
+        <div class="logo-bar-item"><img src="/placeholder.svg?height=40&width=140" alt="L'Occitane en Provence"
+            class="logo-bar-img"></div>
+        <div class="logo-bar-item"><img src="/placeholder.svg?height=40&width=120" alt="WeTransfer"
+            class="logo-bar-img"></div>
+        <div class="logo-bar-item"><img src="/placeholder.svg?height=40&width=80" alt="Slack" class="logo-bar-img">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="marketing-main-content">
+    <div class="marketing-container">
+      <section class="marketing-hero-section">
+        <h1 class="marketing-hero-title"> Typeform helps you<br> understand customers </h1>
+      </section>
+      <section class="marketing-content-section">
+        <div class="marketing-content-grid">
+          <div class="marketing-text-content">
+            <div class="marketing-section-label">FORMS, SURVEYS, AND QUIZZES</div>
+            <h2 class="marketing-section-title"> Get up to 3.5x more<br> data about them </h2>
+            <p class="marketing-section-desc"> When your forms break the norm, more people fill them out. Think branded
+              designs, video content, and relevant follow-up questions. </p>
+            <button class="marketing-cta-btn">Sign up</button>
+          </div>
+          <div class="marketing-visual-content">
+            <div class="marketing-video-wrapper">
+              <video
+                src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708%2F67288b2fb22e7ee7c157fe73_home%205050%201-transcode.mp4"
+                autoplay muted loop playsinline style="background:#000;" title="Typeform demo video"></video>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="marketing-content-section">
+        <div class="marketing-content-grid">
+          <div class="marketing-visual-content">
+            <div class="marketing-video-wrapper">
+              <video
+                src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708%2F6731d779ad2f2aa71ae14d7e_section-2-transcode.mp4"
+                autoplay muted loop playsinline style="background:#000;" title="Typeform demo video"></video>
+            </div>
+          </div>
+          <div class="marketing-text-content">
+            <div class="marketing-section-label">Customer Intelligence</div>
+            <h2 class="marketing-section-title"> Use that data to<br> guide your next move </h2>
+            <p class="marketing-section-desc"> What led customers to you. Their opinions. How they decide what to buy.
+              Data can tell you a lot and our AI analysis can help you make sense of it all. </p>
+            <button class="marketing-cta-btn">Sign up</button>
+          </div>
+        </div>
+      </section>
+      <div class="cs-testimonial-container">
+        <div class="cs-content-wrapper">
+          <div class="cs-quote"> "We need to know that we're building the right things for real problems." </div>
+          <div class="cs-attribution"> Chase Clark, Senior UX Researcher at Calm, explains why they switched to
+            Typeform. </div>
+          <button class="cs-read-button">Read on</button>
+        </div>
+        <div class="cs-image-area">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-FTL69YXARrxXft6hIrR4t7nju1NTWU.png"
+            alt="Decorative elements with Calm and app icons" class="cs-decorative-image">
+        </div>
+      </div>
     </div>
 
-    <script>
-        // Global variables
-        let forms = [
-            {
-                id: 1,
-                name: 'My new form',
-                responses: 0,
-                completion: '-',
-                updated: '04 Jun 2025',
-                integrations: 0
-            }
-        ];
+    <section class="part-3-section-container">
+      <h1 class="part-3-section-title"> With a superior form<br> of data collection </h1>
+      <div class="part-3-image-cards-wrapper">
+        <div class="part-3-image-card">
+          <img
+            src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284d8cbc0d0bc71ff4092_designed-to-attract.webp"
+            alt="Designed to attract form interface" class="part-3-image">
+          <div>
+            <h3 class="part-3-image-content-title">Designed to attract</h3>
+            <p class="part-3-image-content-description">Your forms will look anything but ordinary. Customize the entire
+              design, embed it in all the right places, and strike a chord with engaging video content.</p>
+          </div>
+        </div>
+        <div class="part-3-image-card">
+          <img
+            src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284e7a3a06823b55ae1a3_deeper-insights.webp"
+            alt="Deeper insights form interface" class="part-3-image">
+          <div>
+            <h3 class="part-3-image-content-title">Gathers deeper insights</h3>
+            <p class="part-3-image-content-description">More data is just a follow-up question away. Encourage customers
+              to elaborate by asking questions based on their previous answers.</p>
+          </div>
+        </div>
+        <div class="part-3-image-card">
+          <img
+            src="https://cdn.prod.website-files.com/66ffe2174aa8e8d5661c2708/671284e741f4aebe6337d5ac_unique-data.webp"
+            alt="Unique data collection interface" class="part-3-image">
+          <div>
+            <h3 class="part-3-image-content-title">Prioritizes unique data</h3>
+            <p class="part-3-image-content-description">Some data is harder to come by. Collect readily-available data
+              without having to ask so your customers can focus on sharing everything else.</p>
+          </div>
+        </div>
+      </div>
+      <div class="part-3-cta-buttons">
+        <a href="#" class="part-3-btn-primary">Compare plans</a>
+        <a href="#" class="part-3-btn-secondary">Browse all templates</a>
+      </div>
+    </section>
 
-        // Modal functions
-        function openCreateFormModal() {
-            document.getElementById('createFormModal').classList.add('active');
-        }
+    <section class="part-4-sponsors-section">
+      <div class="part-4-sponsors-label">INTEGRATIONS</div>
+      <h2 class="part-4-sponsors-title"> Connect with hundreds of<br> your mission-critical tools </h2>
+      <div class="part-4-sponsors-carousel">
+        <div class="part-4-sponsors-track part-4-left-to-right">
+          <div class="part-4-sponsor-logo part-4-tally"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-make"></div>
+          <div class="part-4-sponsor-logo part-4-slack"></div>
+          <div class="part-4-sponsor-logo part-4-stripe"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+          <div class="part-4-sponsor-logo part-4-tally"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-make"></div>
+          <div class="part-4-sponsor-logo part-4-slack"></div>
+          <div class="part-4-sponsor-logo part-4-stripe"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+        </div>
+      </div>
+      <div class="part-4-sponsors-carousel">
+        <div class="part-4-sponsors-track part-4-right-to-left">
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-calendly"></div>
+          <div class="part-4-sponsor-logo part-4-activecampaign"></div>
+          <div class="part-4-sponsor-logo part-4-zapier"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+          <div class="part-4-sponsor-logo part-4-klaviyo"></div>
+          <div class="part-4-sponsor-logo part-4-intercom"></div>
+          <div class="part-4-sponsor-logo part-4-callrail"></div>
+          <div class="part-4-sponsor-logo part-4-calendly"></div>
+          <div class="part-4-sponsor-logo part-4-activecampaign"></div>
+          <div class="part-4-sponsor-logo part-4-zapier"></div>
+          <div class="part-4-sponsor-logo part-4-webflow"></div>
+        </div>
+      </div>
+      <div class="part-4-sponsors-cta"><a href="#" class="part-4-sponsors-btn">View all 300+ integrations</a></div>
+    </section>
 
-        function closeCreateFormModal() {
-            document.getElementById('createFormModal').classList.remove('active');
-            document.getElementById('createFormForm').reset();
-        }
+    <section class="part-8-stats-section">
+      <div class="part-8-stats-container">
+        <h2 class="part-8-stats-title">Why Typeform?</h2>
+        <p class="part-8-stats-subtitle">Because after switching to us...</p>
+        <div class="part-8-stats-grid">
+          <div class="part-8-stat-item"><span class="part-8-stat-number">96%</span>
+            <p class="part-8-stat-description">of customers say they have a better brand experience</p>
+          </div>
+          <div class="part-8-stat-item"><span class="part-8-stat-number">95%</span>
+            <p class="part-8-stat-description">of customers say they gather more data, more easily</p>
+          </div>
+          <div class="part-8-stat-item"><span class="part-8-stat-number">87%</span>
+            <p class="part-8-stat-description">of customers say they reveal deeper insights from data</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Template functions
-        function useTemplate(type) {
-            const templates = {
-                'open-ended': 'Open-ended Survey',
-                'demographic': 'Demographic Survey',
-                'likert': 'Likert Scale Questionnaire'
-            };
-
-            document.getElementById('formName').value = templates[type];
-            openCreateFormModal();
-        }
-
-        function closeTemplate(button) {
-            button.closest('.template-card').style.display = 'none';
-        }
-
-        // Form creation
-        document.getElementById('createFormForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formName = document.getElementById('formName').value;
-            const formDescription = document.getElementById('formDescription').value;
-            const formType = document.getElementById('formType').value;
-
-            const newForm = {
-                id: forms.length + 1,
-                name: formName,
-                responses: 0,
-                completion: '-',
-                updated: new Date().toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric'
-                }),
-                integrations: 0
-            };
-
-            forms.push(newForm);
-            renderFormsTable();
-            closeCreateFormModal();
-
-            // Show success message
-            showNotification('Form created successfully!');
-        });
-
-        // Render forms table
-        function renderFormsTable() {
-            const tbody = document.getElementById('formsTableBody');
-            tbody.innerHTML = '';
-
-            forms.forEach(form => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="form-name">
-                            <div class="form-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <span class="form-title">${form.name}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="stats-badge">${form.responses}</span>
-                    </td>
-                    <td>${form.completion}</td>
-                    <td>${form.updated}</td>
-                    <td>
-                        <span class="stats-badge">${form.integrations}</span>
-                    </td>
-                    <td>
-                        <button class="more-btn" onclick="showFormActions(${form.id})">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredForms = forms.filter(form =>
-                form.name.toLowerCase().includes(searchTerm)
-            );
-
-            const tbody = document.getElementById('formsTableBody');
-            tbody.innerHTML = '';
-
-            filteredForms.forEach(form => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="form-name">
-                            <div class="form-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <span class="form-title">${form.name}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="stats-badge">${form.responses}</span>
-                    </td>
-                    <td>${form.completion}</td>
-                    <td>${form.updated}</td>
-                    <td>
-                        <span class="stats-badge">${form.integrations}</span>
-                    </td>
-                    <td>
-                        <button class="more-btn" onclick="showFormActions(${form.id})">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        });
-
-        // Tab switching
-        document.querySelectorAll('.forms-tab').forEach(tab => {
-            tab.addEventListener('click', function () {
-                document.querySelectorAll('.forms-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // View toggle
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function () {
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Form actions
-        function showFormActions(formId) {
-            const actions = ['Edit', 'Duplicate', 'Share', 'Delete'];
-            const actionMenu = document.createElement('div');
-            actionMenu.style.cssText = `
-                position: fixed;
-                background: white;
-                border: 1px solid #e5e7eb;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-                min-width: 120px;
-            `;
-
-            actions.forEach(action => {
-                const actionItem = document.createElement('div');
-                actionItem.style.cssText = `
-                    padding: 8px 16px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    color: #374151;
-                `;
-                actionItem.textContent = action;
-                actionItem.addEventListener('click', () => {
-                    handleFormAction(formId, action);
-                    document.body.removeChild(actionMenu);
-                });
-                actionItem.addEventListener('mouseenter', () => {
-                    actionItem.style.backgroundColor = '#f3f4f6';
-                });
-                actionItem.addEventListener('mouseleave', () => {
-                    actionItem.style.backgroundColor = 'white';
-                });
-                actionMenu.appendChild(actionItem);
-            });
-
-            // Position menu
-            const rect = event.target.getBoundingClientRect();
-            actionMenu.style.top = rect.bottom + 'px';
-            actionMenu.style.left = (rect.left - 100) + 'px';
-
-            document.body.appendChild(actionMenu);
-
-            // Close menu when clicking outside
-            setTimeout(() => {
-                document.addEventListener('click', function closeMenu() {
-                    if (document.body.contains(actionMenu)) {
-                        document.body.removeChild(actionMenu);
-                    }
-                    document.removeEventListener('click', closeMenu);
-                });
-            }, 100);
-        }
-
-        function handleFormAction(formId, action) {
-            const form = forms.find(f => f.id === formId);
-
-            switch (action) {
-                case 'Edit':
-                    showNotification(`Editing ${form.name}`);
-                    break;
-                case 'Duplicate':
-                    const duplicatedForm = {
-                        ...form,
-                        id: forms.length + 1,
-                        name: `${form.name} (Copy)`,
-                        updated: new Date().toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric'
-                        })
-                    };
-                    forms.push(duplicatedForm);
-                    renderFormsTable();
-                    showNotification('Form duplicated successfully!');
-                    break;
-                case 'Share':
-                    showNotification(`Sharing ${form.name}`);
-                    break;
-                case 'Delete':
-                    if (confirm(`Are you sure you want to delete "${form.name}"?`)) {
-                        forms = forms.filter(f => f.id !== formId);
-                        renderFormsTable();
-                        showNotification('Form deleted successfully!');
-                    }
-                    break;
-            }
-        }
-
-        // Notification system
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #10b981;
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: 500;
-                z-index: 2000;
-                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-            `;
-            notification.textContent = message;
-
-            document.body.appendChild(notification);
-
-            // Animate in
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-
-            // Remove after 3 seconds
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('createFormModal').addEventListener('click', function (e) {
-            if (e.target === this) {
-                closeCreateFormModal();
-            }
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeCreateFormModal();
-            }
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault();
-                openCreateFormModal();
-            }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function () {
-            renderFormsTable();
-            showNotification('Welcome to Form Builder!');
-        });
-    </script>
+    <section class="part-8-footer-section">
+      <div class="part-8-footer-container">
+        <div class="part-8-cta-content">
+          <h2 class="part-8-cta-title">Start getting to know<br>your customers</h2>
+          <div class="part-8-cta-features">
+            <p class="part-8-cta-intro">Our Free Plan lets you:</p>
+            <p>Create unlimited forms</p>
+            <p>Access 3,000+ templates</p>
+            <p>Start getting responses</p>
+          </div>
+          <div class="part-8-cta-buttons">
+            <a href="#" class="part-8-btn part-8-btn-primary">Sign up</a>
+            <a href="#" class="part-8-btn part-8-btn-secondary">Compare plans</a>
+          </div>
+        </div>
+        <div class="part-8-footer-links">
+          <div class="part-8-footer-column">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Enterprise <span class="part-8-dropdown-indicator">⌄</span></a></li>
+            </ul>
+          </div>
+          <div class="part-8-footer-column">
+            <h4>Templates</h4>
+            <ul>
+              <li><a href="#">Popular templates <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">Recent templates <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">Popular categories <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">Recent categories <span class="part-8-dropdown-indicator">⌄</span></a></li>
+            </ul>
+          </div>
+          <div class="part-8-footer-column">
+            <h4>Integrations</h4>
+            <ul>
+              <li><a href="#">Popular integration apps <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">More integration apps <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">Popular app categories <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">More app categories <span class="part-8-dropdown-indicator">⌄</span></a></li>
+            </ul>
+          </div>
+          <div class="part-8-footer-column">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Help center</a></li>
+              <li><a href="#">Community</a></li>
+              <li><a href="#">Tutorials</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Why Typeform? <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">Referral program</a></li>
+              <li><a href="#">Partners <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">System status</a></li>
+              <li><a href="#">Developers / API</a></li>
+            </ul>
+          </div>
+          <div class="part-8-footer-column">
+            <h4>Get to know us</h4>
+            <ul>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Brand</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Contact sales</a></li>
+              <li><a href="#">Terms and conditions <span class="part-8-dropdown-indicator">⌄</span></a></li>
+              <li><a href="#">Typeform (es)</a></li>
+              <li><a href="#">Newsletter</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="part-8-footer-bottom">
+          <div class="part-8-social-links">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="YouTube">📺</a>
+            <a href="#" aria-label="LinkedIn">💼</a>
+          </div>
+          <div class="part-8-footer-legal">
+            <div class="part-8-language-selector"> 🌐 <span>English</span><span
+                class="part-8-dropdown-indicator">⌄</span></div>
+            <a href="#">Cookie Settings</a>
+            <a href="#">Check our cookies policy to delete cookies</a>
+            <a href="#">Report abuse</a>
+            <span class="part-8-copyright">© Typeform</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="./index.js"></script>
 </body>
 
 </html>
