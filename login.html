@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sign In to Your Account</title>
+    <title>Typeform - Log in or Sign up</title>
     <style>
         * {
             margin: 0;
@@ -13,341 +13,299 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: #f5f5f5;
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .login-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 100%;
-            max-width: 900px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 600px;
-        }
-
-        .login-form {
-            padding: 60px 50px;
-            display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
-        .login-illustration {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #f5f5f5;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #262627;
+        }
+
+        .header-right {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .contact-link {
+            color: #666;
+            text-decoration: underline;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .globe-icon {
+            width: 16px;
+            height: 16px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="m5 5 14 14"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            display: flex;
             position: relative;
             overflow: hidden;
         }
 
-        .illustration-content {
-            text-align: center;
-            color: white;
+        /* Left Section - Login Form */
+        .login-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background-color: #f5f5f5;
             z-index: 2;
         }
 
-        .illustration-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+        .login-form {
+            width: 100%;
+            max-width: 400px;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 8px;
+        .form-header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #262627;
+            margin-bottom: 12px;
         }
 
-        .subtitle {
-            color: #718096;
+        .form-header p {
             font-size: 16px;
+            color: #666;
             margin-bottom: 40px;
             line-height: 1.5;
         }
 
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2d3748;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-input {
+        /* Buttons */
+        .auth-button {
             width: 100%;
-            padding: 16px;
-            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .auth-button:hover {
+            border-color: #d1d1d1;
+            background-color: #fafafa;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%234285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="%2334a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="%23fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="%23ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .microsoft-icon {
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23f25022" d="M1 1h10v10H1z"/><path fill="%2300a4ef" d="M13 1h10v10H13z"/><path fill="%237fba00" d="M1 13h10v10H1z"/><path fill="%23ffb900" d="M13 13h10v10H13z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        /* Email Input */
+        .email-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid #e1e1e1;
             border-radius: 8px;
             font-size: 16px;
-            transition: all 0.3s ease;
-            background: #f7fafc;
+            margin-bottom: 16px;
+            background-color: white;
         }
 
-        .form-input:focus {
+        .email-input:focus {
             outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #262627;
         }
 
-        .form-input::placeholder {
-            color: #a0aec0;
+        .email-input::placeholder {
+            color: #999;
         }
 
-        .login-button {
+        /* Continue Button */
+        .continue-button {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 16px 20px;
+            background-color: #262627;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .login-button:active {
-            transform: translateY(0);
-        }
-
-        .social-login {
-            margin-bottom: 30px;
-        }
-
-        .social-button {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e2e8f0;
-            background: white;
-            border-radius: 8px;
-            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 12px;
+            margin-bottom: 24px;
+            transition: background-color 0.2s ease;
+        }
+
+        .continue-button:hover {
+            background-color: #1a1a1a;
+        }
+
+        /* SSO Link */
+        .sso-link {
+            text-align: center;
+            color: #666;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        /* Right Section - Image */
+        .image-section {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            padding: 40px;
+            background-color: #f5f5f5;
         }
 
-        .social-button:hover {
-            border-color: #cbd5e0;
-            background: #f7fafc;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 30px 0;
-            position: relative;
-            color: #a0aec0;
-            font-size: 14px;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #e2e8f0;
-            z-index: 1;
-        }
-
-        .divider span {
-            background: white;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .forgot-password a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        .illustration-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .illustration-subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-            line-height: 1.6;
+        .mockup-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .login-container {
-                grid-template-columns: 1fr;
-                max-width: 400px;
+            .header {
+                padding: 15px 20px;
             }
-
-            .login-illustration {
-                display: none;
+            
+            .header-right {
+                gap: 15px;
+                font-size: 13px;
             }
-
-            .login-form {
-                padding: 40px 30px;
+            
+            .main-container {
+                flex-direction: column;
             }
-
-            body {
-                padding: 10px;
+            
+            .login-section {
+                padding: 30px 20px;
+            }
+            
+            .image-section {
+                padding: 20px;
+                min-height: 400px;
+            }
+            
+            .form-header h1 {
+                font-size: 28px;
             }
         }
 
         @media (max-width: 480px) {
-            .login-form {
-                padding: 30px 20px;
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
             }
-
-            .logo {
-                font-size: 20px;
+            
+            .login-section {
+                padding: 20px 15px;
             }
-
-            .subtitle {
+            
+            .image-section {
+                padding: 15px;
+                min-height: 300px;
+            }
+            
+            .form-header h1 {
+                font-size: 24px;
+            }
+            
+            .form-header p {
                 font-size: 14px;
             }
-        }
-
-        /* Accessibility */
-        .form-input:focus,
-        .login-button:focus,
-        .social-button:focus {
-            outline: 2px solid #667eea;
-            outline-offset: 2px;
-        }
-
-        /* Animation */
-        .login-container {
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .auth-button, .email-input, .continue-button {
+                padding: 14px 16px;
+                font-size: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-form">
-            <div class="logo">Welcome Back</div>
-            <p class="subtitle">Sign in to your account to continue your journey with us.</p>
-
-            <div class="social-login">
-                <button type="button" class="social-button">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                    Continue with Google
-                </button>
-                <button type="button" class="social-button">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M23.5 12.5h-11v-3h11v3z" fill="#F25022"/>
-                        <path d="M12.5 12.5h11v11h-11v-11z" fill="#00A4EF"/>
-                        <path d="M0.5 12.5h11v11h-11v-11z" fill="#FFB900"/>
-                        <path d="M0.5 0.5h11v11h-11v-11z" fill="#F25022"/>
-                    </svg>
-                    Continue with Microsoft
-                </button>
-            </div>
-
-            <div class="divider">
-                <span>or continue with email</span>
-            </div>
-
-            <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="username" class="form-label">Username or Email</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        class="form-input" 
-                        placeholder="Enter your username or email"
-                        required
-                        autocomplete="username"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        class="form-input" 
-                        placeholder="Enter your password"
-                        required
-                        autocomplete="current-password"
-                    >
-                </div>
-
-                <button type="submit" class="login-button">
-                    Sign In
-                </button>
-            </form>
-
-            <div class="forgot-password">
-                <a href="#" role="button">Forgot your password?</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Typeform</div>
+        <div class="header-right">
+            <span>Have a question? <a href="#" class="contact-link">Contact us</a></span>
+            <div class="language-selector">
+                <div class="globe-icon"></div>
+                <span>English</span>
             </div>
         </div>
+    </header>
 
-        <div class="login-illustration">
-            <div class="illustration-bg"></div>
-            <div class="illustration-content">
-                <h2 class="illustration-title">Join Our Community</h2>
-                <p class="illustration-subtitle">Connect with thousands of users and unlock amazing features that will enhance your experience.</p>
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Left Section - Login Form -->
+        <section class="login-section">
+            <div class="login-form">
+                <div class="form-header">
+                    <h1>Log in or Sign up</h1>
+                    <p>Get better data with conversational forms, surveys, quizzes & more.</p>
+                </div>
+
+                <form>
+                    <button type="button" class="auth-button">
+                        <div class="google-icon"></div>
+                        Continue with Google
+                    </button>
+
+                    <button type="button" class="auth-button">
+                        <div class="microsoft-icon"></div>
+                        Continue with Microsoft
+                    </button>
+
+                    <input type="email" class="email-input" placeholder="Email address" required>
+
+                    <button type="submit" class="continue-button">Continue with email</button>
+                </form>
+
+                <a href="#" class="sso-link">Log in with SSO</a>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <!-- Right Section - Image -->
+        <section class="image-section">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-km9g4Z9tnk0tt7dz5CjW3XhHLT7FVp.png" alt="Typeform interface mockup showing form builder with color palette, font selector, and adventure booking form" class="mockup-image">
+        </section>
+    </main>
 </body>
 </html>

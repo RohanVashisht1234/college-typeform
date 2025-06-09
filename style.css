@@ -339,35 +339,33 @@ body {
 
 .hero-media {
     flex: 1;
-    background: linear-gradient(135deg, var(--color-gradient-1) 0%, var(--color-gradient-2) 50%, var(--color-gradient-3) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px 40px;
+    padding: 0; /* Ensures video can go to edges on desktop */
     min-height: 70vh;
+    position: relative; /* Context for absolute positioning of video wrap */
+    overflow: hidden; /* Clips content if video overflows */
+    /* Removed background gradient from here as video will cover it */
 }
 
 .hero-media-video-wrap {
-    width: 100%;
-    max-width: 440px;
-    aspect-ratio: 16/9;
+    width: 100%; /* Take full width of .hero-media */
+    height: 100%; /* Take full height of .hero-media */
+    position: absolute; /* Position absolutely within .hero-media */
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
-    border-radius: 20px;
+    border-radius: 0; /* No rounding for full coverage on desktop */
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    box-shadow: none; /* No shadow for seamless look on desktop */
 }
 
 .hero-media-video-wrap iframe {
     width: 100%;
     height: 100%;
-    min-height: 240px;
-    max-height: 340px;
     border: none;
     display: block;
-    background: #000;
+    object-fit: cover; /* Makes video fill the container, cropping as necessary */
 }
 
 .hero-content {
@@ -545,7 +543,6 @@ body {
 .marketing-video-wrapper {
     width: 100%;
     overflow: hidden;
-    background: #000;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.09);
     display: flex;
     justify-content: center;
@@ -557,7 +554,6 @@ body {
     height: 100%;
     display: block;
     object-fit: cover;
-    background: #000;
 }
 
 .tf-insert-response-card {
@@ -582,27 +578,52 @@ body {
     }
 
     .hero-container {
-        flex-direction: column;
+        flex-direction: column; /* Stack vertically */
+        min-height: unset; /* Allow height to collapse to content */
     }
 
     .hero-media {
-        min-height: 50vh;
+        min-height: 300px; /* Give video section a fixed height on tablets */
         padding: 40px 20px;
         order: 2;
+        /* Revert to relative flow for contained video */
+        position: relative; /* Override desktop absolute context */
+        flex: none; /* Do not grow/shrink based on flex-basis for fixed height */
+        width: 100%; /* Take full width */
     }
 
     .hero-media-video-wrap {
-        max-width: 100vw;
-        border-radius: 12px;
+        position: relative; /* Revert to relative for normal flow within its parent */
+        width: 100%; /* Take full width of .hero-media (which is now fixed height/width) */
+        height: 100%; /* Take full height of .hero-media */
+        max-width: 700px; /* Limit max width for video on tablets */
+        aspect-ratio: 16/9; /* Maintain aspect ratio */
+        border-radius: 12px; /* Re-introduce rounding */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Re-introduce shadow */
+        /* Remove top, left as position is now relative */
+    }
+
+    .hero-media-video-wrap iframe {
+        object-fit: contain; /* Make video fit entirely within its box, showing black bars if aspect ratio differs */
     }
 
     .hero-content {
         padding: 60px 40px;
         order: 1;
+        text-align: center; /* Center content on smaller screens */
+        align-items: center; /* Center CTA button etc. */
+        flex: none; /* Allow content to take natural height */
+        width: 100%; /* Take full width */
     }
 
     .hero-title {
         font-size: 3rem;
+    }
+    .hero-desc {
+        max-width: unset; /* Allow description to use full width */
+    }
+    .hero-cta {
+        align-self: center; /* Center the button */
     }
 }
 
@@ -732,11 +753,16 @@ body {
         display: block;
     }
 
+    .hero-media {
+        min-height: 250px; /* Slightly smaller video height for phones */
+        padding: 30px 15px; /* Reduce padding more */
+    }
+
     .hero-media-video-wrap {
-        aspect-ratio: 16/9;
-        min-width: 200px;
-        min-height: 150px;
-        max-width: 100vw;
+        aspect-ratio: 16/9; /* Ensure aspect ratio is kept */
+        min-width: unset; /* Remove explicit min-width */
+        min-height: unset; /* Remove explicit min-height */
+        max-width: 100%; /* Take full width of parent */
         border-radius: 10px;
     }
 
@@ -804,6 +830,11 @@ body {
 
     .logo-bar-img {
         height: 28px;
+    }
+
+    .hero-media {
+        min-height: 200px; /* Even smaller video height for small phones */
+        padding: 20px 10px; /* Even less padding */
     }
 
     .hero-title {
