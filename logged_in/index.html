@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Styles */
         .sidebar {
             width: 280px;
             background: white;
@@ -166,7 +165,6 @@
             margin-left: auto;
         }
 
-        /* Main Content */
         .main-content {
             flex: 1;
             padding: 20px 30px;
@@ -242,7 +240,6 @@
             font-size: 14px;
         }
 
-        /* Template Cards */
         .templates-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -311,7 +308,6 @@
             text-decoration: none;
         }
 
-        /* Forms Table */
         .forms-section {
             background: white;
             border-radius: 12px;
@@ -447,7 +443,6 @@
             color: #6b7280;
         }
 
-        /* Response Stats */
         .response-stats {
             padding: 20px 24px;
             border-top: 1px solid #e5e7eb;
@@ -482,7 +477,6 @@
             cursor: pointer;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -578,7 +572,6 @@
             margin-top: 24px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -614,112 +607,66 @@
 
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <div class="logo-icon">R</div>
-                <span>rohanprogrammer1</span>
-                <i class="fas fa-chevron-down" style="margin-left: auto; font-size: 12px; color: #9ca3af;"></i>
+                <div class="logo-icon">R</div><span>rohanprogrammer1</span><i class="fas fa-chevron-down"
+                    style="margin-left: auto; font-size: 12px; color: #9ca3af;"></i>
             </div>
-
-            <button class="create-form-btn" onclick="openCreateFormModal()">
-                <i class="fas fa-plus"></i>
-                Create a new form
-            </button>
-
-            <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search" id="searchInput">
-            </div>
-
+            <button class="create-form-btn" onclick="openCreateFormModal()"><i class="fas fa-plus"></i> Create a new
+                form </button>
+            <div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" class="search-input"
+                    placeholder="Search" id="searchInput"></div>
             <nav class="nav-section">
-                <div class="nav-item active">
-                    <i class="fas fa-file-alt"></i>
-                    Forms
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-plug"></i>
-                    Integrations
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-palette"></i>
-                    Brand kit
-                </div>
+                <div class="nav-item active"><i class="fas fa-file-alt"></i> Forms </div>
+                <div class="nav-item"><i class="fas fa-plug"></i> Integrations </div>
+                <div class="nav-item"><i class="fas fa-palette"></i> Brand kit </div>
             </nav>
-
             <div class="workspace-section">
-                <h3>
-                    <i class="fas fa-folder"></i>
-                    Workspaces
-                    <i class="fas fa-plus" style="font-size: 12px; cursor: pointer;"></i>
-                </h3>
+                <h3><i class="fas fa-folder"></i> Workspaces <i class="fas fa-plus"
+                        style="font-size: 12px; cursor: pointer;"></i></h3>
                 <div style="margin-bottom: 16px;">
                     <div style="font-size: 12px; color: #9ca3af; margin-bottom: 8px;">Private</div>
-                    <div class="workspace-item">
-                        My workspace
-                        <span class="workspace-badge">1</span>
-                    </div>
+                    <div class="workspace-item"> My workspace <span class="workspace-badge">1</span></div>
                 </div>
             </div>
         </aside>
-
-        <!-- Main Content -->
         <main class="main-content">
             <header class="header">
                 <div class="header-left">
-                    <h1 class="header-title">My workspace</h1>
-                    <i class="fas fa-ellipsis-h" style="color: #9ca3af; cursor: pointer;"></i>
+                    <h1 class="header-title">My workspace</h1><i class="fas fa-ellipsis-h"
+                        style="color: #9ca3af; cursor: pointer;"></i>
                 </div>
-                <div class="header-actions">
-                    <button class="btn">
-                        <i class="fas fa-user-plus"></i>
-                        Invite
-                    </button>
-                    <button class="btn">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-primary">View plans</button>
+                <div class="header-actions"><button class="btn"><i class="fas fa-user-plus"></i> Invite </button><button
+                        class="btn"><i class="fas fa-eye"></i></button><button class="btn btn-primary">View
+                        plans</button>
                     <div class="user-avatar">RV</div>
                 </div>
             </header>
-
-            <!-- Template Cards -->
             <div class="templates-grid">
                 <div class="template-card" onclick="useTemplate('open-ended')">
-                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="template-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
+                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)"><i
+                            class="fas fa-times"></i></button>
+                    <div class="template-icon"><i class="fas fa-magic"></i></div>
                     <h3 class="template-title">Create an Open-ended survey for collecting detailed qualitative data.
                     </h3>
                     <p class="template-description">Perfect for gathering in-depth feedback and insights from your
                         audience.</p>
                     <a href="#" class="template-action">Use this form</a>
                 </div>
-
                 <div class="template-card" onclick="useTemplate('demographic')">
-                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="template-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
+                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)"><i
+                            class="fas fa-times"></i></button>
+                    <div class="template-icon"><i class="fas fa-magic"></i></div>
                     <h3 class="template-title">Create a Demographic survey to gather participant background information.
                     </h3>
                     <p class="template-description">Collect essential demographic data to better understand your
                         audience.</p>
                     <a href="#" class="template-action">Use this form</a>
                 </div>
-
                 <div class="template-card" onclick="useTemplate('likert')">
-                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="template-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
+                    <button class="template-close" onclick="event.stopPropagation(); closeTemplate(this)"><i
+                            class="fas fa-times"></i></button>
+                    <div class="template-icon"><i class="fas fa-magic"></i></div>
                     <h3 class="template-title">Create a Likert scale questionnaire for measuring attitudes and opinions.
                     </h3>
                     <p class="template-description">Use standardized rating scales to measure participant responses
@@ -727,8 +674,6 @@
                     <a href="#" class="template-action">Use this form</a>
                 </div>
             </div>
-
-            <!-- Forms Section -->
             <div class="forms-section">
                 <div class="forms-header">
                     <div class="forms-tabs">
@@ -737,25 +682,12 @@
                         <div class="forms-tab">Updated</div>
                         <div class="forms-tab">Integrations</div>
                     </div>
-                    <div class="view-controls">
-                        <button class="btn">
-                            <i class="fas fa-calendar"></i>
-                            Date created
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="view-toggle">
-                            <button class="view-btn active">
-                                <i class="fas fa-list"></i>
-                                List
-                            </button>
-                            <button class="view-btn">
-                                <i class="fas fa-th"></i>
-                                Grid
-                            </button>
-                        </div>
+                    <div class="view-controls"><button class="btn"><i class="fas fa-calendar"></i> Date created <i
+                                class="fas fa-chevron-down"></i></button>
+                        <div class="view-toggle"><button class="view-btn active"><i class="fas fa-list"></i> List
+                            </button><button class="view-btn"><i class="fas fa-th"></i> Grid </button></div>
                     </div>
                 </div>
-
                 <table class="forms-table">
                     <thead>
                         <tr>
@@ -767,288 +699,170 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody id="formsTableBody">
-                        <tr>
-                            <td>
-                                <div class="form-name">
-                                    <div class="form-icon">
-                                        <i class="fas fa-file-alt"></i>
-                                    </div>
-                                    <span class="form-title">My new form</span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="stats-badge">0</span>
-                            </td>
-                            <td>-</td>
-                            <td>04 Jun 2025</td>
-                            <td>
-                                <span class="stats-badge">0</span>
-                            </td>
-                            <td>
-                                <button class="more-btn">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="formsTableBody"></tbody>
                 </table>
-
                 <div class="response-stats">
                     <div class="stats-title">Responses collected</div>
-                    <div class="stats-count">0<span style="font-size: 14px; color: #6b7280; font-weight: 400;"> /
-                            10</span></div>
+                    <div class="stats-count" id="statsCount">0<span
+                            style="font-size: 14px; color: #6b7280; font-weight: 400;"> / 10</span></div>
                     <div class="stats-meta">Resets on Jul 4</div>
                     <a href="#" class="stats-action">Increase response limit</a>
                 </div>
             </div>
         </main>
     </div>
-
-    <!-- Create Form Modal -->
     <div class="modal" id="createFormModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Create New Form</h2>
-                <button class="modal-close" onclick="closeCreateFormModal()">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h2 class="modal-title">Create New Form</h2><button class="modal-close"
+                    onclick="closeCreateFormModal()"><i class="fas fa-times"></i></button>
             </div>
             <form id="createFormForm">
-                <div class="form-group">
-                    <label class="form-label" for="formName">Form Name</label>
-                    <input type="text" class="form-input" id="formName" placeholder="Enter form name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="formDescription">Description (Optional)</label>
-                    <textarea class="form-textarea" id="formDescription" placeholder="Describe your form"></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="formType">Form Type</label>
-                    <select class="form-input" id="formType">
+                <div class="form-group"><label class="form-label" for="formName">Form Name</label><input type="text"
+                        class="form-input" id="formName" placeholder="Enter form name" required></div>
+                <div class="form-group"><label class="form-label" for="formDescription">Description
+                        (Optional)</label><textarea class="form-textarea" id="formDescription"
+                        placeholder="Describe your form"></textarea></div>
+                <div class="form-group"><label class="form-label" for="formType">Form Type</label><select
+                        class="form-input" id="formType">
                         <option value="survey">Survey</option>
                         <option value="feedback">Feedback Form</option>
                         <option value="registration">Registration</option>
                         <option value="contact">Contact Form</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn" onclick="closeCreateFormModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create Form</button>
-                </div>
+                    </select></div>
+                <div class="modal-actions"><button type="button" class="btn"
+                        onclick="closeCreateFormModal()">Cancel</button><button type="submit"
+                        class="btn btn-primary">Create Form</button></div>
             </form>
         </div>
     </div>
-
     <script>
-        // Global variables
-        let forms = [
-            {
-                id: 1,
-                name: 'My new form',
-                responses: 0,
-                completion: '-',
-                updated: '04 Jun 2025',
-                integrations: 0
-            }
-        ];
-
-        // Modal functions
+        function getFormsFromStorage() {
+            const data = localStorage.getItem('forms');
+            return data ? JSON.parse(data) : [];
+        }
+        function saveFormsToStorage(forms) {
+            localStorage.setItem('forms', JSON.stringify(forms));
+        }
+        function updateStats() {
+            const forms = getFormsFromStorage();
+            let total = 0;
+            forms.forEach(f => { total += parseInt(f.responses || 0); });
+            document.getElementById('statsCount').innerHTML = total + '<span style="font-size: 14px; color: #6b7280; font-weight: 400;"> / 10</span>';
+        }
         function openCreateFormModal() {
             document.getElementById('createFormModal').classList.add('active');
         }
-
         function closeCreateFormModal() {
             document.getElementById('createFormModal').classList.remove('active');
             document.getElementById('createFormForm').reset();
         }
-
-        // Template functions
         function useTemplate(type) {
-            const templates = {
-                'open-ended': 'Open-ended Survey',
-                'demographic': 'Demographic Survey',
-                'likert': 'Likert Scale Questionnaire'
-            };
-
+            const templates = { 'open-ended': 'Open-ended Survey', 'demographic': 'Demographic Survey', 'likert': 'Likert Scale Questionnaire' };
             document.getElementById('formName').value = templates[type];
             openCreateFormModal();
         }
-
         function closeTemplate(button) {
             button.closest('.template-card').style.display = 'none';
         }
-
-        // Form creation
-        document.getElementById('createFormForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formName = document.getElementById('formName').value;
-            const formDescription = document.getElementById('formDescription').value;
-            const formType = document.getElementById('formType').value;
-
-            const newForm = {
-                id: forms.length + 1,
-                name: formName,
-                responses: 0,
-                completion: '-',
-                updated: new Date().toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric'
-                }),
-                integrations: 0
-            };
-
-            forms.push(newForm);
-            renderFormsTable();
-            closeCreateFormModal();
-
-            // Show success message
-            showNotification('Form created successfully!');
-        });
-
-        // Render forms table
         function renderFormsTable() {
             const tbody = document.getElementById('formsTableBody');
             tbody.innerHTML = '';
-
+            const forms = getFormsFromStorage();
             forms.forEach(form => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="form-name">
-                            <div class="form-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <span class="form-title">${form.name}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="stats-badge">${form.responses}</span>
-                    </td>
-                    <td>${form.completion}</td>
-                    <td>${form.updated}</td>
-                    <td>
-                        <span class="stats-badge">${form.integrations}</span>
-                    </td>
-                    <td>
-                        <button class="more-btn" onclick="showFormActions(${form.id})">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                    </td>
-                `;
+                row.innerHTML = `<td><div class="form-name"><div class="form-icon"><i class="fas fa-file-alt"></i></div><span class="form-title form-link" style="cursor:pointer; color:#10b981;" data-form="${form.name}">${form.name}</span></div></td><td><span class="stats-badge">${form.responses}</span></td><td>${form.completion}</td><td>${form.updated}</td><td><span class="stats-badge">${form.integrations}</span></td><td><button class="more-btn" onclick="showFormActions(${form.id})"><i class="fas fa-ellipsis-h"></i></button></td>`;
                 tbody.appendChild(row);
             });
+            updateStats();
+            setTimeout(() => {
+                document.querySelectorAll('.form-link').forEach(link => {
+                    link.onclick = function (e) {
+                        const formName = this.getAttribute('data-form');
+                        window.open(`/logged_in/form.html?q=${encodeURIComponent(formName)}`, '_blank');
+                    };
+                });
+            }, 0);
         }
-
-        // Search functionality
+        document.getElementById('createFormForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formName = document.getElementById('formName').value;
+            const formDescription = document.getElementById('formDescription').value;
+            const formType = document.getElementById('formType').value;
+            let forms = getFormsFromStorage();
+            const newForm = {
+                id: forms.length ? Math.max(...forms.map(f => f.id)) + 1 : 1,
+                name: formName,
+                description: formDescription,
+                type: formType,
+                responses: 0,
+                completion: '-',
+                updated: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+                integrations: 0
+            };
+            forms.push(newForm);
+            saveFormsToStorage(forms);
+            renderFormsTable();
+            closeCreateFormModal();
+            showNotification('Form created successfully!');
+        });
         document.getElementById('searchInput').addEventListener('input', function (e) {
             const searchTerm = e.target.value.toLowerCase();
-            const filteredForms = forms.filter(form =>
-                form.name.toLowerCase().includes(searchTerm)
-            );
-
+            const forms = getFormsFromStorage().filter(form => form.name.toLowerCase().includes(searchTerm));
             const tbody = document.getElementById('formsTableBody');
             tbody.innerHTML = '';
-
-            filteredForms.forEach(form => {
+            forms.forEach(form => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="form-name">
-                            <div class="form-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <span class="form-title">${form.name}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="stats-badge">${form.responses}</span>
-                    </td>
-                    <td>${form.completion}</td>
-                    <td>${form.updated}</td>
-                    <td>
-                        <span class="stats-badge">${form.integrations}</span>
-                    </td>
-                    <td>
-                        <button class="more-btn" onclick="showFormActions(${form.id})">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                    </td>
-                `;
+                row.innerHTML = `<td><div class="form-name"><div class="form-icon"><i class="fas fa-file-alt"></i></div><span class="form-title form-link" style="cursor:pointer; color:#10b981;" data-form="${form.name}">${form.name}</span></div></td><td><span class="stats-badge">${form.responses}</span></td><td>${form.completion}</td><td>${form.updated}</td><td><span class="stats-badge">${form.integrations}</span></td><td><button class="more-btn" onclick="showFormActions(${form.id})"><i class="fas fa-ellipsis-h"></i></button></td>`;
                 tbody.appendChild(row);
             });
+            setTimeout(() => {
+                document.querySelectorAll('.form-link').forEach(link => {
+                    link.onclick = function (e) {
+                        const formName = this.getAttribute('data-form');
+                        window.open(`/logged_in/form?q=${encodeURIComponent(formName)}`, '_blank');
+                    };
+                });
+            }, 0);
         });
-
-        // Tab switching
         document.querySelectorAll('.forms-tab').forEach(tab => {
             tab.addEventListener('click', function () {
                 document.querySelectorAll('.forms-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
             });
         });
-
-        // View toggle
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', function () {
                 document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
             });
         });
-
-        // Navigation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function () {
                 document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
             });
         });
-
-        // Form actions
         function showFormActions(formId) {
             const actions = ['Edit', 'Duplicate', 'Share', 'Delete'];
             const actionMenu = document.createElement('div');
-            actionMenu.style.cssText = `
-                position: fixed;
-                background: white;
-                border: 1px solid #e5e7eb;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-                min-width: 120px;
-            `;
-
+            actionMenu.style.cssText = ` position: fixed; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); z-index: 1000; min-width: 120px; `;
             actions.forEach(action => {
                 const actionItem = document.createElement('div');
-                actionItem.style.cssText = `
-                    padding: 8px 16px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    color: #374151;
-                `;
+                actionItem.style.cssText = ` padding: 8px 16px; cursor: pointer; font-size: 14px; color: #374151; `;
                 actionItem.textContent = action;
                 actionItem.addEventListener('click', () => {
                     handleFormAction(formId, action);
                     document.body.removeChild(actionMenu);
                 });
-                actionItem.addEventListener('mouseenter', () => {
-                    actionItem.style.backgroundColor = '#f3f4f6';
-                });
-                actionItem.addEventListener('mouseleave', () => {
-                    actionItem.style.backgroundColor = 'white';
-                });
+                actionItem.addEventListener('mouseenter', () => { actionItem.style.backgroundColor = '#f3f4f6'; });
+                actionItem.addEventListener('mouseleave', () => { actionItem.style.backgroundColor = 'white'; });
                 actionMenu.appendChild(actionItem);
             });
-
-            // Position menu
             const rect = event.target.getBoundingClientRect();
             actionMenu.style.top = rect.bottom + 'px';
             actionMenu.style.left = (rect.left - 100) + 'px';
-
             document.body.appendChild(actionMenu);
-
-            // Close menu when clicking outside
             setTimeout(() => {
                 document.addEventListener('click', function closeMenu() {
                     if (document.body.contains(actionMenu)) {
@@ -1058,10 +872,9 @@
                 });
             }, 100);
         }
-
         function handleFormAction(formId, action) {
+            let forms = getFormsFromStorage();
             const form = forms.find(f => f.id === formId);
-
             switch (action) {
                 case 'Edit':
                     showNotification(`Editing ${form.name}`);
@@ -1069,15 +882,12 @@
                 case 'Duplicate':
                     const duplicatedForm = {
                         ...form,
-                        id: forms.length + 1,
+                        id: forms.length ? Math.max(...forms.map(f => f.id)) + 1 : 1,
                         name: `${form.name} (Copy)`,
-                        updated: new Date().toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric'
-                        })
+                        updated: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
                     };
                     forms.push(duplicatedForm);
+                    saveFormsToStorage(forms);
                     renderFormsTable();
                     showNotification('Form duplicated successfully!');
                     break;
@@ -1087,71 +897,37 @@
                 case 'Delete':
                     if (confirm(`Are you sure you want to delete "${form.name}"?`)) {
                         forms = forms.filter(f => f.id !== formId);
+                        saveFormsToStorage(forms);
                         renderFormsTable();
                         showNotification('Form deleted successfully!');
                     }
                     break;
             }
         }
-
-        // Notification system
         function showNotification(message) {
             const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #10b981;
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: 500;
-                z-index: 2000;
-                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-            `;
+            notification.style.cssText = ` position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; z-index: 2000; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); transform: translateX(100%); transition: transform 0.3s ease; `;
             notification.textContent = message;
-
             document.body.appendChild(notification);
-
-            // Animate in
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-
-            // Remove after 3 seconds
+            setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
             setTimeout(() => {
                 notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
+                setTimeout(() => { if (document.body.contains(notification)) { document.body.removeChild(notification); } }, 300);
             }, 3000);
         }
-
-        // Close modal when clicking outside
         document.getElementById('createFormModal').addEventListener('click', function (e) {
-            if (e.target === this) {
-                closeCreateFormModal();
-            }
+            if (e.target === this) { closeCreateFormModal(); }
         });
-
-        // Keyboard shortcuts
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeCreateFormModal();
-            }
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault();
-                openCreateFormModal();
-            }
+            if (e.key === 'Escape') { closeCreateFormModal(); }
+            if (e.ctrlKey && e.key === 'n') { e.preventDefault(); openCreateFormModal(); }
         });
-
-        // Initialize
         document.addEventListener('DOMContentLoaded', function () {
+            if (!localStorage.getItem('forms')) {
+                saveFormsToStorage([
+                    { id: 1, name: 'My new form', description: '', type: 'survey', responses: 0, completion: '-', updated: '04 Jun 2025', integrations: 0 }
+                ]);
+            }
             renderFormsTable();
             showNotification('Welcome to Form Builder!');
         });

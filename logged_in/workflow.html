@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Workflow Builder</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background-color:#f8f9fa;color:#333;line-height:1.5;height:100vh;display:flex;flex-direction:column;}
+.top-nav{background:white;border-bottom:1px solid #e5e7eb;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:14px;color:#6b7280;}
+.breadcrumb-item{display:flex;align-items:center;gap:8px;}
+.nav-tabs{display:flex;gap:24px;margin:0 auto;}
+.nav-tab{padding:8px 16px;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.nav-tab.active{color:#111827;border-bottom-color:#10b981;}
+.nav-tab:hover{color:#374151;}
+.top-actions{display:flex;align-items:center;gap:12px;}
+.btn{padding:8px 16px;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #d1d5db;background:white;color:#374151;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
+.btn:hover{border-color:#9ca3af;}
+.btn-primary{background:#10b981;color:white;border-color:#10b981;}
+.btn-primary:hover{background:#059669;}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:#10b981;color:white;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;}
+.secondary-nav{background:white;border-bottom:1px solid #e5e7eb;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
+.workflow-tabs{display:flex;gap:24px;}
+.workflow-tab{padding:8px 16px;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;transition:all 0.2s;}
+.workflow-tab.active{color:#111827;font-weight:600;}
+.workflow-tab:hover{color:#374151;}
+.workflow-actions{display:flex;align-items:center;gap:16px;}
+.action-btn{background:none;border:none;color:#6b7280;cursor:pointer;font-size:16px;padding:4px;border-radius:4px;transition:all 0.2s;}
+.action-btn:hover{color:#374151;background:#f3f4f6;}
+.main-layout{display:flex;flex:1;overflow:hidden;}
+.left-sidebar{width:280px;background:white;border-right:1px solid #e5e7eb;overflow-y:auto;padding:20px;}
+.sidebar-section{margin-bottom:24px;}
+.sidebar-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.sidebar-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#6b7280;}
+.sidebar-title{font-size:14px;font-weight:600;color:#111827;}
+.sidebar-content{font-size:14px;color:#6b7280;line-height:1.6;}
+.add-btn{width:32px;height:32px;border-radius:50%;background:white;border:1px solid #d1d5db;color:#6b7280;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;}
+.add-btn:hover{border-color:#10b981;color:#10b981;}
+.workflow-canvas{flex:1;overflow:auto;padding:40px;position:relative;background-color:#f8f9fa;}
+.workflow-container{position:relative;min-height:100%;}
+.workflow-node{position:absolute;background:white;border:1px solid #e5e7eb;border-radius:8px;padding:16px;width:240px;box-shadow:0 2px 4px rgba(0,0,0,0.05);cursor:move;user-select:none;z-index:10;}
+.node-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.node-icon{width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;}
+.node-icon.chart{background:#10b981;}
+.node-icon.circle{background:#8b5cf6;}
+.node-icon.phone{background:#ef4444;}
+.node-icon.check{background:#3b82f6;}
+.node-number{font-size:12px;font-weight:600;color:#111827;background:#f3f4f6;padding:2px 6px;border-radius:4px;}
+.node-title{font-size:14px;font-weight:500;color:#111827;margin-bottom:8px;}
+.node-options{display:flex;gap:8px;flex-wrap:wrap;}
+.node-option{font-size:12px;color:#6b7280;padding:4px 8px;border-radius:4px;background:#f3f4f6;}
+.node-connector{position:absolute;width:24px;height:24px;background:#374151;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;cursor:pointer;z-index:20;}
+.node-connector.right{top:50%;right:-12px;transform:translateY(-50%);}
+.node-connector.left{top:50%;left:-12px;transform:translateY(-50%);}
+.connection-line{position:absolute;background:#d1d5db;height:2px;z-index:5;}
+.connection-line::after{content:'';position:absolute;right:0;top:-4px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #d1d5db;}
+.right-sidebar{width:320px;background:white;border-left:1px solid #e5e7eb;overflow-y:auto;padding:20px;}
+.integration-section{margin-bottom:32px;}
+.integration-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.integration-icon{width:32px;height:32px;border-radius:6px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:16px;}
+.integration-title{font-size:14px;font-weight:600;color:#111827;}
+.integration-content{font-size:14px;color:#6b7280;line-height:1.6;}
+.integration-buttons{display:flex;gap:8px;margin-top:12px;}
+.integration-btn{width:32px;height:32px;border-radius:6px;background:#f3f4f6;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;color:#6b7280;cursor:pointer;transition:all 0.2s;}
+.integration-btn:hover{background:#e5e7eb;color:#374151;}
+.bottom-bar{background:white;border-top:1px solid #e5e7eb;padding:12px 20px;display:flex;align-items:center;gap:16px;}
+.bottom-action{background:none;border:none;color:#6b7280;cursor:pointer;font-size:16px;padding:4px 8px;border-radius:4px;transition:all 0.2s;display:flex;align-items:center;gap:4px;}
+.bottom-action:hover{color:#374151;background:#f3f4f6;}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+.modal.active{display:flex;}
+.modal-content{background:white;border-radius:12px;padding:24px;width:90%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.modal-title{font-size:18px;font-weight:600;color:#111827;}
+.modal-close{background:none;border:none;font-size:20px;color:#9ca3af;cursor:pointer;}
+.form-group{margin-bottom:20px;}
+.form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+.form-input{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;}
+.form-input:focus{outline:none;border-color:#10b981;}
+.form-select{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;background:white;}
+.modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:24px;}
+@media (max-width: 1200px){.right-sidebar{width:280px;}}
+@media (max-width: 992px){.left-sidebar{width:240px;}}
+@media (max-width: 768px){.main-layout{flex-direction:column;}.left-sidebar,.right-sidebar{width:100%;border:none;border-bottom:1px solid #e5e7eb;}.workflow-canvas{padding:20px;}}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+<div class="breadcrumb">
+<div class="breadcrumb-item"><i class="fas fa-th"></i><span>My workspace</span><i class="fas fa-chevron-right"></i></div>
+<div class="breadcrumb-item"><span id="breadcrumbFormName"></span></div>
+</div>
+<div class="nav-tabs">
+<div class="nav-tab" onclick="gotoContent()">Content</div>
+<div class="nav-tab active">Workflow</div>
+<div class="nav-tab" onclick="gotoConnect()">Connect</div>
+<div class="nav-tab" onclick="gotoShare()">Share</div>
+<div class="nav-tab">Results</div>
+</div>
+<div class="top-actions">
+<button class="btn"><i class="fas fa-link"></i></button>
+<button class="btn btn-primary">View plans</button>
+<button class="btn"><i class="fas fa-question-circle"></i></button>
+<div class="user-avatar">RV</div>
+</div>
+</nav>
+<div class="secondary-nav">
+<div class="workflow-tabs">
+<div class="workflow-tab active">Branching</div>
+<div class="workflow-tab">Scoring</div>
+<div class="workflow-tab">Outcome quiz</div>
+</div>
+<div class="workflow-actions">
+<button class="action-btn" title="Preview"><i class="fas fa-play"></i></button>
+<button class="action-btn" title="Undo"><i class="fas fa-undo"></i></button>
+<button class="action-btn" title="Redo"><i class="fas fa-redo"></i></button>
+<button class="action-btn" title="Settings"><i class="fas fa-cog"></i></button>
+<div style="margin-left: 16px; font-size: 14px; font-weight: 500;">Actions</div>
+</div>
+</div>
+<div class="main-layout">
+<aside class="left-sidebar">
+<div class="sidebar-section">
+<div class="sidebar-header">
+<div class="sidebar-icon"><i class="fas fa-arrow-down"></i></div>
+<div class="sidebar-title">Pull data in</div>
+</div>
+<div class="sidebar-content">Track sources, identify respondents, and personalize the form content and flow with URL parameters.</div>
+<div style="margin-top:16px;text-align:center;">
+<button class="add-btn" onclick="openModal()"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+</aside>
+<main class="workflow-canvas">
+<div class="workflow-container" id="workflowContainer"></div>
+</main>
+<aside class="right-sidebar">
+<div class="integration-section">
+<div class="integration-header">
+<div class="integration-icon"><i class="fas fa-th"></i></div>
+<div class="integration-title">Connect</div>
+</div>
+<div class="integration-buttons">
+<button class="integration-btn"><i class="fas fa-file-alt"></i></button>
+<button class="integration-btn"><i class="fas fa-table"></i></button>
+<button class="integration-btn"><i class="fas fa-minus"></i></button>
+<button class="integration-btn"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+<div class="integration-section">
+<div class="integration-header">
+<div class="integration-icon"><i class="fas fa-envelope"></i></div>
+<div class="integration-title">Messages</div>
+</div>
+<div class="integration-buttons">
+<button class="integration-btn"><i class="fas fa-file-alt"></i></button>
+<button class="integration-btn"><i class="fas fa-puzzle-piece"></i></button>
+<button class="integration-btn"><i class="fas fa-envelope"></i></button>
+<button class="integration-btn"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+<div class="integration-section">
+<div class="integration-header">
+<div class="integration-icon"><i class="fas fa-link"></i></div>
+<div class="integration-title">Webhooks</div>
+</div>
+<div class="integration-content">Connect with any app to send responses or trigger actions.</div>
+<div style="margin-top:16px;text-align:center;">
+<button class="add-btn"><i class="fas fa-plus"></i></button>
+</div>
+</div>
+</aside>
+</div>
+<div class="bottom-bar">
+<button class="bottom-action"><i class="fas fa-search"></i></button>
+<button class="bottom-action"><i class="fas fa-search-plus"></i></button>
+<button class="bottom-action"><i class="fas fa-expand"></i></button>
+<button class="bottom-action"><i class="fas fa-history"></i></button>
+<div style="margin-left:auto;font-size:12px;color:#6b7280;">https://define.me/form/BeTiPeQXeJeqcL</div>
+</div>
+<div class="modal" id="addNodeModal">
+<div class="modal-content">
+<div class="modal-header"><h2 class="modal-title">Add Question Node</h2>
+<button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
+<form id="addNodeForm">
+<div class="form-group"><label class="form-label" for="nodeTitle">Question Title</label><input type="text" class="form-input" id="nodeTitle" placeholder="Enter question title" required></div>
+<div class="form-group"><label class="form-label" for="nodeType">Question Type</label><select class="form-select" id="nodeType"><option value="rating">Rating Scale</option><option value="yesno">Yes/No</option><option value="text">Text Input</option><option value="multiple">Multiple Choice</option></select></div>
+<div class="modal-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button type="submit" class="btn btn-primary">Add Node</button></div>
+</form>
+</div>
+</div>
+<script>
+let nodes = [];
+let connections = [];
+let draggedNode = null;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+let isConnecting = false;
+let connectingFrom = null;
+let zoomLevel = 1;
+let formName = (new URL(window.location.href)).searchParams.get('q') || 'Untitled Form';
+document.getElementById('breadcrumbFormName').textContent = formName;
+let forms = JSON.parse(localStorage.getItem('forms') || '[]');
+let form = forms.find(f => (f.name || f.title) === formName);
+if(!form){form={name:formName,questions:[]};forms.push(form);localStorage.setItem('forms',JSON.stringify(forms));}
+function iconClass(type,title){
+    if(type==='rating')return 'chart';
+    if(type==='phone')return 'phone';
+    if(type==='text'&&title&&title.toLowerCase().includes('thanks'))return 'check';
+    if(type==='yesno')return 'check';
+    if(type==='multiple')return 'circle';
+    return 'circle';
+}
+function clearWorkflow(){
+    nodes=[];connections=[];
+    let container=document.getElementById('workflowContainer');
+    while(container.firstChild)container.removeChild(container.firstChild);
+}
+function drawWorkflow(){
+    clearWorkflow();
+    let qlist = form.questions||[];
+    let gapX=340,gapY=190;
+    // Build nodes
+    qlist.forEach((q,i)=>{
+        let x=100+i*gapX,y=100;
+        if(q.nodePos){x=q.nodePos.x;y=q.nodePos.y;}
+        let opts=[];
+        if(q.type==='rating')opts=['1','2','3','4','5'];
+        if(q.type==='yesno')opts=['Yes','No'];
+        if(q.type==='multiple')opts=q.options||['Option 1','Option 2'];
+        let node = {
+            id:i+1,
+            type:q.type,
+            title:q.title||'Untitled',
+            options:opts,
+            x:x,
+            y:y,
+            nodePos:{x:x,y:y}
+        };
+        nodes.push(node);
+    });
+    nodes.forEach(n=>{
+        let nodeEl = document.createElement('div');
+        nodeEl.className='workflow-node';
+        nodeEl.id='node-'+n.id;
+        nodeEl.style.left=n.x+'px';
+        nodeEl.style.top=n.y+'px';
+        let ic=iconClass(n.type,n.title);
+        nodeEl.innerHTML=`<div class="node-header"><div class="node-icon ${ic}"><i class="fas fa-${ic==='chart'?'chart-bar':ic==='phone'?'phone':ic==='check'?'check':ic}"></i></div><div class="node-number">${n.id}</div></div><div class="node-title" contenteditable="true" spellcheck="false">${n.title}</div><div class="node-options">${n.options.map(o=>`<div class="node-option">${o}</div>`).join('')}</div><div class="node-connector right" data-node-id="${n.id}"><i class="fas fa-arrow-right"></i></div><div class="node-connector left" data-node-id="${n.id}" style="${n.id===1?'display:none;':''}"><i class="fas fa-arrow-left"></i></div>`;
+        nodeEl.addEventListener('mousedown',startDragNode);
+        nodeEl.querySelector('.node-title').onblur=function(){
+            n.title = this.textContent;
+            let qidx=n.id-1;
+            if(form.questions[qidx])form.questions[qidx].title=this.textContent;
+            saveWorkflow();
+            drawWorkflow();
+        };
+        nodeEl.querySelector('.node-title').setAttribute('placeholder','Question title');
+        nodeEl.querySelector('.node-connector.right').addEventListener('mousedown',startConnectionArrow);
+        nodeEl.querySelector('.node-connector.left').addEventListener('mouseup',endConnectionArrow);
+        n.element=nodeEl;
+        document.getElementById('workflowContainer').appendChild(nodeEl);
+    });
+    // Draw connections
+    nodes.forEach((n,i)=>{
+        let q=form.questions[i];
+        let fromIdx=null;
+        if(q.branchIf!==undefined&&q.branchIf!==''&&q.branchIf!==null){
+            fromIdx=parseInt(q.branchIf);
+        }else if(i>0){
+            fromIdx=i-1;
+        }
+        if(fromIdx!==null&&fromIdx!==i){
+            let fromNode=nodes[fromIdx];
+            let toNode=nodes[i];
+            if(fromNode&&toNode){
+                let fromX=fromNode.x+240,fromY=fromNode.y+60;
+                let toX=toNode.x,toY=toNode.y+60;
+                let width=toX-fromX,height=toY-fromY;
+                let line=document.createElement('div');
+                line.className='connection-line';
+                line.style.left=fromX+'px';
+                line.style.top=fromY+'px';
+                line.style.width=Math.max(30,width)+'px';
+                line.style.height='2px';
+                document.getElementById('workflowContainer').appendChild(line);
+                connections.push({from:fromNode.id,to:toNode.id,element:line});
+            }
+        }
+    });
+}
+function startDragNode(e){
+    if(e.target.closest('.node-connector'))return;
+    let nodeEl=e.currentTarget;
+    let nodeId=parseInt(nodeEl.id.split('-')[1]);
+    let node=nodes.find(n=>n.id===nodeId);
+    if(!node)return;
+    draggedNode=node;
+    let rect=nodeEl.getBoundingClientRect();
+    let containerRect=document.getElementById('workflowContainer').getBoundingClientRect();
+    dragOffsetX = e.clientX - rect.left;
+    dragOffsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove',dragNodeMove);
+    document.addEventListener('mouseup',stopDragNode);
+    e.preventDefault();
+}
+function dragNodeMove(e){
+    if(!draggedNode)return;
+    let container=document.getElementById('workflowContainer');
+    let containerRect=container.getBoundingClientRect();
+    let newX=(e.clientX-containerRect.left-dragOffsetX)/zoomLevel;
+    let newY=(e.clientY-containerRect.top-dragOffsetY)/zoomLevel;
+    draggedNode.x=newX;
+    draggedNode.y=newY;
+    draggedNode.nodePos={x:newX,y:newY};
+    draggedNode.element.style.left=`${newX}px`;
+    draggedNode.element.style.top=`${newY}px`;
+    if(form.questions[draggedNode.id-1])form.questions[draggedNode.id-1].nodePos={x:newX,y:newY};
+    saveWorkflow();
+    drawWorkflow();
+}
+function stopDragNode(){
+    draggedNode=null;
+    document.removeEventListener('mousemove',dragNodeMove);
+    document.removeEventListener('mouseup',stopDragNode);
+}
+let arrowLine = null;
+let arrowFromNode = null;
+function startConnectionArrow(e){
+    e.stopPropagation();
+    isConnecting=true;
+    let nodeId=parseInt(e.currentTarget.dataset.nodeId);
+    arrowFromNode=nodes.find(n=>n.id===nodeId);
+    arrowLine=document.createElement('div');
+    arrowLine.className='connection-line';
+    arrowLine.id='temp-arrow';
+    document.getElementById('workflowContainer').appendChild(arrowLine);
+    document.addEventListener('mousemove',moveArrowLine);
+    document.addEventListener('mouseup',cancelArrowLine);
+}
+function moveArrowLine(e){
+    if(!isConnecting||!arrowLine||!arrowFromNode)return;
+    let container=document.getElementById('workflowContainer');
+    let containerRect=container.getBoundingClientRect();
+    let fromX=arrowFromNode.x+240,fromY=arrowFromNode.y+60;
+    let toX=(e.clientX-containerRect.left)/zoomLevel,toY=(e.clientY-containerRect.top)/zoomLevel;
+    let width=toX-fromX,height=toY-fromY;
+    arrowLine.style.left=fromX+'px';
+    arrowLine.style.top=fromY+'px';
+    arrowLine.style.width=Math.max(30,width)+'px';
+    arrowLine.style.height='2px';
+}
+function endConnectionArrow(e){
+    if(!isConnecting||!arrowFromNode)return;
+    let nodeId=parseInt(e.currentTarget.dataset.nodeId);
+    let toNode=nodes.find(n=>n.id===nodeId);
+    if(toNode&&arrowFromNode.id!==toNode.id){
+        let idx=toNode.id-1;
+        if(form.questions[idx]){
+            form.questions[idx].branchIf=arrowFromNode.id-1;
+            saveWorkflow();
+            drawWorkflow();
+        }
+    }
+    cleanupArrowLine();
+}
+function cancelArrowLine(){
+    cleanupArrowLine();
+}
+function cleanupArrowLine(){
+    isConnecting=false;
+    arrowFromNode=null;
+    if(arrowLine){arrowLine.remove();arrowLine=null;}
+    document.removeEventListener('mousemove',moveArrowLine);
+    document.removeEventListener('mouseup',cancelArrowLine);
+}
+function openModal(){document.getElementById('addNodeModal').classList.add('active');}
+function closeModal(){document.getElementById('addNodeModal').classList.remove('active');document.getElementById('addNodeForm').reset();}
+function addNewNode(e){
+    e.preventDefault();
+    const title=document.getElementById('nodeTitle').value||'Untitled';
+    const type=document.getElementById('nodeType').value;
+    let opts=[];
+    if(type==='rating'){opts=['1','2','3','4','5'];}
+    else if(type==='yesno'){opts=['Yes','No'];}
+    else if(type==='multiple'){opts=['Option 1','Option 2','Option 3'];}
+    let last=nodes[nodes.length-1];
+    let x=last?last.x+340:100,y=last?last.y:100;
+    let q={type:type,title:title,options:opts,nodePos:{x:x,y:y}};
+    form.questions.push(q);
+    saveWorkflow();
+    closeModal();
+    drawWorkflow();
+    showNotification('Node added successfully!');
+}
+function saveWorkflow(){
+    let idx=forms.findIndex(f=>(f.name||f.title)===formName);
+    if(idx!==-1){forms[idx]=form;}
+    localStorage.setItem('forms',JSON.stringify(forms));
+}
+function showNotification(message){
+    const notification = document.createElement('div');
+    notification.style.cssText = `position:fixed;top:20px;right:20px;background:#10b981;color:white;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:500;z-index:2000;box-shadow:0 4px 12px rgba(16,185,129,0.3);transform:translateX(100%);transition:transform 0.3s ease;`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => { if(document.body.contains(notification)){document.body.removeChild(notification);} }, 300);
+    }, 3000);
+}
+function gotoContent(){window.location='/logged_in/form.html?q='+encodeURIComponent(formName);}
+function gotoConnect(){window.location='/logged_in/connect.html?q='+encodeURIComponent(formName);}
+function gotoShare(){window.location='/logged_in/share.html?q='+encodeURIComponent(formName);}
+document.getElementById('addNodeForm').addEventListener('submit',addNewNode);
+document.addEventListener('DOMContentLoaded',()=>{
+    drawWorkflow();
+    document.querySelectorAll('.nav-tab').forEach(tab=>{
+        tab.addEventListener('click',function(){
+            document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    document.querySelectorAll('.workflow-tab').forEach(tab=>{
+        tab.addEventListener('click',function(){
+            document.querySelectorAll('.workflow-tab').forEach(t=>t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    document.getElementById('addNodeModal').addEventListener('click',function(e){
+        if(e.target===this)closeModal();
+    });
+    document.querySelector('.add-btn').addEventListener('click',openModal);
+});
+</script>
+</body>
+</html>
