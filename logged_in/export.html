@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Typeform Export</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+html, body {
+    height: 100%;
+    min-height: 100vh;
+}
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(124deg, #222b32 0%, #1a222a 100%);
+    color: #f3f4f6;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    transition: background .3s, color .3s;
+}
+body.light {
+    background: linear-gradient(124deg, #e0f7fa 0%, #f8fafc 100%);
+    color: #222;
+}
+.typeform-bg {
+    min-height: 100vh;
+    min-width: 100vw;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background: inherit;
+}
+.typeform-center-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-wrap {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    background: #20262e;
+    border-radius: 36px;
+    box-shadow: 0 12px 50px #10b98122, 0 2px 8px #10b98111;
+    padding: 70px 28px 36px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 520px;
+    position: relative;
+    animation: fadeIn .8s cubic-bezier(.5,-0.02,0,1.01);
+    transition: box-shadow .18s, background .3s, color .3s;
+    z-index: 1;
+}
+body.light .form-wrap {
+    background: #fff;
+    color: #222;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(38px);}
+    to   { opacity: 1; transform: none;}
+}
+.brand-topbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 62px;
+    border-radius: 36px 36px 0 0;
+    background: linear-gradient(90deg, #10b981 0, #3b82f6 100%);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px 0 24px;
+    box-sizing: border-box;
+    color: #fff;
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -1px;
+    box-shadow: 0 2px 18px #10b98111;
+    z-index: 5;
+    min-width: 0;
+    transition: background .3s;
+}
+.brand-topbar .brand-left { display: flex; align-items: center; gap: 12px; min-width: 0;}
+.brand-logo {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: #181f24;
+    color: #10b981;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 1.25rem;
+    box-shadow: 0 2px 8px #10b98119;
+    flex-shrink: 0;
+}
+.brand-topbar .brand-title { font-size: 1.08rem; font-weight: 700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.brand-topbar .brand-link,
+.brand-topbar .brand-toggle {
+    background: #fff1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 15px;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 12px;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    display: flex; align-items: center; gap: 7px;
+}
+.brand-topbar .brand-link:hover,
+.brand-topbar .brand-toggle:hover { background: #fff3; color: #fff; }
+.form-title {
+    font-size: 2.13rem;
+    font-weight: 700;
+    color: #f3f4f6;
+    margin-bottom: 10px;
+    text-align: left;
+    letter-spacing: -1.5px;
+    word-break: break-word;
+    width: 100%;
+    margin-top: 58px;
+    transition: color .3s;
+}
+body.light .form-title { color: #111827; }
+.form-desc {
+    color: #b5bec9;
+    margin-bottom: 36px;
+    font-size: 1.13rem;
+    text-align: left;
+    width: 100%;
+    transition: color .3s;
+}
+body.light .form-desc { color: #6b7280; }
+.form-question {
+    margin-bottom: 28px;
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+}
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 13px;
+    color: #d1fae5;
+    font-size: 1.16rem;
+    transition: color .3s;
+}
+body.light .form-label { color: #1a2733; }
+.form-required { color: #ef4444; margin-left: 5px; }
+.form-rating {
+    display: flex;
+    gap: 18px;
+    justify-content:center;
+    margin-bottom: 6px;
+}
+.form-rating input[type="radio"] { display: none; }
+.form-rating label {
+    cursor: pointer;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    font-size: 26px; font-weight: 600;
+    background: #232b32; border: 2px solid #374151;
+    color: #b5bec9;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 1px 4px #0001;
+    transition: .16s, background .3s, color .3s, border .3s;
+}
+body.light .form-rating label {
+    background: #f3f4f6; border-color: #d1d5db; color: #374151;
+}
+.form-rating input[type="radio"]:checked + label {
+    background: #10b981; color: #fff; border-color: #10b981;
+    box-shadow: 0 2px 12px #10b98122;
+    transform: scale(1.09);
+}
+.form-yesno {
+    display: flex; gap: 36px; justify-content:center; margin-bottom: 7px;
+}
+.form-yesno label {
+    cursor: pointer;
+    min-width: 88px;
+    padding: 13px 0;
+    border-radius: 18px;
+    background: #232b32;
+    color: #d1fae5;
+    border: 2px solid #374151;
+    font-weight: 700;
+    font-size: 1.13rem;
+    text-align: center;
+    transition: .15s, background .3s, color .3s, border .3s;
+    box-shadow: 0 1px 2px #0001;
+}
+body.light .form-yesno label {
+    background: #f3f4f6; color: #1a2733; border-color: #d1d5db;
+}
+.form-yesno input[type="radio"] { display:none; }
+.form-yesno input[type="radio"]:checked + label {
+    background: #10b981; color: #fff; border-color: #10b981;
+    box-shadow: 0 2px 8px #10b98122;
+    transform: scale(1.08);
+}
+input[type="number"], textarea, input[type="text"] {
+    width: 100%;
+    border-radius: 13px;
+    padding: 15px 15px;
+    border: 1.7px solid #374151;
+    font-size: 1.07rem;
+    background: #232b32;
+    color: #f3f4f6;
+    margin-bottom: 0;
+    outline: none;
+    box-shadow: 0 1px 2px #0001;
+    transition: border .2s,box-shadow .2s, background .3s, color .3s;
+}
+body.light input[type="number"], body.light textarea, body.light input[type="text"] {
+    background: #f9fafb; color: #222; border: 1.9px solid #d1d5db;
+}
+input[type="number"]:focus, textarea:focus, input[type="text"]:focus {
+    border: 1.7px solid #10b981;
+    box-shadow: 0 2px 8px #10b98115;
+    background: #1a222a;
+}
+body.light input[type="number"]:focus, body.light textarea:focus, body.light input[type="text"]:focus {
+    background: #fff;
+}
+textarea { resize: vertical; min-height: 90px; }
+input[type="file"] { margin-top: 7px; }
+.img-upload-preview { display: block; max-width: 230px; margin-bottom: 12px; border-radius: 8px; }
+.form-image-feedback { margin-top: 8px; }
+button[type="submit"], .next-btn, .ok-btn {
+    margin-top: 32px;
+    width: 100%;
+    padding: 19px 0;
+    background: linear-gradient(90deg,#10b981 30%,#06b6d4 100%);
+    color: #fff;
+    font-size: 1.13rem;
+    border: none;
+    border-radius: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 2px 18px #10b98122;
+    letter-spacing:.01em;
+    transition: background .16s,transform .08s;
+}
+button[type="submit"]:hover, .next-btn:hover, .ok-btn:hover {
+    background: linear-gradient(90deg,#059669 15%,#0891b2 100%);
+    transform: translateY(-2px) scale(1.027);
+}
+.form-success {
+    background: #192f23;
+    color: #36e1c5;
+    padding: 52px 15px 36px 15px;
+    border-radius: 20px;
+    font-size: 1.22rem;
+    text-align: center;
+    min-width: 280px;
+    width:100%;
+    box-shadow:0 8px 44px #10b98115;
+    margin-top:0;
+    margin-bottom:0;
+    transition: background .3s, color .3s;
+}
+body.light .form-success { background: #f0fdf4; color: #059669;}
+.page-count {
+    color: #36e1c5;
+    font-size: 1.07rem;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing:.09em;
+    transition: color .3s;
+}
+body.light .page-count { color: #06b6d4;}
+/* Multiple choice in both modes */
+.multiple-wrap label {
+    cursor:pointer;
+    padding:12px 22px;
+    background:#232b32;
+    border-radius:11px;
+    border:1.5px solid #374151;
+    font-size:1rem;
+    color:#f3f4f6;
+    font-weight:600;
+    transition:.15s, background .3s, color .3s, border .3s;
+    margin-right:7px;
+    margin-bottom:7px;
+}
+body.light .multiple-wrap label {
+    background:#f3f4f6;
+    color:#222;
+    border:1.5px solid #d1d5db;
+}
+.multiple-wrap input[type="radio"] { display:none; }
+.multiple-wrap input[type="radio"]:checked+label {
+    background: #10b981; color: #fff; border-color: #10b981;
+    box-shadow: 0 2px 8px #10b98122;
+    transform: scale(1.08);
+}
+@media (max-width:650px) {
+    .form-wrap {
+        padding: 70px 2vw 24vw 2vw;
+        min-height: 340px;
+        max-width:98vw;
+    }
+    .brand-topbar {
+        padding: 0 10px 0 10px;
+        font-size: 15px;
+        min-width:0;
+        height: 54px;
+        border-radius: 20px 20px 0 0;
+    }
+    .form-title { margin-top: 52px; font-size: 1.25rem;}
+}
+@media (max-width:430px) {
+    .form-title,.form-desc { font-size: 1rem; }
+    .form-wrap { padding: 0; min-width:0;}
+    .brand-topbar { font-size:14px; }
+}
+</style>
+</head>
+<body>
+<div class="typeform-bg">
+  <div class="typeform-center-container">
+    <div class="form-wrap" id="exportFormContainer">
+      <div class="brand-topbar">
+        <div class="brand-left">
+          <div class="brand-logo"><i class="fas fa-comment-dots"></i></div>
+          <div class="brand-title">Typeform</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button class="brand-link" onclick="window.location='/'"><i class="fas fa-home"></i> Home</button>
+          <button class="brand-toggle" id="modeToggle" title="Toggle dark/light mode"><i class="fas fa-moon"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function getFormName() {
+    const url = new URL(window.location.href);
+    return url.searchParams.get('q') || 'Untitled Form';
+}
+function getFormData(formName) {
+    const forms = JSON.parse(localStorage.getItem('forms') || '[]');
+    return forms.find(f => (f.name || f.title) === formName);
+}
+function shouldShowQuestion(q, answers) {
+    if (q.branchIf!==undefined && q.branchIf!=='' && q.branchIf!==null) {
+        let val = answers[q.branchIf];
+        if (q.branchValue!==undefined && q.branchValue!=='' && val!==undefined && val!==null) {
+            if (q.type==='number') return String(val) === String(q.branchValue);
+            if (q.type==='textarea') return val && val.indexOf(q.branchValue) !== -1;
+            return String(val) === String(q.branchValue);
+        }
+        return false;
+    }
+    return true;
+}
+function renderForm() {
+    const formName = getFormName();
+    const form = getFormData(formName);
+    if(!form) { document.getElementById('exportFormContainer').innerHTML += '<div style="padding:30px;font-size:1.3rem;">Form not found.</div>'; return; }
+    const qlist = form.questions || [];
+    let answers = {};
+    let currentPage = 0;
+    function showPage(idx) {
+        let visibleList = [];
+        let visibleIdxMap = {};
+        let visibleI = 0;
+        for (let j = 0; j < qlist.length; ++j) {
+            if (shouldShowQuestion(qlist[j], answers)) {
+                visibleList.push(qlist[j]);
+                visibleIdxMap[visibleI++] = j;
+            }
+        }
+        if (idx >= visibleList.length) { showThankYou(); return; }
+        let i = visibleIdxMap[idx];
+        let q = qlist[i];
+        let html = '';
+        html += `<div class="page-count">Page ${idx+1} of ${visibleList.length}</div>`;
+        if (idx === 0) {
+            html += `<div class="form-title">${form.name||form.title||'Untitled'}</div>`;
+            html += `<div class="form-desc">${form.description||''}</div>`;
+        }
+        html += `<form id="pageForm" autocomplete="off"><div class="form-question" data-idx="${i}" id="qwrap${i}" style="">`;
+        html += `<div class="form-label">${q.title||'Untitled'}${q.required?'<span class="form-required">*</span>':''}</div>`;
+        if(q.type === 'rating') {
+            html += `<div class="form-rating">`;
+            for(let j=1;j<= (q.max?parseInt(q.max):5); j++) {
+                html += `<input type="radio" name="q${i}" value="${j}" id="q${i}_${j}"${q.required?' required':''}${answers[i]==j?' checked':''}><label for="q${i}_${j}" title="${j}">${j}</label>`;
+            }
+            html += `</div>`;
+        }
+        if(q.type === 'number') {
+            html += `<input type="number" placeholder="Type a number..." name="q${i}" id="q${i}_num" value="${answers[i]||''}" ${q.required?'required':''}>`;
+        }
+        if(q.type === 'textarea') {
+            html += `<textarea placeholder="Your feedback..." name="q${i}" id="q${i}_txt" ${q.required?'required':''}>${answers[i]||''}</textarea>`;
+        }
+        if(q.type === 'yesno') {
+            html += `<div class="form-yesno">`;
+            html += `<input type="radio" id="q${i}_yes" name="q${i}" value="Yes" ${q.required?'required':''}${answers[i]==='Yes'?' checked':''}><label for="q${i}_yes">Yes</label>`;
+            html += `<input type="radio" id="q${i}_no" name="q${i}" value="No" ${q.required?'required':''}${answers[i]==='No'?' checked':''}><label for="q${i}_no">No</label>`;
+            html += `</div>`;
+        }
+        if(q.type === 'multiple' && q.options && q.options.length) {
+            html += `<div class="multiple-wrap" style="display:flex;flex-wrap:wrap;gap:10px;">`;
+            q.options.forEach((opt,k)=>{
+                html += `<input type="radio" id="q${i}_opt${k}" name="q${i}" value="${opt}" ${q.required?'required':''}${answers[i]===opt?' checked':''}><label for="q${i}_opt${k}">${opt}</label>`;
+            });
+            html += `</div>`;
+        }
+        if(q.type === 'image') {
+            html += `<input type="file" accept="image/*" name="q${i}" id="q${i}_img" ${q.required?'required':''}>`;
+            html += `<img src="${answers['imgprev_'+i]||''}" style="display:${answers['imgprev_'+i]?'':'none'};" class="img-upload-preview" id="imgPrev${i}">`;
+        }
+        html += `</div>`;
+        if (idx === visibleList.length - 1) {
+            html += `<button type="submit">Submit</button>`;
+        } else {
+            html += `<button type="button" class="ok-btn">OK</button>`;
+        }
+        html += `</form>`;
+        document.getElementById('exportFormContainer').innerHTML = document.getElementById('exportFormContainer').innerHTML.split('<div class="brand-topbar">')[0] + document.querySelector('.brand-topbar').outerHTML + html;
+        // File/image preview logic
+        if(q.type==='image'){
+            let el = document.getElementById('q'+i+'_img');
+            let prev = document.getElementById('imgPrev'+i);
+            if(el && prev){
+                el.addEventListener('change',function(){
+                    if(this.files && this.files[0]){
+                        let reader = new FileReader();
+                        reader.onload = function(e){
+                            prev.src = e.target.result;
+                            prev.style.display = '';
+                            answers['imgprev_'+i] = e.target.result;
+                        };
+                        reader.readAsDataURL(this.files[0]);
+                    } else {
+                        prev.style.display = 'none';
+                        answers['imgprev_'+i] = '';
+                    }
+                });
+            }
+        }
+        // Next/OK logic
+        let formEl = document.getElementById('pageForm');
+        if (idx < visibleList.length-1) {
+            formEl.querySelector('.ok-btn').onclick = function() {
+                collectAnswer(q, i, formEl, answers);
+                updateAnswers(q, i, answers, formEl);
+                if(q.required && !validateFilled(q, i, answers, formEl)) {
+                    formEl.querySelector('.ok-btn').textContent = 'Please fill out';
+                    setTimeout(()=>{formEl.querySelector('.ok-btn').textContent='OK';},1200);
+                    return;
+                }
+                currentPage = idx+1;
+                showPage(currentPage);
+            }
+        } else {
+            formEl.onsubmit = function(e) {
+                e.preventDefault();
+                collectAnswer(q, i, formEl, answers);
+                updateAnswers(q, i, answers, formEl);
+                if(q.required && !validateFilled(q, i, answers, formEl)) return;
+                showThankYou();
+            };
+        }
+    }
+    function updateAnswers(q, i, answers, formEl) {
+        if(q.type === 'rating') {
+            let checked = formEl.querySelector('input[name="q'+i+'"]:checked');
+            answers[i] = checked ? checked.value : '';
+        }
+        if(q.type === 'number') {
+            let inp = document.getElementById('q'+i+'_num');
+            answers[i] = inp ? inp.value : '';
+        }
+        if(q.type === 'textarea') {
+            let inp = document.getElementById('q'+i+'_txt');
+            answers[i] = inp ? inp.value : '';
+        }
+        if(q.type === 'yesno') {
+            let checked = formEl.querySelector('input[name="q'+i+'"]:checked');
+            answers[i] = checked ? checked.value : '';
+        }
+        if(q.type === 'multiple') {
+            let checked = formEl.querySelector('input[name="q'+i+'"]:checked');
+            answers[i] = checked ? checked.value : '';
+        }
+        if(q.type === 'image') {
+            // image logic handled above
+        }
+    }
+    function collectAnswer(q, i, formEl, answers) {
+        updateAnswers(q,i,answers,formEl);
+    }
+    function validateFilled(q, i, answers, formEl) {
+        if(q.type === 'rating' && !answers[i]) return false;
+        if(q.type === 'number' && !answers[i]) return false;
+        if(q.type === 'textarea' && !answers[i]) return false;
+        if(q.type === 'yesno' && !answers[i]) return false;
+        if(q.type === 'multiple' && !answers[i]) return false;
+        if(q.type === 'image') {
+            let inp = formEl.querySelector('input[type="file"]');
+            if(inp && inp.required && !inp.value) return false;
+        }
+        return true;
+    }
+    function showThankYou() {
+        document.getElementById('exportFormContainer').innerHTML = document.getElementById('exportFormContainer').innerHTML.split('<div class="brand-topbar">')[0] + document.querySelector('.brand-topbar').outerHTML
+          + `<div class="form-success" style="display:block;">Thank you! Your response has been submitted.<br><span style="font-size:1.1rem;display:block;margin-top:12px;">You may now close this page.</span></div>`;
+    }
+    showPage(currentPage);
+}
+function setInitialMode() {
+    let userPref = localStorage.getItem('typeform-export-mode');
+    let prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if(userPref === "dark" || (!userPref && prefersDark)) {
+        document.body.classList.remove('light');
+        document.getElementById('modeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+        document.getElementById('modeToggle').title = "Switch to light mode";
+    } else {
+        document.body.classList.add('light');
+        document.getElementById('modeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+        document.getElementById('modeToggle').title = "Switch to dark mode";
+    }
+}
+function toggleMode() {
+    if(document.body.classList.contains('light')) {
+        document.body.classList.remove('light');
+        localStorage.setItem('typeform-export-mode', 'dark');
+        document.getElementById('modeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+        document.getElementById('modeToggle').title = "Switch to light mode";
+    } else {
+        document.body.classList.add('light');
+        localStorage.setItem('typeform-export-mode', 'light');
+        document.getElementById('modeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+        document.getElementById('modeToggle').title = "Switch to dark mode";
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    setInitialMode();
+    document.getElementById('modeToggle').onclick = toggleMode;
+    renderForm();
+});
+</script>
+</body>
+</html>

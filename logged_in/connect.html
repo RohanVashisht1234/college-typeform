@@ -1,35 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect - Form Integrations</title>
+    <title>Connect Integrations - Typeform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --accent: #3b82f6;
+            --surface: #fff;
+            --gray: #f8f9fa;
+            --text: #222;
+            --border: #e5e7eb;
+            --surface-dark: #191c1e;
+            --surface-dark2: #202427;
+            --gray-dark: #181b1e;
+            --border-dark: #32363a;
+            --text-dark: #f3f4f6;
+            --text-dark2: #b5bec9;
+            --accent-dark: #06b6d4;
+        }
+
+        html,
+        body {
+            height: 100%;
+            min-height: 100vh;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--gray);
+            color: var(--text);
             line-height: 1.5;
             height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background .2s, color .2s;
         }
 
-        /* Top Navigation */
+        body.dark,
+        .dark body {
+            background: var(--gray-dark) !important;
+            color: var(--text-dark2);
+        }
+
+        .dark,
+        .dark * {
+            --text: var(--text-dark2);
+            color: var(--text-dark2) !important;
+        }
+
         .top-nav {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
             padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: background .2s, border .2s;
+        }
+
+        .dark .top-nav {
+            background: var(--surface-dark);
+            border-color: var(--border-dark);
         }
 
         .breadcrumb {
@@ -44,6 +80,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .breadcrumb-item span {
+            cursor: pointer;
         }
 
         .nav-tabs {
@@ -64,11 +104,24 @@
 
         .nav-tab.active {
             color: #111827;
-            border-bottom-color: #10b981;
+            border-bottom-color: var(--primary);
         }
 
         .nav-tab:hover {
             color: #374151;
+        }
+
+        .dark .nav-tab {
+            color: var(--text-dark2);
+        }
+
+        .dark .nav-tab.active {
+            color: #fff;
+            border-bottom-color: var(--primary);
+        }
+
+        .dark .nav-tab:hover {
+            color: #fff;
         }
 
         .top-actions {
@@ -84,7 +137,7 @@
             font-weight: 500;
             cursor: pointer;
             border: 1px solid #d1d5db;
-            background: white;
+            background: var(--surface);
             color: #374151;
             transition: all 0.2s;
             display: flex;
@@ -97,30 +150,20 @@
         }
 
         .btn-primary {
-            background: #10b981;
-            color: white;
-            border-color: #10b981;
+            background: var(--primary);
+            color: white !important;
+            border-color: var(--primary);
         }
 
         .btn-primary:hover {
-            background: #059669;
-        }
-
-        .btn-dark {
-            background: #374151;
-            color: white;
-            border-color: #374151;
-        }
-
-        .btn-dark:hover {
-            background: #1f2937;
+            background: var(--primary-dark);
         }
 
         .user-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #10b981;
+            background: var(--primary);
             color: white;
             display: flex;
             align-items: center;
@@ -129,454 +172,352 @@
             font-size: 14px;
         }
 
-        /* Secondary Navigation */
-        .secondary-nav {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
+        .dark .top-actions .btn,
+        .dark .btn {
+            background: var(--surface-dark2);
+            color: var(--text-dark2) !important;
+            border-color: var(--border-dark);
         }
 
-        .secondary-tabs {
-            display: flex;
-            gap: 32px;
+        .dark .btn-primary {
+            background: var(--primary);
+            color: #fff !important;
+            border-color: var(--primary);
         }
 
-        .secondary-tab {
-            padding: 16px 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: #6b7280;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .dark .btn-primary:hover {
+            background: var(--primary-dark);
         }
 
-        .secondary-tab.active {
-            color: #111827;
-            border-bottom-color: #111827;
-        }
-
-        .secondary-tab:hover {
-            color: #374151;
-        }
-
-        /* Main Layout */
         .main-layout {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
-        /* Left Sidebar */
         .left-sidebar {
-            width: 320px;
-            background: white;
-            border-right: 1px solid #e5e7eb;
+            width: 220px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
             overflow-y: auto;
-            padding: 24px;
+            padding: 24px 0 24px 18px;
         }
 
-        .sidebar-header {
-            margin-bottom: 24px;
+        .dark .left-sidebar {
+            background: var(--surface-dark2);
+            border-color: var(--border-dark);
         }
 
-        .sidebar-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #111827;
+        .connect-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px;
+            border-radius: 8px;
+            cursor: pointer;
             margin-bottom: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
         }
 
-        .sidebar-description {
-            font-size: 14px;
+        .connect-option:hover {
+            background: #f9fafb;
+        }
+
+        .connect-option.active {
+            background: #f0fdf4;
+            border-color: var(--primary);
+        }
+
+        .connect-icon {
+            width: 27px;
+            height: 27px;
+            border-radius: 6px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #6b7280;
-            line-height: 1.6;
+            font-size: 14px;
         }
 
-        .search-box {
-            position: relative;
-            margin-bottom: 24px;
+        .connect-option.active .connect-icon {
+            background: var(--primary);
+            color: white;
         }
 
-        .search-input {
-            width: 100%;
-            padding: 10px 12px 10px 40px;
+        .connect-text {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dark .connect-option {
+            color: var(--text-dark2);
+        }
+
+        .dark .connect-option.active {
+            background: #093;
+            border-color: var(--primary);
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 32px 32px 32px;
+            background: var(--gray);
+        }
+
+        .dark .main-content {
+            background: var(--gray-dark);
+        }
+
+        .connect-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            background: var(--surface);
+            padding: 18px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .dark .connect-header {
+            background: var(--surface-dark2);
+            border-color: var(--border-dark);
+        }
+
+        .copy-link-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-link-btn:hover {
+            background: #1f2937;
+        }
+
+        .form-url {
+            flex: 1;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 6px;
             font-size: 14px;
             background: #f9fafb;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #10b981;
-            background: white;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
             color: #6b7280;
-            font-size: 14px;
         }
 
-        .clear-search {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #9ca3af;
-            cursor: pointer;
-            font-size: 14px;
+        .dark .form-url {
+            background: #23272b;
+            color: var(--text-dark2);
+            border-color: var(--border-dark);
         }
 
-        .categories-section {
-            margin-bottom: 24px;
-        }
-
-        .categories-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 16px;
-        }
-
-        .category-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #374151;
-            transition: all 0.2s;
-            margin-bottom: 4px;
-        }
-
-        .category-item:hover {
-            background: #f3f4f6;
-        }
-
-        .category-item.active {
-            background: #f0fdf4;
-            color: #10b981;
-            font-weight: 500;
-        }
-
-        .category-count {
-            background: #e5e7eb;
-            color: #6b7280;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .category-item.active .category-count {
-            background: #dcfce7;
-            color: #10b981;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-        }
-
-        .zapier-section {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid #e5e7eb;
-        }
-
-        .zapier-header {
+        .customize-actions {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
         }
 
-        .zapier-icon {
-            width: 24px;
-            height: 24px;
-            color: #10b981;
-        }
-
-        .zapier-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #111827;
-        }
-
-        .zapier-description {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 16px;
-        }
-
-        .zapier-textarea {
-            width: 100%;
-            min-height: 80px;
-            padding: 12px;
+        .action-btn {
+            background: none;
             border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            resize: vertical;
-            margin-bottom: 16px;
-        }
-
-        .zapier-textarea:focus {
-            outline: none;
-            border-color: #10b981;
-        }
-
-        .zapier-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .zapier-powered {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
             color: #6b7280;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
         }
 
-        .zapier-logo {
-            height: 16px;
+        .action-btn:hover {
+            background: #f3f4f6;
+            color: #374151;
         }
 
-        .integrations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 16px;
+        .dark .action-btn {
+            color: var(--text-dark2);
+        }
+
+        .connect-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #222;
+            font-weight: 700;
+        }
+
+        .dark h2 {
+            color: #f3f4f6;
+        }
+
+        h3 {
+            font-size: 1.18rem;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .dark h3 {
+            color: #36e1c5;
+        }
+
+        .integration-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 24px;
+            margin-bottom: 30px;
         }
 
         .integration-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.2s;
-            cursor: pointer;
+            flex: 1 0 240px;
+            background: var(--surface);
+            border-radius: 11px;
+            border: 1.5px solid var(--border);
+            padding: 22px 20px 14px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow .2s;
+            box-shadow: 0 1.5px 10px #10b98111;
         }
 
         .integration-card:hover {
-            border-color: #10b981;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+            box-shadow: 0 4px 30px #10b98122;
+            border-color: var(--primary);
         }
 
-        .integration-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 12px;
+        .dark .integration-card {
+            background: var(--surface-dark2);
+            border-color: var(--border-dark);
         }
 
-        .integration-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
+        .integration-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 7px;
         }
 
-        .integration-icon.google-sheets {
-            background: #34a853;
-        }
-
-        .integration-icon.google-analytics {
-            background: #ff9800;
-        }
-
-        .integration-icon.hubspot {
-            background: #ff7a59;
-        }
-
-        .integration-icon.slack {
-            background: #4a154b;
-        }
-
-        .integration-icon.mailchimp {
-            background: #ffe01b;
-            color: #333;
-        }
-
-        .integration-icon.salesforce {
-            background: #00a1e0;
-        }
-
-        .integration-info {
-            flex: 1;
-        }
-
-        .integration-name {
-            font-size: 16px;
+        .integration-card .label {
             font-weight: 600;
-            color: #111827;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 7px;
         }
 
-        .premium-badge {
-            background: #fbbf24;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .integration-description {
-            font-size: 14px;
+        .integration-card .desc {
+            font-size: 0.98rem;
             color: #6b7280;
-            line-height: 1.5;
+            margin-bottom: 11px;
         }
 
-        .connect-btn {
-            margin-left: auto;
+        .dark .integration-card .desc {
+            color: #a4b1c2;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+        .integration-card .integration-btn {
+            margin-top: auto;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 7px;
+            font-weight: 600;
+            font-size: 0.97rem;
+            padding: 9px 19px;
+            cursor: pointer;
+            transition: .13s;
         }
 
-        .modal.active {
-            display: flex;
+        .integration-card .integration-btn:hover {
+            background: var(--primary-dark);
         }
 
-        .modal-content {
-            background: white;
+        .webhook-section {
+            background: var(--surface);
             border-radius: 12px;
-            padding: 24px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
+            border: 1px solid var(--border);
+            margin-top: 36px;
+            padding: 30px 28px;
         }
 
-        .modal-header {
+        .dark .webhook-section {
+            background: var(--surface-dark2);
+            border-color: var(--border-dark);
+        }
+
+        .webhook-options {
+            margin-top: 16px;
+        }
+
+        .webhook-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #111827;
+        .dark .webhook-row {
+            border-bottom: 1px solid #282c34;
         }
 
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: #9ca3af;
+        .webhook-row:last-child {
+            border-bottom: none;
+        }
+
+        .webhook-label {
+            font-size: 1rem;
+        }
+
+        .webhook-toggle {
+            width: 44px;
+            height: 24px;
+            border-radius: 12px;
+            background: #d1d5db;
+            position: relative;
             cursor: pointer;
+            transition: background .2s;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .webhook-toggle.active {
+            background: var(--primary);
         }
 
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 6px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #10b981;
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
+        .webhook-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
             background: white;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 24px;
-        }
-
-        /* Loading State */
-        .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #10b981;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            transition: transform 0.2s;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .webhook-toggle.active::after {
+            transform: translateX(20px);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-layout {
+        .dark .webhook-toggle {
+            background: #333;
+        }
+
+        @media (max-width: 1000px) {
+            .integration-list {
                 flex-direction: column;
-            }
-
-            .left-sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #e5e7eb;
-            }
-
-            .integrations-grid {
-                grid-template-columns: 1fr;
+                gap: 18px;
             }
         }
 
@@ -592,587 +533,237 @@
                 margin: 0;
             }
 
-            .main-content {
-                padding: 16px;
+            .main-layout {
+                flex-direction: column;
             }
 
-            .left-sidebar {
-                padding: 16px;
+            .left-sidebar,
+            .right-sidebar {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #e5e7eb;
             }
+
+            .main-content {
+                padding: 12px;
+            }
+
+            .webhook-section {
+                padding: 18px 7vw;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #333;
         }
     </style>
 </head>
+
 <body>
     <!-- Top Navigation -->
     <nav class="top-nav">
         <div class="breadcrumb">
-            <div class="breadcrumb-item">
-                <i class="fas fa-th"></i>
-                <span>My workspace</span>
-                <i class="fas fa-chevron-right"></i>
+            <div class="breadcrumb-item" onclick="gotoWorkspace()" style="cursor:pointer;">
+                <i class="fas fa-th"></i><span>My workspace</span><i class="fas fa-chevron-right"></i>
             </div>
-            <div class="breadcrumb-item">
-                <span>My new form</span>
-            </div>
+            <div class="breadcrumb-item"><span id="breadcrumbFormName"></span></div>
         </div>
-
         <div class="nav-tabs">
-            <div class="nav-tab">Content</div>
-            <div class="nav-tab">Workflow</div>
-            <div class="nav-tab active">Connect</div>
-            <div class="nav-tab">Share</div>
-            <div class="nav-tab">Results</div>
+            <div class="nav-tab" onclick="gotoContent()">Content</div>
+            <div class="nav-tab" onclick="gotoWorkflow()">Workflow</div>
+            <div class="nav-tab active" onclick="gotoConnect()">Connect</div>
+            <div class="nav-tab" onclick="gotoShare()">Share</div>
+            <div class="nav-tab" onclick="gotoResults()">Results</div>
         </div>
-
         <div class="top-actions">
-            <button class="btn">
-                <i class="fas fa-link"></i>
-            </button>
-            <button class="btn btn-primary">View plans</button>
-            <button class="btn">
-                <i class="fas fa-question-circle"></i>
-            </button>
+            <button class="btn" id="linkBtn"><i class="fas fa-link"></i></button>
+            <button class="btn btn-primary" id="plansBtn">View plans</button>
+            <button class="btn" id="helpBtn"><i class="fas fa-question-circle"></i></button>
             <div class="user-avatar">RV</div>
+            <button class="btn" id="darkToggleBtn" title="Toggle dark mode" style="margin-left:8px;"><i
+                    class="fas fa-moon"></i></button>
         </div>
     </nav>
-
-    <!-- Secondary Navigation -->
-    <div class="secondary-nav">
-        <div class="secondary-tabs">
-            <div class="secondary-tab active">Integrations</div>
-            <div class="secondary-tab">Webhooks</div>
-        </div>
-    </div>
-
     <div class="main-layout">
         <!-- Left Sidebar -->
         <aside class="left-sidebar">
-            <div class="sidebar-header">
-                <h1 class="sidebar-title">Connect Typeform to your favorite apps</h1>
-                <p class="sidebar-description">
-                    Create workflows that work for you. Spend more time walking Kobe, your pet lizard.
-                </p>
+            <div class="connect-option active" data-option="integrations" onclick="showIntegrations()">
+                <div class="connect-icon"><i class="fas fa-cubes"></i></div>
+                <div class="connect-text">Integrations</div>
             </div>
-
-            <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search integrations" id="searchInput">
-                <button class="clear-search" id="clearSearch" style="display: none;">
-                    <i class="fas fa-times"></i>
-                </button>
+            <div class="connect-option" data-option="webhooks" onclick="showWebhooks()">
+                <div class="connect-icon"><i class="fas fa-bolt"></i></div>
+                <div class="connect-text">Webhooks</div>
             </div>
-
-            <div class="categories-section">
-                <h2 class="categories-title">Categories</h2>
-                <div class="category-item active" data-category="all">
-                    <span>All</span>
-                    <span class="category-count">79</span>
-                </div>
-                <div class="category-item" data-category="analytics">
-                    <span>Analytics & reporting</span>
-                    <span class="category-count">20</span>
-                </div>
-                <div class="category-item" data-category="automation">
-                    <span>Automation</span>
-                    <span class="category-count">1</span>
-                </div>
-                <div class="category-item" data-category="cms">
-                    <span>CMS</span>
-                    <span class="category-count">2</span>
-                </div>
-                <div class="category-item" data-category="collaboration">
-                    <span>Collaboration</span>
-                    <span class="category-count">16</span>
-                </div>
-                <div class="category-item" data-category="customer-support">
-                    <span>Customer support</span>
-                    <span class="category-count">5</span>
-                </div>
-                <div class="category-item" data-category="developer-tools">
-                    <span>Developer tools</span>
-                    <span class="category-count">6</span>
-                </div>
-                <div class="category-item" data-category="documents">
-                    <span>Documents</span>
-                    <span class="category-count">6</span>
-                </div>
-                <div class="category-item" data-category="file-management">
-                    <span>File management</span>
-                    <span class="category-count">4</span>
-                </div>
-                <div class="category-item" data-category="lead-generation">
-                    <span>Lead generation</span>
-                    <span class="category-count">19</span>
-                </div>
-                <div class="category-item" data-category="marketing">
-                    <span>Marketing automation</span>
-                    <span class="category-count">32</span>
-                </div>
-                <div class="category-item" data-category="payments">
-                    <span>Payments & e-commerce</span>
-                    <span class="category-count">5</span>
-                </div>
-                <div class="category-item" data-category="productivity">
-                    <span>Productivity</span>
-                    <span class="category-count">16</span>
-                </div>
-                <div class="category-item" data-category="research">
-                    <span>Research and customer</span>
-                    <span class="category-count">2</span>
-                </div>
+            <div style="margin-top:30px;">
+                <button class="btn btn-primary" style="width:100%;" onclick="window.location='/pricing.html'"><i
+                        class="fas fa-crown"></i> Upgrade plan</button>
+                <div style="font-size:12px;color:#6b7280;margin-top:10px;">Try Business or Enterprise for more
+                    integration options.</div>
             </div>
+            <div id="mockSidebarInfo" style="margin-top:25px;font-size:13px;color:#6b7280;"></div>
         </aside>
-
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Zapier AI Section -->
-            <div class="zapier-section">
-                <div class="zapier-header">
-                    <i class="fas fa-magic zapier-icon"></i>
-                    <h2 class="zapier-title">Generate a custom flow with Zapier AI</h2>
-                </div>
-                <p class="zapier-description">Describe what you want to do with your data</p>
-                <textarea 
-                    class="zapier-textarea" 
-                    placeholder="E.g. When the typeform is submitted, check if leads exist in Salesforce and send details to Slack"
-                    id="zapierDescription"
-                ></textarea>
-                <div class="zapier-footer">
-                    <div class="zapier-powered">
-                        <span>Powered by</span>
-                        <svg class="zapier-logo" viewBox="0 0 100 20" fill="currentColor">
-                            <path d="M10 0L20 10L10 20L0 10L10 0Z"/>
-                            <text x="25" y="14" font-size="12" font-weight="bold">zapier</text>
-                        </svg>
-                    </div>
-                    <button class="btn btn-dark" id="generateFlow">Generate flow</button>
+            <div class="connect-header">
+                <button class="copy-link-btn" onclick="copyLink()"><i class="fas fa-link"></i> Copy form link</button>
+                <input type="text" class="form-url" value="" readonly id="formUrl">
+                <div class="customize-actions">
+                    <button class="action-btn" title="Customize" id="editBtn"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn" title="Email"><i class="fas fa-envelope"></i></button>
+                    <button class="action-btn" title="QR Code"><i class="fas fa-qrcode"></i></button>
                 </div>
             </div>
-
-            <!-- Integrations Grid -->
-            <div class="integrations-grid" id="integrationsGrid">
-                <!-- Integrations will be populated by JavaScript -->
+            <div class="connect-content" id="connectContent">
+                <!-- Integrations and webhooks DOM will be toggled here -->
             </div>
         </main>
     </div>
-
-    <!-- Connection Modal -->
-    <div class="modal" id="connectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Connect to Google Sheets</h2>
-                <button class="modal-close" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="connectionForm">
-                <div class="form-group">
-                    <label class="form-label" for="connectionName">Connection Name</label>
-                    <input type="text" class="form-input" id="connectionName" placeholder="My Google Sheets Connection" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="spreadsheetUrl">Spreadsheet URL</label>
-                    <input type="url" class="form-input" id="spreadsheetUrl" placeholder="https://docs.google.com/spreadsheets/..." required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="worksheetName">Worksheet Name</label>
-                    <input type="text" class="form-input" id="worksheetName" placeholder="Sheet1" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="updateMode">Update Mode</label>
-                    <select class="form-select" id="updateMode">
-                        <option value="append">Append new rows</option>
-                        <option value="update">Update existing rows</option>
-                        <option value="replace">Replace all data</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        <span class="btn-text">Connect</span>
-                        <span class="loading" style="display: none;"></span>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <script>
-        // Sample integrations data
-        const integrations = [
-            {
-                id: 'google-sheets',
-                name: 'Google Sheets',
-                description: 'Send your data straight to Google Sheets. Automatically syncs as results come in.',
-                icon: 'fas fa-table',
-                iconClass: 'google-sheets',
-                category: 'documents',
-                premium: false
-            },
-            {
-                id: 'google-analytics',
-                name: 'Google Analytics',
-                description: 'Discover how people find and interact with your typeform. Get the data you need to measure campaigns, improve conversions, and more.',
-                icon: 'fas fa-chart-bar',
-                iconClass: 'google-analytics',
-                category: 'analytics',
-                premium: true
-            },
-            {
-                id: 'hubspot',
-                name: 'HubSpot',
-                description: 'Send contact, company, or deal info to HubSpot to quickly follow up on new leads or update existing details to your free HubSpot account.',
-                icon: 'fas fa-bullhorn',
-                iconClass: 'hubspot',
-                category: 'lead-generation',
-                premium: false
-            },
-            {
-                id: 'slack',
-                name: 'Slack',
-                description: 'Get instant notifications in Slack when someone submits your typeform. Perfect for team collaboration.',
-                icon: 'fab fa-slack',
-                iconClass: 'slack',
-                category: 'collaboration',
-                premium: false
-            },
-            {
-                id: 'mailchimp',
-                name: 'Mailchimp',
-                description: 'Add new subscribers to your Mailchimp audience automatically when they submit your typeform.',
-                icon: 'fas fa-envelope',
-                iconClass: 'mailchimp',
-                category: 'marketing',
-                premium: false
-            },
-            {
-                id: 'salesforce',
-                name: 'Salesforce',
-                description: 'Create leads, contacts, or custom objects in Salesforce from your typeform responses.',
-                icon: 'fas fa-cloud',
-                iconClass: 'salesforce',
-                category: 'lead-generation',
-                premium: true
-            }
-        ];
-
-        let currentCategory = 'all';
-        let searchTerm = '';
-        let connectedIntegrations = new Set();
-
-        // Initialize the application
-        function init() {
-            renderIntegrations();
-            setupEventListeners();
+        function getFormName() {
+            const url = new URL(window.location.href);
+            return url.searchParams.get('q') || 'Untitled Form';
         }
-
-        // Render integrations based on current filters
-        function renderIntegrations() {
-            const grid = document.getElementById('integrationsGrid');
-            const filteredIntegrations = integrations.filter(integration => {
-                const matchesCategory = currentCategory === 'all' || integration.category === currentCategory;
-                const matchesSearch = integration.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                    integration.description.toLowerCase().includes(searchTerm.toLowerCase());
-                return matchesCategory && matchesSearch;
-            });
-
-            grid.innerHTML = filteredIntegrations.map(integration => `
-                <div class="integration-card" onclick="openConnectionModal('${integration.id}')">
-                    <div class="integration-header">
-                        <div class="integration-icon ${integration.iconClass}">
-                            <i class="${integration.icon}"></i>
-                        </div>
-                        <div class="integration-info">
-                            <div class="integration-name">
-                                ${integration.name}
-                                ${integration.premium ? '<span class="premium-badge">Premium</span>' : ''}
-                            </div>
-                            <div class="integration-description">${integration.description}</div>
-                        </div>
-                        <button class="btn btn-dark connect-btn" onclick="event.stopPropagation(); ${connectedIntegrations.has(integration.id) ? 'disconnectIntegration' : 'openConnectionModal'}('${integration.id}')">
-                            ${connectedIntegrations.has(integration.id) ? 'Connected' : 'Connect'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+        function getShareUrl() {
+            // The shareable form link (public)
+            const formName = getFormName();
+            return window.location.origin + "/logged_in/export.html?q=" + encodeURIComponent(formName);
         }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Search functionality
-            const searchInput = document.getElementById('searchInput');
-            const clearSearch = document.getElementById('clearSearch');
-
-            searchInput.addEventListener('input', function() {
-                searchTerm = this.value;
-                clearSearch.style.display = searchTerm ? 'block' : 'none';
-                renderIntegrations();
-            });
-
-            clearSearch.addEventListener('click', function() {
-                searchInput.value = '';
-                searchTerm = '';
-                this.style.display = 'none';
-                renderIntegrations();
-            });
-
-            // Category filtering
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    currentCategory = this.dataset.category;
-                    renderIntegrations();
+        function getExportUrl() {
+            const formName = getFormName();
+            return "/logged_in/export.html?q=" + encodeURIComponent(formName);
+        }
+        function gotoWorkspace() { window.location = "/logged_in/index.html"; }
+        function gotoContent() { window.location.href = "/logged_in/content.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoWorkflow() { window.location.href = "/logged_in/workflow.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoConnect() { window.location.href = "/logged_in/connect.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoShare() { window.location.href = "/logged_in/share.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoResults() { window.location.href = "/logged_in/results.html?q=" + encodeURIComponent(getFormName()); }
+        function copyLink() {
+            const url = getShareUrl();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('Form link copied!', 'success');
                 });
-            });
-
-            // Tab switching
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            document.querySelectorAll('.secondary-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.secondary-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            // Zapier AI flow generation
-            document.getElementById('generateFlow').addEventListener('click', function() {
-                const description = document.getElementById('zapierDescription').value;
-                if (description.trim()) {
-                    generateZapierFlow(description);
-                } else {
-                    showNotification('Please describe what you want to do with your data', 'warning');
-                }
-            });
-
-            // Connection form
-            document.getElementById('connectionForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitConnection();
-            });
-
-            // Close modal when clicking outside
-            document.getElementById('connectionModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-        }
-
-        // Open connection modal
-        function openConnectionModal(integrationId) {
-            const integration = integrations.find(i => i.id === integrationId);
-            if (!integration) return;
-
-            document.getElementById('modalTitle').textContent = `Connect to ${integration.name}`;
-            document.getElementById('connectionName').value = `My ${integration.name} Connection`;
-            
-            // Customize form fields based on integration type
-            customizeModalForIntegration(integration);
-            
-            document.getElementById('connectionModal').classList.add('active');
-        }
-
-        // Customize modal form based on integration
-        function customizeModalForIntegration(integration) {
-            const form = document.getElementById('connectionForm');
-            
-            // Reset form to default state
-            form.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label" for="connectionName">Connection Name</label>
-                    <input type="text" class="form-input" id="connectionName" placeholder="My ${integration.name} Connection" required>
-                </div>
-            `;
-
-            // Add integration-specific fields
-            switch (integration.id) {
-                case 'google-sheets':
-                    form.innerHTML += `
-                        <div class="form-group">
-                            <label class="form-label" for="spreadsheetUrl">Spreadsheet URL</label>
-                            <input type="url" class="form-input" id="spreadsheetUrl" placeholder="https://docs.google.com/spreadsheets/..." required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="worksheetName">Worksheet Name</label>
-                            <input type="text" class="form-input" id="worksheetName" placeholder="Sheet1" required>
-                        </div>
-                    `;
-                    break;
-                case 'slack':
-                    form.innerHTML += `
-                        <div class="form-group">
-                            <label class="form-label" for="slackChannel">Slack Channel</label>
-                            <input type="text" class="form-input" id="slackChannel" placeholder="#general" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="messageTemplate">Message Template</label>
-                            <textarea class="form-input" id="messageTemplate" placeholder="New form submission from {{name}}" required></textarea>
-                        </div>
-                    `;
-                    break;
-                case 'mailchimp':
-                    form.innerHTML += `
-                        <div class="form-group">
-                            <label class="form-label" for="audienceId">Audience ID</label>
-                            <input type="text" class="form-input" id="audienceId" placeholder="abc123def456" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="doubleOptin">Double Opt-in</label>
-                            <select class="form-select" id="doubleOptin">
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
-                    `;
-                    break;
-                default:
-                    form.innerHTML += `
-                        <div class="form-group">
-                            <label class="form-label" for="apiKey">API Key</label>
-                            <input type="password" class="form-input" id="apiKey" placeholder="Enter your API key" required>
-                        </div>
-                    `;
-            }
-
-            // Add action buttons
-            form.innerHTML += `
-                <div class="modal-actions">
-                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        <span class="btn-text">Connect</span>
-                        <span class="loading" style="display: none;"></span>
-                    </button>
-                </div>
-            `;
-        }
-
-        // Close connection modal
-        function closeModal() {
-            document.getElementById('connectionModal').classList.remove('active');
-        }
-
-        // Submit connection
-        function submitConnection() {
-            const submitBtn = document.querySelector('#connectionForm button[type="submit"]');
-            const btnText = submitBtn.querySelector('.btn-text');
-            const loading = submitBtn.querySelector('.loading');
-            
-            // Show loading state
-            btnText.style.display = 'none';
-            loading.style.display = 'inline-block';
-            submitBtn.disabled = true;
-            
-            // Simulate API call
-            setTimeout(() => {
-                const connectionName = document.getElementById('connectionName').value;
-                const integrationId = getCurrentIntegrationId();
-                
-                // Mark as connected
-                connectedIntegrations.add(integrationId);
-                
-                // Hide loading state
-                btnText.style.display = 'inline';
-                loading.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                closeModal();
-                renderIntegrations();
-                showNotification(`Successfully connected to ${connectionName}!`, 'success');
-            }, 2000);
-        }
-
-        // Get current integration ID from modal title
-        function getCurrentIntegrationId() {
-            const title = document.getElementById('modalTitle').textContent;
-            const integration = integrations.find(i => title.includes(i.name));
-            return integration ? integration.id : null;
-        }
-
-        // Disconnect integration
-        function disconnectIntegration(integrationId) {
-            const integration = integrations.find(i => i.id === integrationId);
-            if (confirm(`Are you sure you want to disconnect ${integration.name}?`)) {
-                connectedIntegrations.delete(integrationId);
-                renderIntegrations();
-                showNotification(`Disconnected from ${integration.name}`, 'info');
+            } else {
+                const tmp = document.createElement('input');
+                tmp.value = url;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                tmp.remove();
+                showNotification('Form link copied!', 'success');
             }
         }
-
-        // Generate Zapier flow
-        function generateZapierFlow(description) {
-            const btn = document.getElementById('generateFlow');
-            const originalText = btn.textContent;
-            
-            btn.innerHTML = '<span class="loading"></span> Generating...';
-            btn.disabled = true;
-            
-            // Simulate AI processing
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.disabled = false;
-                
-                showNotification('Zapier flow generated! Check your Zapier dashboard.', 'success');
-                
-                // Clear the textarea
-                document.getElementById('zapierDescription').value = '';
-            }, 3000);
+        function setDarkInitial() {
+            let dark = false;
+            if (localStorage.getItem('connect-darkmode') === '1') dark = true;
+            else if (localStorage.getItem('connect-darkmode') === '0') dark = false;
+            else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) dark = true;
+            if (dark) {
+                document.body.classList.add('dark');
+                document.getElementById('darkToggleBtn').innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark');
+                document.getElementById('darkToggleBtn').innerHTML = '<i class="fas fa-moon"></i>';
+            }
         }
-
-        // Notification system
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            if (document.body.classList.contains('dark')) {
+                localStorage.setItem('connect-darkmode', '1');
+                document.getElementById('darkToggleBtn').innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('connect-darkmode', '0');
+                document.getElementById('darkToggleBtn').innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            const colors = {
-                success: '#10b981',
-                warning: '#f59e0b',
-                error: '#ef4444',
-                info: '#3b82f6'
-            };
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${colors[type]};
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: 500;
-                z-index: 2000;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                max-width: 300px;
-            `;
+            const colors = { success: '#10b981', warning: '#f59e0b', error: '#ef4444', info: '#3b82f6' };
+            notification.style.cssText = ` position: fixed; top: 20px; right: 20px; background: ${colors[type]}; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; z-index: 2000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transform: translateX(100%); transition: transform 0.3s ease; max-width: 350px; line-height: 1.4; `;
             notification.textContent = message;
-            
             document.body.appendChild(notification);
-            
-            // Animate in
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            // Remove after 4 seconds
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 4000);
+            setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
+            setTimeout(() => { notification.style.transform = 'translateX(100%)'; setTimeout(() => { if (document.body.contains(notification)) { document.body.removeChild(notification); } }, 300); }, 3500);
         }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', init);
+        function mockSidebar(option) {
+            let msg = '';
+            if (option === 'integrations') showIntegrations();
+            if (option === 'webhooks') showWebhooks();
+        }
+        function toggleActive(el) { el.classList.toggle('active'); }
+        function showIntegrations() {
+            document.querySelectorAll('.connect-option').forEach(o => o.classList.remove('active'));
+            document.querySelector('.connect-option[data-option="integrations"]').classList.add('active');
+            document.getElementById('connectContent').innerHTML = `
+    <h2>Integrations & Automations</h2>
+    <p style="color:#6b7280;margin-bottom:24px;">Connect your form to your favorite apps, automate your workflow, and collect data wherever you need it.</p>
+    <div class="integration-list">
+      <div class="integration-card">
+        <div class="icon" style="color:#34a853"><i class="fab fa-google-drive"></i></div>
+        <div class="label">Google Sheets</div>
+        <div class="desc">Send new responses to a Google Sheet in real time.</div>
+        <button class="integration-btn" onclick="showNotification('Google Sheets integration coming soon!', 'info')">Connect</button>
+      </div>
+      <div class="integration-card">
+        <div class="icon" style="color:#0088cc"><i class="fab fa-slack"></i></div>
+        <div class="label">Slack</div>
+        <div class="desc">Push notifications about new responses directly into a Slack channel.</div>
+        <button class="integration-btn" onclick="showNotification('Slack integration coming soon!', 'info')">Connect</button>
+      </div>
+      <div class="integration-card">
+        <div class="icon" style="color:#fbbc05"><i class="fas fa-envelope-open"></i></div>
+        <div class="label">Email</div>
+        <div class="desc">Send an email whenever you get a new submission.</div>
+        <button class="integration-btn" onclick="showNotification('Email integration coming soon!', 'info')">Connect</button>
+      </div>
+      <div class="integration-card">
+        <div class="icon" style="color:#ff5e00"><i class="fas fa-bolt"></i></div>
+        <div class="label">Zapier</div>
+        <div class="desc">Automate your workflows by connecting with Zapier.</div>
+        <button class="integration-btn" onclick="showNotification('Zapier integration coming soon!', 'info')">Connect</button>
+      </div>
+    </div>
+  `;
+        }
+        function showWebhooks() {
+            document.querySelectorAll('.connect-option').forEach(o => o.classList.remove('active'));
+            document.querySelector('.connect-option[data-option="webhooks"]').classList.add('active');
+            document.getElementById('connectContent').innerHTML = `
+    <div class="webhook-section">
+      <h3><i class="fas fa-bolt"></i> Webhooks (Sample)</h3>
+      <div style="color:#6b7280;font-size:15px;margin-bottom:8px;">Automate actions or connect to your own backend via webhooks.</div>
+      <div class="webhook-options">
+        <div class="webhook-row"><span class="webhook-label">Send on Submission</span><div class="webhook-toggle" onclick="toggleActive(this)"></div></div>
+        <div class="webhook-row"><span class="webhook-label">Send on Update</span><div class="webhook-toggle" onclick="toggleActive(this)"></div></div>
+        <div class="webhook-row"><span class="webhook-label">Send on Status Change</span><div class="webhook-toggle" onclick="toggleActive(this)"></div></div>
+      </div>
+    </div>
+  `;
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById("breadcrumbFormName").textContent = getFormName();
+            document.getElementById("formUrl").value = getShareUrl();
+            setDarkInitial();
+            document.getElementById('plansBtn').onclick = () => window.location = '/pricing.html';
+            document.getElementById('linkBtn').onclick = copyLink;
+            document.getElementById('helpBtn').onclick = () => window.location = '/help.html';
+            document.getElementById('darkToggleBtn').onclick = toggleDarkMode;
+            document.getElementById('editBtn').onclick = gotoContent;
+            showIntegrations(); // default
+        });
     </script>
 </body>
+
 </html>
