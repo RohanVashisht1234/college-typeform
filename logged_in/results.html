@@ -946,7 +946,7 @@
       </ul>
       <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
         <button class="btn" onclick="closeModal()">Maybe later</button>
-        <button class="btn btn-primary" onclick="window.location='/pricing.html'"><i class="fas fa-crown"></i> Upgrade
+        <button class="btn btn-primary" onclick="window.location='/college-typeform/pricing.html'"><i class="fas fa-crown"></i> Upgrade
           now </button>
       </div>
     </div>
@@ -977,9 +977,9 @@
     }
     function setupEventListeners() {
       document.querySelector('.breadcrumb-item span').onclick = goToWorkspace;
-      document.getElementById('viewPlansBtn').onclick = () => window.location = '/pricing.html';
+      document.getElementById('viewPlansBtn').onclick = () => window.location = '/college-typeform/pricing.html';
       document.getElementById('copyLinkBtn').onclick = copyExportLink;
-      document.getElementById('helpBtn').onclick = () => window.location = '/help.html';
+      document.getElementById('helpBtn').onclick = () => window.location = '/college-typeform/help.html';
       document.getElementById('darkToggleBtn').onclick = toggleDarkMode;
       document.querySelectorAll('.nav-tab').forEach(tab => {
         tab.addEventListener('click', function () {

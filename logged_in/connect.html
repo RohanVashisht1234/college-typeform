@@ -606,7 +606,7 @@
                 <div class="connect-text">Webhooks</div>
             </div>
             <div style="margin-top:30px;">
-                <button class="btn btn-primary" style="width:100%;" onclick="window.location='/pricing.html'"><i
+                <button class="btn btn-primary" style="width:100%;" onclick="window.location='/college-typeform/pricing.html'"><i
                         class="fas fa-crown"></i> Upgrade plan</button>
                 <div style="font-size:12px;color:#6b7280;margin-top:10px;">Try Business or Enterprise for more
                     integration options.</div>
@@ -637,11 +637,11 @@
         function getShareUrl() {
             // The shareable form link (public)
             const formName = getFormName();
-            return window.location.origin + "./logged_in/export.html?q=" + encodeURIComponent(formName);
+            return window.location.origin + "/college-typeform/logged_in/export.html?q=" + encodeURIComponent(formName);
         }
         function getExportUrl() {
             const formName = getFormName();
-            return "./logged_in/export.html?q=" + encodeURIComponent(formName);
+            return "/college-typeform/logged_in/export.html?q=" + encodeURIComponent(formName);
         }
         function gotoWorkspace() { window.location = "/college-typeform/logged_in/index.html"; }
         function gotoContent() { window.location.href = "/college-typeform/logged_in/content.html?q=" + encodeURIComponent(getFormName()); }
