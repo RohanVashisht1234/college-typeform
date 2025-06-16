@@ -7,6 +7,60 @@
     <title>Form Builder</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --color-bg: #f8f9fa;
+            --color-fg: #333;
+            --color-border: #e5e7eb;
+            --color-nav-bg: #fff;
+            --color-nav-fg: #191c1e;
+            --color-nav-tab: #6b7280;
+            --color-nav-tab-active: #10b981;
+            --color-btn: #374151;
+            --color-btn-bg: #fff;
+            --color-btn-border: #d1d5db;
+            --color-btn-primary: #10b981;
+            --color-btn-primary-hover: #059669;
+            --color-sidebar-bg: #fff;
+            --color-sidebar-border: #e5e7eb;
+            --color-question-hover: #f9fafb;
+            --color-question-active: #f0fdf4;
+            --color-trash: #ef4444;
+            --color-toggle: #d1d5db;
+            --color-toggle-active: #10b981;
+            --color-modal-bg: #fff;
+            --color-modal-overlay: rgba(0, 0, 0, 0.5);
+            --color-rating-hover: #f0fdf4;
+            --color-rating-selected: #10b981;
+            --color-right-sidebar-bg: #fff;
+        }
+
+        body.dark {
+            --color-bg: #1a1b1f;
+            --color-fg: #e8e8e8;
+            --color-border: #282a36;
+            --color-nav-bg: #191c1e;
+            --color-nav-fg: #fff;
+            --color-nav-tab: #bdbdbd;
+            --color-nav-tab-active: #10b981;
+            --color-btn: #e8e8e8;
+            --color-btn-bg: #23242a;
+            --color-btn-border: #343746;
+            --color-btn-primary: #10b981;
+            --color-btn-primary-hover: #059669;
+            --color-sidebar-bg: #202427;
+            --color-sidebar-border: #23242a;
+            --color-question-hover: #23242a;
+            --color-question-active: #0d3529;
+            --color-trash: #ef4444;
+            --color-toggle: #343746;
+            --color-toggle-active: #10b981;
+            --color-modal-bg: #222327;
+            --color-modal-overlay: rgba(0, 0, 0, 0.7);
+            --color-rating-hover: #23242a;
+            --color-rating-selected: #10b981;
+            --color-right-sidebar-bg: #18191d;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,9 +69,10 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--color-bg);
+            color: var(--color-fg);
             line-height: 1.5;
+            transition: background 0.2s, color 0.2s;
         }
 
         .container {
@@ -27,12 +82,13 @@
         }
 
         .top-nav {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
+            background: var(--color-nav-bg);
+            border-bottom: 1px solid var(--color-border);
             padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: background 0.2s;
         }
 
         .breadcrumb {
@@ -40,7 +96,7 @@
             align-items: center;
             gap: 8px;
             font-size: 14px;
-            color: #6b7280;
+            color: var(--color-nav-tab);
         }
 
         .breadcrumb-item {
@@ -58,19 +114,19 @@
             padding: 8px 16px;
             font-size: 14px;
             font-weight: 500;
-            color: #6b7280;
+            color: var(--color-nav-tab);
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: all 0.2s;
         }
 
         .nav-tab.active {
-            color: #111827;
-            border-bottom-color: #10b981;
+            color: var(--color-nav-fg);
+            border-bottom-color: var(--color-nav-tab-active);
         }
 
         .nav-tab:hover {
-            color: #374151;
+            color: var(--color-nav-fg);
         }
 
         .top-actions {
@@ -85,9 +141,9 @@
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            border: 1px solid #d1d5db;
-            background: white;
-            color: #374151;
+            border: 1px solid var(--color-btn-border);
+            background: var(--color-btn-bg);
+            color: var(--color-btn);
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -99,20 +155,20 @@
         }
 
         .btn-primary {
-            background: #10b981;
+            background: var(--color-btn-primary);
             color: white;
-            border-color: #10b981;
+            border-color: var(--color-btn-primary);
         }
 
         .btn-primary:hover {
-            background: #059669;
+            background: var(--color-btn-primary-hover);
         }
 
         .user-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #10b981;
+            background: var(--color-btn-primary);
             color: white;
             display: flex;
             align-items: center;
@@ -127,12 +183,13 @@
         }
 
         .toolbar {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
+            background: var(--color-nav-bg);
+            border-bottom: 1px solid var(--color-border);
             padding: 12px 20px;
             display: flex;
             align-items: center;
             gap: 16px;
+            transition: background 0.2s;
         }
 
         .mode-selector {
@@ -140,23 +197,23 @@
             align-items: center;
             gap: 8px;
             padding: 6px 12px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
-            background: white;
+            background: var(--color-btn-bg);
             cursor: pointer;
         }
 
         .toolbar-btn {
             padding: 8px 12px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
-            background: white;
+            background: var(--color-btn-bg);
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
             font-size: 14px;
-            color: #374151;
+            color: var(--color-btn);
         }
 
         .toolbar-btn:hover {
@@ -164,16 +221,17 @@
         }
 
         .toolbar-btn.active {
-            background: #10b981;
+            background: var(--color-btn-primary);
             color: white;
-            border-color: #10b981;
+            border-color: var(--color-btn-primary);
         }
 
         .left-sidebar {
             width: 280px;
-            background: white;
-            border-right: 1px solid #e5e7eb;
+            background: var(--color-sidebar-bg);
+            border-right: 1px solid var(--color-sidebar-border);
             overflow-y: auto;
+            transition: background 0.2s;
         }
 
         .questions-list {
@@ -193,12 +251,12 @@
         }
 
         .question-item:hover {
-            background: #f9fafb;
+            background: var(--color-question-hover);
         }
 
         .question-item.active {
-            background: #f0fdf4;
-            border-color: #10b981;
+            background: var(--color-question-active);
+            border-color: var(--color-btn-primary);
         }
 
         .question-icon {
@@ -234,24 +292,24 @@
 
         .question-number {
             font-weight: 600;
-            color: #111827;
+            color: var(--color-nav-fg);
             margin-right: 4px;
         }
 
         .question-text {
             flex: 1;
             font-size: 14px;
-            color: #374151;
+            color: var(--color-btn);
             line-height: 1.4;
         }
 
         .add-question-btn {
             width: 100%;
             padding: 12px;
-            border: 2px dashed #d1d5db;
+            border: 2px dashed var(--color-btn-border);
             border-radius: 8px;
             background: none;
-            color: #6b7280;
+            color: var(--color-nav-tab);
             cursor: pointer;
             font-size: 14px;
             display: flex;
@@ -262,13 +320,13 @@
         }
 
         .add-question-btn:hover {
-            border-color: #10b981;
-            color: #10b981;
+            border-color: var(--color-btn-primary);
+            color: var(--color-btn-primary);
         }
 
         .endings-section {
             padding: 20px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid var(--color-border);
         }
 
         .endings-header {
@@ -281,7 +339,7 @@
         .endings-title {
             font-size: 14px;
             font-weight: 500;
-            color: #374151;
+            color: var(--color-btn);
         }
 
         .main-content {
@@ -303,7 +361,7 @@
         }
 
         .question-number-badge {
-            background: #10b981;
+            background: var(--color-btn-primary);
             color: white;
             width: 24px;
             height: 24px;
@@ -318,13 +376,13 @@
         .question-title {
             font-size: 24px;
             font-weight: 600;
-            color: #111827;
+            color: var(--color-nav-fg);
             flex: 1;
         }
 
         .question-description {
             font-size: 16px;
-            color: #6b7280;
+            color: var(--color-nav-tab);
             font-style: italic;
             margin-bottom: 32px;
         }
@@ -339,38 +397,40 @@
         .rating-option {
             width: 48px;
             height: 48px;
-            border: 2px solid #d1d5db;
+            border: 2px solid var(--color-btn-border);
             border-radius: 8px;
-            background: white;
+            background: var(--color-btn-bg);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 16px;
             font-weight: 600;
-            color: #374151;
+            color: var(--color-btn);
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .rating-option:hover {
-            border-color: #10b981;
-            background: #f0fdf4;
+            border-color: var(--color-btn-primary);
+            background: var(--color-rating-hover);
         }
 
         .rating-option.selected {
-            border-color: #10b981;
-            background: #10b981;
+            border-color: var(--color-btn-primary);
+            background: var(--color-rating-selected);
             color: white;
         }
 
         .main-content input[type="number"],
         .main-content textarea {
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
             font-size: 15px;
             padding: 10px 12px;
             width: 100%;
             margin-bottom: 18px;
+            background: var(--color-btn-bg);
+            color: var(--color-btn);
         }
 
         .main-content textarea {
@@ -400,14 +460,14 @@
 
         .yesno label {
             font-size: 18px;
-            color: #374151;
+            color: var(--color-btn);
             cursor: pointer;
         }
 
         .delete-q-btn {
             background: none;
             border: none;
-            color: #ef4444;
+            color: var(--color-trash);
             cursor: pointer;
             font-size: 17px;
             margin-left: 12px;
@@ -419,7 +479,7 @@
 
         .branch-logic-label {
             font-size: 13px;
-            color: #6b7280;
+            color: var(--color-nav-tab);
         }
 
         .branch-logic-select {
@@ -427,15 +487,18 @@
             font-size: 13px;
             padding: 2px 7px;
             border-radius: 4px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
+            background: var(--color-btn-bg);
+            color: var(--color-btn);
         }
 
         .right-sidebar {
             width: 320px;
-            background: white;
-            border-left: 1px solid #e5e7eb;
+            background: var(--color-right-sidebar-bg);
+            border-left: 1px solid var(--color-sidebar-border);
             padding: 20px;
             overflow-y: auto;
+            transition: background 0.2s;
         }
 
         .settings-section {
@@ -445,13 +508,13 @@
         .settings-title {
             font-size: 14px;
             font-weight: 600;
-            color: #111827;
+            color: var(--color-nav-fg);
             margin-bottom: 12px;
         }
 
         .question-type-tabs {
             display: flex;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
             overflow: hidden;
             margin-bottom: 16px;
@@ -460,11 +523,11 @@
         .type-tab {
             flex: 1;
             padding: 8px 12px;
-            background: white;
+            background: var(--color-btn-bg);
             border: none;
             cursor: pointer;
             font-size: 14px;
-            color: #6b7280;
+            color: var(--color-nav-tab);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -473,16 +536,17 @@
 
         .type-tab.active {
             background: #f3f4f6;
-            color: #374151;
+            color: var(--color-btn);
         }
 
         .answer-type-select {
             width: 100%;
             padding: 8px 12px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
             font-size: 14px;
-            background: white;
+            background: var(--color-btn-bg);
+            color: var(--color-btn);
             margin-bottom: 16px;
         }
 
@@ -495,21 +559,21 @@
 
         .setting-label {
             font-size: 14px;
-            color: #374151;
+            color: var(--color-btn);
         }
 
         .toggle-switch {
             position: relative;
             width: 44px;
             height: 24px;
-            background: #d1d5db;
+            background: var(--color-toggle);
             border-radius: 12px;
             cursor: pointer;
             transition: background-color 0.2s;
         }
 
         .toggle-switch.active {
-            background: #10b981;
+            background: var(--color-toggle-active);
         }
 
         .toggle-switch::after {
@@ -537,7 +601,7 @@
         .scale-input {
             flex: 1;
             padding: 8px 12px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
             font-size: 14px;
             text-align: center;
@@ -546,7 +610,7 @@
         .label-input {
             width: 100%;
             padding: 8px 12px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--color-btn-border);
             border-radius: 6px;
             font-size: 14px;
             margin-bottom: 8px;
@@ -560,7 +624,7 @@
         }
 
         .media-upload {
-            border: 2px dashed #d1d5db;
+            border: 2px dashed var(--color-btn-border);
             border-radius: 8px;
             padding: 24px;
             text-align: center;
@@ -569,8 +633,8 @@
         }
 
         .media-upload:hover {
-            border-color: #10b981;
-            background: #f0fdf4;
+            border-color: var(--color-btn-primary);
+            background: var(--color-question-active);
         }
 
         .media-upload-icon {
@@ -581,7 +645,7 @@
 
         .media-upload-text {
             font-size: 14px;
-            color: #6b7280;
+            color: var(--color-nav-tab);
         }
 
         .modal {
@@ -591,7 +655,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: var(--color-modal-overlay);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -602,13 +666,14 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--color-modal-bg);
             border-radius: 12px;
             padding: 24px;
             width: 90%;
             max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
+            color: var(--color-fg);
         }
 
         .modal-header {
@@ -621,7 +686,7 @@
         .modal-title {
             font-size: 18px;
             font-weight: 600;
-            color: #111827;
+            color: var(--color-nav-fg);
         }
 
         .modal-close {
@@ -640,7 +705,7 @@
 
         .question-type-card {
             padding: 16px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--color-border);
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
@@ -648,20 +713,20 @@
         }
 
         .question-type-card:hover {
-            border-color: #10b981;
-            background: #f0fdf4;
+            border-color: var(--color-btn-primary);
+            background: var(--color-question-active);
         }
 
         .question-type-icon {
             font-size: 24px;
             margin-bottom: 8px;
-            color: #6b7280;
+            color: var(--color-nav-tab);
         }
 
         .question-type-name {
             font-size: 14px;
             font-weight: 500;
-            color: #374151;
+            color: var(--color-btn);
         }
 
         @media(max-width:1024px) {
@@ -707,8 +772,9 @@
     <div class="container">
         <nav class="top-nav">
             <div class="breadcrumb">
-                <div class="breadcrumb-item"><i class="fas fa-th"></i><span>My workspace</span><i
-                        class="fas fa-chevron-right"></i></div>
+                <div class="breadcrumb-item">
+                    <i class="fas fa-th"></i><span onclick="window.location.href='/logged_in/index.html'" style="cursor: pointer;">My workspace</span><i class="fas fa-chevron-right"></i>
+                </div>
                 <div class="breadcrumb-item"><span id="breadcrumbFormName"></span></div>
             </div>
             <div class="nav-tabs">
@@ -716,28 +782,28 @@
                 <div class="nav-tab"
                     onclick="window.location.href='/logged_in/workflow.html?q=' + encodeURIComponent(formName)">Workflow
                 </div>
-                <div class="nav-tab">Connect</div>
+                <div class="nav-tab"
+                    onclick="window.location.href='/logged_in/connect.html?q=' + encodeURIComponent(formName)">Connect
+                </div>
                 <div class="nav-tab" onclick="shareForm()">Share</div>
-                <div class="nav-tab">Results</div>
+                <div class="nav-tab" onclick="window.location.href='/logged_in/results.html?q=' + encodeURIComponent(formName)">Results</div>
             </div>
             <div class="top-actions">
                 <button class="btn" onclick="shareForm()"><i class="fas fa-link"></i></button>
-                <button class="btn btn-primary">View plans</button>
-                <button class="btn"><i class="fas fa-question-circle"></i></button>
+                <a href="/pricing.html" style="text-decoration: none;" class="btn btn-primary">View plans</a>
+                <a href="/help.html" style="text-decoration: none;" class="btn" id="helpBtn"><i class="fas fa-question-circle"></i></a>
                 <div class="user-avatar">RV</div>
+                <!-- Dark mode toggle button -->
+                <button class="btn" id="darkModeToggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
             </div>
         </nav>
         <div class="toolbar">
             <div class="mode-selector"><i class="fas fa-list"></i><span>Universal mode</span><i
                     class="fas fa-chevron-down"></i></div>
             <button class="toolbar-btn" onclick="openAddQuestionModal()"><i class="fas fa-plus"></i>Add content</button>
-            <button class="toolbar-btn"><i class="fas fa-paint-brush"></i>Design</button>
-            <button class="toolbar-btn"><i class="fas fa-mobile-alt"></i></button>
-            <button class="toolbar-btn"><i class="fas fa-play"></i></button>
-            <button class="toolbar-btn"><i class="fas fa-info-circle"></i></button>
-            <button class="toolbar-btn"><i class="fas fa-undo"></i></button>
-            <button class="toolbar-btn"><i class="fas fa-percentage"></i></button>
-            <button class="toolbar-btn"><i class="fas fa-cog"></i></button>
+            <button class="toolbar-btn" id="playBtn"><i class="fas fa-play"></i></button>
+            <button class="toolbar-btn" id="connectBtn"><i class="fas fa-link"></i>Connect</button>
+            <!-- Removed Info button as requested -->
         </div>
         <div class="main-layout">
             <aside class="left-sidebar">
@@ -782,39 +848,99 @@
         </div>
     </div>
     <script>
-        function qs(k) { const u = new URL(window.location.href); return u.searchParams.get(k) || ''; }
+        function qs(k) {
+            const u = new URL(window.location.href);
+            return u.searchParams.get(k) || '';
+        }
         let formName = qs('q') || 'Untitled Form';
         document.getElementById("breadcrumbFormName").textContent = formName;
         let forms = JSON.parse(localStorage.getItem('forms') || '[]');
         let form = forms.find(f => (f.name || f.title) === formName);
-        if (!form) { form = { name: formName, questions: [] }; forms.push(form); localStorage.setItem('forms', JSON.stringify(forms)); }
+        if (!form) {
+            form = { name: formName, questions: [] };
+            forms.push(form);
+            localStorage.setItem('forms', JSON.stringify(forms));
+        }
         if (!form.questions) form.questions = [];
         let activeQuestion = 0;
-        function iconByType(type) { if (type === 'rating') return 'star'; if (type === 'number') return 'chart'; if (type === 'textarea') return 'circle'; if (type === 'yesno') return 'circle'; if (type === 'image') return 'img'; return 'circle'; }
-        function renderSidebarQuestions() { const el = document.getElementById('sidebarQuestions'); el.innerHTML = ''; form.questions.forEach((q, i) => { const d = document.createElement('div'); d.className = 'question-item' + (activeQuestion === i ? ' active' : ''); d.onclick = () => { activeQuestion = i; renderAll(); }; d.innerHTML = `<div class="question-icon ${iconByType(q.type)}"><i class="fas fa-${iconByType(q.type)}"></i></div><div><span class="question-number">${i + 1}</span><div class="question-text">${q.title || '(Untitled)'}</div></div><button class="delete-q-btn" title="Delete" onclick="event.stopPropagation();deleteQuestion(${i});"><i class="fas fa-trash"></i></button>`; el.appendChild(d); }); }
-        function deleteQuestion(idx) { form.questions.splice(idx, 1); if (activeQuestion >= form.questions.length) activeQuestion = form.questions.length - 1; if (activeQuestion < 0) activeQuestion = 0; saveForm(); renderAll(); }
+
+        function iconByType(type) {
+            if (type === 'rating') return 'star';
+            if (type === 'number') return 'chart';
+            if (type === 'textarea') return 'circle';
+            if (type === 'yesno') return 'circle';
+            if (type === 'image') return 'img';
+            return 'circle';
+        }
+
+        function renderSidebarQuestions() {
+            const el = document.getElementById('sidebarQuestions');
+            el.innerHTML = '';
+            form.questions.forEach((q, i) => {
+                const d = document.createElement('div');
+                d.className = 'question-item' + (activeQuestion === i ? ' active' : '');
+                d.onclick = () => { activeQuestion = i; renderAll(); };
+                d.innerHTML = `<div class="question-icon ${iconByType(q.type)}"><i class="fas fa-${iconByType(q.type)}"></i></div><div><span class="question-number">${i + 1}</span><div class="question-text">${q.title || '(Untitled)'}</div></div><button class="delete-q-btn" title="Delete" onclick="event.stopPropagation();deleteQuestion(${i});"><i class="fas fa-trash"></i></button>`;
+                el.appendChild(d);
+            });
+        }
+        function deleteQuestion(idx) {
+            form.questions.splice(idx, 1);
+            if (activeQuestion >= form.questions.length) activeQuestion = form.questions.length - 1;
+            if (activeQuestion < 0) activeQuestion = 0;
+            saveForm();
+            renderAll();
+        }
         function renderMainEditor() {
             const q = form.questions[activeQuestion];
-            if (!q) { document.getElementById('mainQuestionEditor').innerHTML = '<div style="text-align:center;color:#aaa;margin:60px 0 0 0;font-size:22px;">No question selected.<br>Add a question to start.</div>'; return; }
+            if (!q) {
+                document.getElementById('mainQuestionEditor').innerHTML = '<div style="text-align:center;color:#aaa;margin:60px 0 0 0;font-size:22px;">No question selected.<br>Add a question to start.</div>';
+                return;
+            }
             let html = `<div class="question-header"><div class="question-number-badge">${activeQuestion + 1}</div><div class="question-title" contenteditable="true" id="mainQTitle" placeholder="Question title">${q.title || ''}</div></div><div class="question-description" contenteditable="true" id="mainQDesc" placeholder="Question description (optional)">${q.description || ''}</div>`;
-            if (q.type === 'rating') { html += `<div class="rating-scale">`; for (let i = 1; i <= 5; i++)html += `<div class="rating-option${q.max === i ? ' selected' : ''}" onclick="form.questions[activeQuestion].max=${i};saveForm();renderAll();">${i}</div>`; html += `</div>`; }
-            if (q.type === 'number') { html += `<input type="number" style="width:150px;" placeholder="Enter a number..." id="mainNumberInput" value="${q.value || ''}">`; }
-            if (q.type === 'textarea') { html += `<textarea id="mainTextareaInput" placeholder="Type your feedback here...">${q.value || ''}</textarea>`; }
-            if (q.type === 'yesno') { html += `<div class="yesno"><label><input type="radio" name="yesno${activeQuestion}" ${q.value === 'Yes' ? 'checked' : ''} onclick="form.questions[activeQuestion].value='Yes';saveForm();renderAll();"> Yes</label><label><input type="radio" name="yesno${activeQuestion}" ${q.value === 'No' ? 'checked' : ''} onclick="form.questions[activeQuestion].value='No';saveForm();renderAll();"> No</label></div>`; }
+            if (q.type === 'rating') {
+                html += `<div class="rating-scale">`;
+                for (let i = 1; i <= 5; i++) html += `<div class="rating-option${q.max === i ? ' selected' : ''}" onclick="form.questions[activeQuestion].max=${i};saveForm();renderAll();">${i}</div>`;
+                html += `</div>`;
+            }
+            if (q.type === 'number') {
+                html += `<input type="number" style="width:150px;" placeholder="Enter a number..." id="mainNumberInput" value="${q.value || ''}">`;
+            }
+            if (q.type === 'textarea') {
+                html += `<textarea id="mainTextareaInput" placeholder="Type your feedback here...">${q.value || ''}</textarea>`;
+            }
+            if (q.type === 'yesno') {
+                html += `<div class="yesno"><label><input type="radio" name="yesno${activeQuestion}" ${q.value === 'Yes' ? 'checked' : ''} onclick="form.questions[activeQuestion].value='Yes';saveForm();renderAll();"> Yes</label><label><input type="radio" name="yesno${activeQuestion}" ${q.value === 'No' ? 'checked' : ''} onclick="form.questions[activeQuestion].value='No';saveForm();renderAll();"> No</label></div>`;
+            }
             if (q.type === 'image') {
                 html += (q.img ? `<div class="img-preview"><img src="${q.img}"></div>` : '') + `<input type="file" accept="image/*" id="mainImgUpload" placeholder="Upload an image...">`;
                 html += `<textarea id="mainImgFeedback" placeholder="Enter your feedback for the image...">${q.imgFeedback || ''}</textarea>`;
             }
             html += `<div class="branch-logic-row"><span class="branch-logic-label">Show this question only if </span><select class="branch-logic-select" id="branchLogicSelect"><option value="">Always show</option>`;
-            form.questions.forEach((pq, pi) => { if (pi >= activeQuestion) return; html += `<option value="${pi}"${q.branchIf == pi ? ' selected' : ''}>${pq.title || 'Q' + (pi + 1)}</option>`; });
+            form.questions.forEach((pq, pi) => {
+                if (pi >= activeQuestion) return;
+                html += `<option value="${pi}"${q.branchIf == pi ? ' selected' : ''}>${pq.title || 'Q' + (pi + 1)}</option>`;
+            });
             html += `</select>`;
             if (q.branchIf !== undefined && q.branchIf !== '' && form.questions[q.branchIf]) {
                 const prevQ = form.questions[q.branchIf];
-                if (prevQ.type === 'yesno') { html += ` <select class="branch-logic-select" id="branchLogicValue"><option value="Yes"${q.branchValue === 'Yes' ? ' selected' : ''}>Yes</option><option value="No"${q.branchValue === 'No' ? ' selected' : ''}>No</option></select>`; }
-                if (prevQ.type === 'rating') { html += ` <select class="branch-logic-select" id="branchLogicValue">`; for (let i = 1; i <= 5; i++)html += `<option value="${i}"${q.branchValue == i ? ' selected' : ''}>${i}</option>`; html += `</select>`; }
-                if (prevQ.type === 'number') { html += ` <input type="number" class="branch-logic-select" style="width:60px;" id="branchLogicValue" value="${q.branchValue || ''}" placeholder="Number...">`; }
-                if (prevQ.type === 'textarea') { html += ` <input type="text" class="branch-logic-select" style="width:100px;" id="branchLogicValue" value="${q.branchValue || ''}" placeholder="contains...">`; }
-                if (prevQ.type === 'image') { html += ` (if image is uploaded)`; }
+                if (prevQ.type === 'yesno') {
+                    html += ` <select class="branch-logic-select" id="branchLogicValue"><option value="Yes"${q.branchValue === 'Yes' ? ' selected' : ''}>Yes</option><option value="No"${q.branchValue === 'No' ? ' selected' : ''}>No</option></select>`;
+                }
+                if (prevQ.type === 'rating') {
+                    html += ` <select class="branch-logic-select" id="branchLogicValue">`;
+                    for (let i = 1; i <= 5; i++) html += `<option value="${i}"${q.branchValue == i ? ' selected' : ''}>${i}</option>`;
+                    html += `</select>`;
+                }
+                if (prevQ.type === 'number') {
+                    html += ` <input type="number" class="branch-logic-select" style="width:60px;" id="branchLogicValue" value="${q.branchValue || ''}" placeholder="Number...">`;
+                }
+                if (prevQ.type === 'textarea') {
+                    html += ` <input type="text" class="branch-logic-select" style="width:100px;" id="branchLogicValue" value="${q.branchValue || ''}" placeholder="contains...">`;
+                }
+                if (prevQ.type === 'image') {
+                    html += ` (if image is uploaded)`;
+                }
             }
             html += `</div>`;
             document.getElementById('mainQuestionEditor').innerHTML = html;
@@ -822,7 +948,14 @@
             document.getElementById('mainQDesc').oninput = function () { q.description = this.textContent; saveForm(); };
             if (q.type === 'number' && document.getElementById('mainNumberInput')) document.getElementById('mainNumberInput').oninput = function () { q.value = this.value; saveForm(); };
             if (q.type === 'textarea' && document.getElementById('mainTextareaInput')) document.getElementById('mainTextareaInput').oninput = function () { q.value = this.value; saveForm(); };
-            if (q.type === 'image' && document.getElementById('mainImgUpload')) document.getElementById('mainImgUpload').onchange = function () { const f = this.files[0]; if (f) { const r = new FileReader(); r.onload = e => { q.img = e.target.result; saveForm(); renderAll(); }; r.readAsDataURL(f); } };
+            if (q.type === 'image' && document.getElementById('mainImgUpload')) document.getElementById('mainImgUpload').onchange = function () {
+                const f = this.files[0];
+                if (f) {
+                    const r = new FileReader();
+                    r.onload = e => { q.img = e.target.result; saveForm(); renderAll(); };
+                    r.readAsDataURL(f);
+                }
+            };
             if (q.type === 'image' && document.getElementById('mainImgFeedback')) document.getElementById('mainImgFeedback').oninput = function () { q.imgFeedback = this.value; saveForm(); };
             if (document.getElementById('branchLogicSelect')) document.getElementById('branchLogicSelect').onchange = function () {
                 const newVal = this.value !== '' ? parseInt(this.value) : '';
@@ -849,8 +982,13 @@
             }
         }
         function renderRightSidebar() {
-            const q = form.questions[activeQuestion]; if (!q) { document.getElementById('rightSidebar').innerHTML = ''; return; }
-            let html = '<div class="settings-section"><div class="settings-title">Question Settings</div>'; html += `<div class="setting-row"><span class="setting-label">Required</span><div class="toggle-switch${q.required ? ' active' : ''}" id="reqTog" onclick="toggleRequired()"></div></div></div>`;
+            const q = form.questions[activeQuestion];
+            if (!q) {
+                document.getElementById('rightSidebar').innerHTML = '';
+                return;
+            }
+            let html = '<div class="settings-section"><div class="settings-title">Question Settings</div>';
+            html += `<div class="setting-row"><span class="setting-label">Required</span><div class="toggle-switch${q.required ? ' active' : ''}" id="reqTog" onclick="toggleRequired()"></div></div></div>`;
             html += '<div class="settings-section"><div class="settings-title">Type</div><select class="answer-type-select" id="qTypeSelect">';
             html += `<option value="rating"${q.type === 'rating' ? ' selected' : ''}>Rating</option>`;
             html += `<option value="number"${q.type === 'number' ? ' selected' : ''}>Number</option>`;
@@ -859,19 +997,126 @@
             html += `<option value="image"${q.type === 'image' ? ' selected' : ''}>Image</option>`;
             html += '</select></div>';
             document.getElementById('rightSidebar').innerHTML = html;
-            document.getElementById('qTypeSelect').onchange = function () { q.type = this.value; if (q.type === 'rating') { q.max = 5; } if (q.type === 'image') { delete q.value; } saveForm(); renderAll(); };
+            document.getElementById('qTypeSelect').onchange = function () {
+                q.type = this.value;
+                if (q.type === 'rating') { q.max = 5; }
+                if (q.type === 'image') { delete q.value; }
+                saveForm();
+                renderAll();
+            };
         }
-        function renderAll() { renderSidebarQuestions(); renderMainEditor(); renderRightSidebar(); }
-        function openAddQuestionModal() { document.getElementById('addQuestionModal').classList.add('active'); }
-        function closeAddQuestionModal() { document.getElementById('addQuestionModal').classList.remove('active'); }
-        function addQuestion(type) { closeAddQuestionModal(); const q = { type: titleForType(type).toLowerCase(), title: '', description: '', required: false }; if (type === 'rating') q.max = 5; form.questions.push(q); activeQuestion = form.questions.length - 1; saveForm(); renderAll(); }
-        function titleForType(type) { if (type === 'rating') return 'Rating'; if (type === 'number') return 'Number'; if (type === 'textarea') return 'Feedback'; if (type === 'yesno') return 'Yes/No'; if (type === 'image') return 'Image'; return type; }
-        function toggleRequired() { const q = form.questions[activeQuestion]; q.required = !q.required; saveForm(); renderAll(); }
-        function saveForm() { let idx = forms.findIndex(f => (f.name || f.title) === formName); if (idx !== -1) { forms[idx] = form; } localStorage.setItem('forms', JSON.stringify(forms)); }
-        function shareForm() { window.location.href = '/logged_in/share.html?q=' + encodeURIComponent(formName); }
-        window.onclick = function (e) { if (e.target === document.getElementById('addQuestionModal')) closeAddQuestionModal(); };
-        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeAddQuestionModal(); } });
-        document.addEventListener('DOMContentLoaded', function () { if (!form.questions.length) { form.questions.push({ type: 'rating', title: 'How do you rate us?', description: '', required: false, max: 5 }); } activeQuestion = 0; renderAll(); });
+        function renderAll() {
+            renderSidebarQuestions();
+            renderMainEditor();
+            renderRightSidebar();
+        }
+        function openAddQuestionModal() {
+            document.getElementById('addQuestionModal').classList.add('active');
+        }
+        function closeAddQuestionModal() {
+            document.getElementById('addQuestionModal').classList.remove('active');
+        }
+        function addQuestion(type) {
+            closeAddQuestionModal();
+            const q = { type: titleForType(type).toLowerCase(), title: '', description: '', required: false };
+            if (type === 'rating') q.max = 5;
+            form.questions.push(q);
+            activeQuestion = form.questions.length - 1;
+            saveForm();
+            renderAll();
+        }
+        function titleForType(type) {
+            if (type === 'rating') return 'Rating';
+            if (type === 'number') return 'Number';
+            if (type === 'textarea') return 'Feedback';
+            if (type === 'yesno') return 'Yes/No';
+            if (type === 'image') return 'Image';
+            return type;
+        }
+        function toggleRequired() {
+            const q = form.questions[activeQuestion];
+            q.required = !q.required;
+            saveForm();
+            renderAll();
+        }
+        function saveForm() {
+            let idx = forms.findIndex(f => (f.name || f.title) === formName);
+            if (idx !== -1) { forms[idx] = form; }
+            localStorage.setItem('forms', JSON.stringify(forms));
+        }
+        function shareForm() {
+            window.location.href = '/logged_in/share.html?q=' + encodeURIComponent(formName);
+        }
+        window.onclick = function (e) {
+            if (e.target === document.getElementById('addQuestionModal')) closeAddQuestionModal();
+        };
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { closeAddQuestionModal(); }
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dark mode: Check cookie, then browser, then default to light
+            function getCookie(name) {
+                let v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+                return v ? v.pop() : '';
+            }
+            function setCookie(name, value, days = 365) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+            }
+            function prefersDark() {
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function applyTheme(theme) {
+                if (theme === 'dark') document.body.classList.add('dark');
+                else document.body.classList.remove('dark');
+            }
+            function currentTheme() {
+                let cookie = getCookie('theme');
+                if (cookie === 'dark' || cookie === 'light') return cookie;
+                return prefersDark() ? 'dark' : 'light';
+            }
+            // Set theme on load
+            let initialTheme = currentTheme();
+            applyTheme(initialTheme);
+            // Toggle handler
+            document.getElementById('darkModeToggle').onclick = function () {
+                let newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(newTheme);
+                setCookie('theme', newTheme, 365);
+            };
+            // Watch browser preference changes (if no user cookie override)
+            if (!getCookie('theme')) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    if (!getCookie('theme')) {
+                        let newPref = e.matches ? 'dark' : 'light';
+                        applyTheme(newPref);
+                    }
+                });
+            }
+            // Form builder init
+            if (!form.questions.length) {
+                form.questions.push({ type: 'rating', title: 'How do you rate us?', description: '', required: false, max: 5 });
+            }
+            activeQuestion = 0;
+            renderAll();
+
+            // --- Custom changes start here ---
+
+            // Remove info button from toolbar if it exists
+            var infoBtn = document.querySelector('.toolbar-btn .fa-info-circle')?.parentElement;
+            if (infoBtn) infoBtn.remove();
+
+            // Connect Button: Move to connect.html?q=form_name
+            document.getElementById('connectBtn').onclick = function () {
+                window.location.href = '/logged_in/connect.html?q=' + encodeURIComponent(formName);
+            };
+
+            // Play Button: Move to export.html?q=form_name
+            document.getElementById('playBtn').onclick = function () {
+                window.location.href = '/logged_in/export.html?q=' + encodeURIComponent(formName);
+            };
+        });
     </script>
 </body>
 
