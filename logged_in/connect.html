@@ -637,18 +637,18 @@
         function getShareUrl() {
             // The shareable form link (public)
             const formName = getFormName();
-            return window.location.origin + "/logged_in/export.html?q=" + encodeURIComponent(formName);
+            return window.location.origin + "./logged_in/export.html?q=" + encodeURIComponent(formName);
         }
         function getExportUrl() {
             const formName = getFormName();
-            return "/logged_in/export.html?q=" + encodeURIComponent(formName);
+            return "./logged_in/export.html?q=" + encodeURIComponent(formName);
         }
-        function gotoWorkspace() { window.location = "/logged_in/index.html"; }
-        function gotoContent() { window.location.href = "/logged_in/content.html?q=" + encodeURIComponent(getFormName()); }
-        function gotoWorkflow() { window.location.href = "/logged_in/workflow.html?q=" + encodeURIComponent(getFormName()); }
-        function gotoConnect() { window.location.href = "/logged_in/connect.html?q=" + encodeURIComponent(getFormName()); }
-        function gotoShare() { window.location.href = "/logged_in/share.html?q=" + encodeURIComponent(getFormName()); }
-        function gotoResults() { window.location.href = "/logged_in/results.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoWorkspace() { window.location = "/college-typeform/logged_in/index.html"; }
+        function gotoContent() { window.location.href = "/college-typeform/logged_in/content.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoWorkflow() { window.location.href = "/college-typeform/logged_in/workflow.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoConnect() { window.location.href = "/college-typeform/logged_in/connect.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoShare() { window.location.href = "/college-typeform/logged_in/share.html?q=" + encodeURIComponent(getFormName()); }
+        function gotoResults() { window.location.href = "/college-typeform/logged_in/results.html?q=" + encodeURIComponent(getFormName()); }
         function copyLink() {
             const url = getShareUrl();
             if (navigator.clipboard) {

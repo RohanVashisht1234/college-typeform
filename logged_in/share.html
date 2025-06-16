@@ -905,15 +905,15 @@
       }
       function getShareUrl() {
         const formName = getFormName();
-        return window.location.origin + "/logged_in/export.html?q=" + encodeURIComponent(formName);
+        return window.location.origin + "/college-typeform/logged_in/export.html?q=" + encodeURIComponent(formName);
       }
       function getExportUrl() {
         const formName = getFormName();
-        return "/logged_in/export.html?q=" + encodeURIComponent(formName);
+        return "/college-typeform/logged_in/export.html?q=" + encodeURIComponent(formName);
       }
       function getSharePageUrl() {
         const formName = getFormName();
-        return window.location.origin + "/logged_in/share.html?q=" + encodeURIComponent(formName);
+        return window.location.origin + "/college-typeform/logged_in/share.html?q=" + encodeURIComponent(formName);
       }
       function init() {
         document.getElementById("breadcrumbFormName").textContent = getFormName();
@@ -956,11 +956,11 @@
         document.getElementById('formDescription').addEventListener('input', updateFormDescription);
         document.querySelectorAll('.modal').forEach(modal => { modal.addEventListener('click', function (e) { if (e.target === this) { closeModal(); } }); });
       }
-      function gotoWorkspace() { window.location = "/logged_in/index.html"; }
-      function gotoContent() { window.location.href = "/logged_in/content.html?q=" + encodeURIComponent(getFormName()); }
-      function gotoWorkflow() { window.location.href = "/logged_in/workflow.html?q=" + encodeURIComponent(getFormName()); }
-      function gotoConnect() { window.location.href = "/logged_in/connect.html?q=" + encodeURIComponent(getFormName()); }
-      function gotoResults() { window.location.href = "/logged_in/results.html?q=" + encodeURIComponent(getFormName()); }
+      function gotoWorkspace() { window.location = "/college-typeform/logged_in/index.html"; }
+      function gotoContent() { window.location.href = "/college-typeform/logged_in/content.html?q=" + encodeURIComponent(getFormName()); }
+      function gotoWorkflow() { window.location.href = "/college-typeform/logged_in/workflow.html?q=" + encodeURIComponent(getFormName()); }
+      function gotoConnect() { window.location.href = "/college-typeform/logged_in/connect.html?q=" + encodeURIComponent(getFormName()); }
+      function gotoResults() { window.location.href = "/college-typeform/logged_in/results.html?q=" + encodeURIComponent(getFormName()); }
       function copyFormLink() {
         const url = getShareUrl();
         if (navigator.clipboard) {
