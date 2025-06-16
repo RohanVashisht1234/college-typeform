@@ -20,7 +20,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -61,7 +60,6 @@
             background-size: contain;
         }
 
-        /* Main Container */
         .main-container {
             flex: 1;
             display: flex;
@@ -69,7 +67,6 @@
             overflow: hidden;
         }
 
-        /* Left Section - Login Form */
         .login-section {
             flex: 1;
             display: flex;
@@ -99,25 +96,26 @@
             line-height: 1.5;
         }
 
-        /* Buttons */
-        .auth-button {
+        .link-button {
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             padding: 16px 20px;
             border: 1px solid #e1e1e1;
             border-radius: 8px;
             background-color: white;
             font-size: 16px;
             font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
+            color: #222;
+            text-decoration: none;
             margin-bottom: 16px;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
 
-        .auth-button:hover {
+        .link-button:hover {
             border-color: #d1d1d1;
             background-color: #fafafa;
         }
@@ -136,7 +134,6 @@
             background-size: contain;
         }
 
-        /* Email Input */
         .email-input {
             width: 100%;
             padding: 16px 20px;
@@ -156,9 +153,9 @@
             color: #999;
         }
 
-        /* Continue Button */
-        .continue-button {
+        .continue-link {
             width: 100%;
+            display: block;
             padding: 16px 20px;
             background-color: #262627;
             color: white;
@@ -166,16 +163,16 @@
             border-radius: 8px;
             font-size: 16px;
             font-weight: 500;
-            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
             margin-bottom: 24px;
             transition: background-color 0.2s ease;
         }
 
-        .continue-button:hover {
+        .continue-link:hover {
             background-color: #1a1a1a;
         }
 
-        /* SSO Link */
         .sso-link {
             text-align: center;
             color: #666;
@@ -183,7 +180,6 @@
             font-size: 14px;
         }
 
-        /* Right Section - Image */
         .image-section {
             flex: 1;
             display: flex;
@@ -200,7 +196,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .header {
                 padding: 15px 20px;
@@ -253,9 +248,9 @@
                 font-size: 14px;
             }
 
-            .auth-button,
+            .link-button,
             .email-input,
-            .continue-button {
+            .continue-link {
                 padding: 14px 16px;
                 font-size: 15px;
             }
@@ -286,23 +281,22 @@
                     <p>Get better data with conversational forms, surveys, quizzes & more.</p>
                 </div>
 
-                <form>
-                    <button type="button" class="auth-button">
-                        <div class="google-icon"></div>
-                        Continue with Google
-                    </button>
+                <a href="/logged_in/index.html" class="link-button">
+                    <div class="google-icon"></div>
+                    Continue with Google
+                </a>
 
-                    <button type="button" class="auth-button">
-                        <div class="microsoft-icon"></div>
-                        Continue with Microsoft
-                    </button>
+                <a href="/logged_in/index.html" class="link-button">
+                    <div class="microsoft-icon"></div>
+                    Continue with Microsoft
+                </a>
 
-                    <input type="email" class="email-input" placeholder="Email address" required>
+                <input type="email" class="email-input" placeholder="Email address" disabled
+                    style="margin-bottom: 16px;">
 
-                    <button type="submit" class="continue-button">Continue with email</button>
-                </form>
+                <a href="/logged_in/index.html" class="continue-link">Continue with email</a>
 
-                <a href="#" class="sso-link">Log in with SSO</a>
+                <a href="/logged_in/index.html" class="sso-link">Log in with SSO</a>
             </div>
         </section>
 

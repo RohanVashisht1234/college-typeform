@@ -23,7 +23,6 @@
             height: 100vh;
         }
 
-        /* Left Side */
         .left-side {
             flex: 1;
             background-color: #3c323e;
@@ -67,7 +66,6 @@
             margin-top: 40px;
         }
 
-        /* Right Side */
         .right-side {
             flex: 1;
             background: white;
@@ -169,51 +167,53 @@
             gap: 16px;
         }
 
-        .signup-btn {
+        .signup-link-btn {
             width: 100%;
             padding: 16px 24px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
             text-decoration: none;
             border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .signup-btn.google {
+        .signup-link-btn.google {
             background: white;
             border: 1px solid #E5E7EB;
             color: #374151;
         }
 
-        .signup-btn.google:hover {
+        .signup-link-btn.google:hover {
             background: #F9FAFB;
             border-color: #D1D5DB;
         }
 
-        .signup-btn.microsoft {
+        .signup-link-btn.microsoft {
             background: white;
             border: 1px solid #E5E7EB;
             color: #374151;
         }
 
-        .signup-btn.microsoft:hover {
+        .signup-link-btn.microsoft:hover {
             background: #F9FAFB;
             border-color: #D1D5DB;
         }
 
-        .signup-btn.email {
+        .signup-link-btn.email {
             background: #262626;
             color: white;
             border: 1px solid #262626;
+            text-align: center;
+            justify-content: center;
         }
 
-        .signup-btn.email:hover {
+        .signup-link-btn.email:hover {
             background: #1F1F1F;
         }
 
@@ -301,7 +301,6 @@
             display: block;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -332,13 +331,11 @@
         <div class="left-side">
             <div class="left-content">
                 <h1 class="left-title">Sign up<br>and come on in</h1>
-
                 <div class="form-mockup-image">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2KeOPq141Srtkfo3HPSXz155kDiVm4.png"
                         alt="Typeform survey mockup showing a rating question and design elements">
                 </div>
             </div>
-
             <div class="footer-text">© Typeform</div>
         </div>
 
@@ -356,7 +353,6 @@
                         <path d="M6 8L2 4h8L6 8z" />
                     </svg>
                 </div>
-
                 <div class="login-section">
                     <span class="login-text">Already have an account?</span>
                     <a href="/login.html" class="login-link">Log in</a>
@@ -378,105 +374,20 @@
                 </p>
 
                 <div class="signup-buttons">
-                    <button class="signup-btn google" onclick="handleGoogleSignup()">
+                    <a href="/logged_in/index.html" class="signup-link-btn google">
                         <div class="google-icon"></div>
                         Sign up with Google
-                    </button>
-
-                    <button class="signup-btn microsoft" onclick="handleMicrosoftSignup()">
+                    </a>
+                    <a href="/logged_in/index.html" class="signup-link-btn microsoft">
                         <div class="microsoft-icon"></div>
                         Sign up with Microsoft
-                    </button>
-
+                    </a>
                     <div class="divider">OR</div>
-
-                    <button class="signup-btn email" onclick="showEmailForm()">
-                        Sign up with email
-                    </button>
+                    <a href="/logged_in/index.html" class="signup-link-btn email">Sign up with email</a>
                 </div>
-
-                <form class="email-form" id="emailForm" onsubmit="handleEmailSignup(event)">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                        <div class="error-message" id="nameError">Please enter your full name</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                        <div class="error-message" id="emailError">Please enter a valid email address</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                        <div class="error-message" id="passwordError">Password must be at least 6 characters long</div>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Create Account</button>
-                </form>
             </div>
         </div>
     </div>
-
-    <script>
-        function showEmailForm() {
-            document.getElementById('emailForm').classList.add('show');
-            document.querySelector('.signup-buttons').style.display = 'none';
-        }
-
-        function handleGoogleSignup() {
-            alert('Google signup would be implemented here');
-        }
-
-        function handleMicrosoftSignup() {
-            alert('Microsoft signup would be implemented here');
-        }
-
-        function handleEmailSignup(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-
-            // Clear previous errors
-            document.querySelectorAll('.error-message').forEach(error => {
-                error.classList.remove('show');
-            });
-
-            let isValid = true;
-
-            // Validate name
-            if (!name) {
-                document.getElementById('nameError').classList.add('show');
-                isValid = false;
-            }
-
-            // Validate email
-            if (!email || !isValidEmail(email)) {
-                document.getElementById('emailError').classList.add('show');
-                isValid = false;
-            }
-
-            // Validate password
-            if (!password || password.length < 6) {
-                document.getElementById('passwordError').classList.add('show');
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Account created successfully! Welcome to Typeform!');
-                document.getElementById('emailForm').reset();
-            }
-        }
-
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-    </script>
 </body>
 
 </html>
