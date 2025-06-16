@@ -593,7 +593,12 @@
                     html += `<button type="button" class="ok-btn">OK</button>`;
                 }
                 html += `</form>`;
-                document.getElementById('exportFormContainer').innerHTML = document.getElementById('exportFormContainer').innerHTML.split('<div class="brand-topbar">')[0] + document.querySelector('.brand-topbar').outerHTML + html;
+                // Only replace content after .brand-topbar, leave modeToggle intact
+                var container = document.getElementById('exportFormContainer');
+                var topbar = container.querySelector('.brand-topbar');
+                container.innerHTML = '';
+                container.appendChild(topbar);
+                container.innerHTML += html;
                 // File/image preview logic
                 if (q.type === 'image') {
                     let el = document.getElementById('q' + i + '_img');
@@ -680,8 +685,11 @@
                 return true;
             }
             function showThankYou() {
-                document.getElementById('exportFormContainer').innerHTML = document.getElementById('exportFormContainer').innerHTML.split('<div class="brand-topbar">')[0] + document.querySelector('.brand-topbar').outerHTML
-                    + `<div class="form-success" style="display:block;">Thank you! Your response has been submitted.<br><span style="font-size:1.1rem;display:block;margin-top:12px;">You may now close this page.</span></div>`;
+                var container = document.getElementById('exportFormContainer');
+                var topbar = container.querySelector('.brand-topbar');
+                container.innerHTML = '';
+                container.appendChild(topbar);
+                container.innerHTML += `<div class="form-success" style="display:block;">Thank you! Your response has been submitted.<br><span style="font-size:1.1rem;display:block;margin-top:12px;">You may now close this page.</span></div>`;
             }
             showPage(currentPage);
         }
@@ -713,7 +721,12 @@
         }
         document.addEventListener('DOMContentLoaded', function () {
             setInitialMode();
-            document.getElementById('modeToggle').onclick = toggleMode;
+            // Use event delegation to ensure the toggle always works (also after replacing content)
+            document.body.addEventListener('click', function (e) {
+                if (e.target.closest('#modeToggle')) {
+                    toggleMode();
+                }
+            });
             renderForm();
         });
     </script>
