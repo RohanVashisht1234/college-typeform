@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -324,18 +325,20 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Left Side -->
         <div class="left-side">
             <div class="left-content">
                 <h1 class="left-title">Sign up<br>and come on in</h1>
-                
+
                 <div class="form-mockup-image">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2KeOPq141Srtkfo3HPSXz155kDiVm4.png" alt="Typeform survey mockup showing a rating question and design elements">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2KeOPq141Srtkfo3HPSXz155kDiVm4.png"
+                        alt="Typeform survey mockup showing a rating question and design elements">
                 </div>
             </div>
-            
+
             <div class="footer-text">© Typeform</div>
         </div>
 
@@ -344,14 +347,16 @@
             <div class="top-nav">
                 <div class="language-selector">
                     <svg class="globe-icon" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                            clip-rule="evenodd" />
                     </svg>
                     English
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 12 12">
-                        <path d="M6 8L2 4h8L6 8z"/>
+                        <path d="M6 8L2 4h8L6 8z" />
                     </svg>
                 </div>
-                
+
                 <div class="login-section">
                     <span class="login-text">Already have an account?</span>
                     <a href="/login.html" class="login-link">Log in</a>
@@ -431,46 +436,47 @@
 
         function handleEmailSignup(event) {
             event.preventDefault();
-            
+
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            
+
             // Clear previous errors
             document.querySelectorAll('.error-message').forEach(error => {
                 error.classList.remove('show');
             });
-            
+
             let isValid = true;
-            
+
             // Validate name
             if (!name) {
                 document.getElementById('nameError').classList.add('show');
                 isValid = false;
             }
-            
+
             // Validate email
             if (!email || !isValidEmail(email)) {
                 document.getElementById('emailError').classList.add('show');
                 isValid = false;
             }
-            
+
             // Validate password
             if (!password || password.length < 6) {
                 document.getElementById('passwordError').classList.add('show');
                 isValid = false;
             }
-            
+
             if (isValid) {
                 alert('Account created successfully! Welcome to Typeform!');
                 document.getElementById('emailForm').reset();
             }
         }
-        
+
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
     </script>
 </body>
+
 </html>
