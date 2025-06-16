@@ -1008,15 +1008,15 @@
         if (e.target === this) { closeModal(); }
       });
     }
-    function goToWorkspace() { window.location = '/logged_in/index.html'; }
+    function goToWorkspace() { window.location = '/college-typeform/logged_in/index.html'; }
     function gotoNav(section) {
       const q = encodeURIComponent(getFormName());
       switch (section) {
-        case 'content': window.location = `/logged_in/content.html?q=${q}`; break;
-        case 'workflow': window.location = `/logged_in/workflow.html?q=${q}`; break;
-        case 'connect': window.location = `/logged_in/connect.html?q=${q}`; break;
-        case 'share': window.location = `/logged_in/share.html?q=${q}`; break;
-        case 'results': window.location = `/logged_in/results.html?q=${q}`; break;
+        case 'content': window.location = `/college-typeform/logged_in/content.html?q=${q}`; break;
+        case 'workflow': window.location = `/college-typeform/logged_in/workflow.html?q=${q}`; break;
+        case 'connect': window.location = `/college-typeform/logged_in/connect.html?q=${q}`; break;
+        case 'share': window.location = `/college-typeform/logged_in/share.html?q=${q}`; break;
+        case 'results': window.location = `/college-typeform/logged_in/results.html?q=${q}`; break;
       }
     }
     function toggleDropdown(dropdownId) {
@@ -1160,7 +1160,7 @@
       }
     }
     function copyExportLink() {
-      const url = window.location.origin + '/logged_in/export.html?q=' + encodeURIComponent(getFormName());
+      const url = window.location.origin + '/college-typeform/logged_in/export.html?q=' + encodeURIComponent(getFormName());
       if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(() => {
           showNotification('Form link copied!', 'success');

@@ -773,7 +773,7 @@
         <nav class="top-nav">
             <div class="breadcrumb">
                 <div class="breadcrumb-item">
-                    <i class="fas fa-th"></i><span onclick="window.location.href='/logged_in/index.html'"
+                    <i class="fas fa-th"></i><span onclick="window.location.href='/college-typeform/logged_in/index.html'"
                         style="cursor: pointer;">My workspace</span><i class="fas fa-chevron-right"></i>
                 </div>
                 <div class="breadcrumb-item"><span id="breadcrumbFormName"></span></div>
@@ -781,14 +781,14 @@
             <div class="nav-tabs">
                 <div class="nav-tab active">Content</div>
                 <div class="nav-tab"
-                    onclick="window.location.href='/logged_in/workflow.html?q=' + encodeURIComponent(formName)">Workflow
+                    onclick="window.location.href='/college-typeform/logged_in/workflow.html?q=' + encodeURIComponent(formName)">Workflow
                 </div>
                 <div class="nav-tab"
-                    onclick="window.location.href='/logged_in/connect.html?q=' + encodeURIComponent(formName)">Connect
+                    onclick="window.location.href='/college-typeform/logged_in/connect.html?q=' + encodeURIComponent(formName)">Connect
                 </div>
                 <div class="nav-tab" onclick="shareForm()">Share</div>
                 <div class="nav-tab"
-                    onclick="window.location.href='/logged_in/results.html?q=' + encodeURIComponent(formName)">Results
+                    onclick="window.location.href='/college-typeform/logged_in/results.html?q=' + encodeURIComponent(formName)">Results
                 </div>
             </div>
             <div class="top-actions">
@@ -1049,7 +1049,7 @@
             localStorage.setItem('forms', JSON.stringify(forms));
         }
         function shareForm() {
-            window.location.href = '/logged_in/share.html?q=' + encodeURIComponent(formName);
+            window.location.href = '/college-typeform/logged_in/share.html?q=' + encodeURIComponent(formName);
         }
         window.onclick = function (e) {
             if (e.target === document.getElementById('addQuestionModal')) closeAddQuestionModal();
@@ -1113,12 +1113,12 @@
 
             // Connect Button: Move to connect.html?q=form_name
             document.getElementById('connectBtn').onclick = function () {
-                window.location.href = '/logged_in/connect.html?q=' + encodeURIComponent(formName);
+                window.location.href = '/college-typeform/logged_in/connect.html?q=' + encodeURIComponent(formName);
             };
 
             // Play Button: Move to export.html?q=form_name
             document.getElementById('playBtn').onclick = function () {
-                window.location.href = '/logged_in/export.html?q=' + encodeURIComponent(formName);
+                window.location.href = '/college-typeform/logged_in/export.html?q=' + encodeURIComponent(formName);
             };
         });
 

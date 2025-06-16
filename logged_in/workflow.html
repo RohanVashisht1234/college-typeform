@@ -1038,11 +1038,11 @@
             setTimeout(() => { notification.style.transform = 'translateX(0)'; }, 100);
             setTimeout(() => { notification.style.transform = 'translateX(100%)'; setTimeout(() => { if (document.body.contains(notification)) { document.body.removeChild(notification); } }, 300); }, 3000);
         }
-        function gotoWorkspace() { window.location = '/logged_in/index.html'; }
-        function gotoContent() { window.location = '/logged_in/content.html?q=' + encodeURIComponent(formName); }
-        function gotoConnect() { window.location = '/logged_in/connect.html?q=' + encodeURIComponent(formName); }
-        function gotoShare() { window.location = '/logged_in/share.html?q=' + encodeURIComponent(formName); }
-        function gotoResults() { window.location = '/logged_in/results.html?q=' + encodeURIComponent(formName); }
+        function gotoWorkspace() { window.location = '/college-typeform/logged_in/index.html'; }
+        function gotoContent() { window.location = '/college-typeform/logged_in/content.html?q=' + encodeURIComponent(formName); }
+        function gotoConnect() { window.location = '/college-typeform/logged_in/connect.html?q=' + encodeURIComponent(formName); }
+        function gotoShare() { window.location = '/college-typeform/logged_in/share.html?q=' + encodeURIComponent(formName); }
+        function gotoResults() { window.location = '/college-typeform/logged_in/results.html?q=' + encodeURIComponent(formName); }
         document.getElementById('addNodeForm').addEventListener('submit', addNewNode);
         document.addEventListener('DOMContentLoaded', () => {
             drawWorkflow();
@@ -1060,11 +1060,11 @@
             document.getElementById('linkBtn').onclick = copyFormLink;
             document.getElementById('helpBtn').onclick = () => window.location = '/help.html';
             document.getElementById('darkToggleBtn').onclick = toggleDarkMode;
-            document.getElementById('previewBtn').onclick = () => window.open('/logged_in/export.html?q=' + encodeURIComponent(formName), '_blank');
+            document.getElementById('previewBtn').onclick = () => window.open('/college-typeform/logged_in/export.html?q=' + encodeURIComponent(formName), '_blank');
             document.getElementById('settingsBtn').onclick = gotoContent;
 
             // Sample link at bottom
-            document.getElementById('bottomUrl').innerText = window.location.origin + '/logged_in/export.html?q=' + encodeURIComponent(formName);
+            document.getElementById('bottomUrl').innerText = window.location.origin + '/college-typeform/logged_in/export.html?q=' + encodeURIComponent(formName);
 
             // Dark mode initialize
             setDarkInitial();
@@ -1073,7 +1073,7 @@
             showTab('branching');
         });
         function copyFormLink() {
-            const url = window.location.origin + '/logged_in/export.html?q=' + encodeURIComponent(formName);
+            const url = window.location.origin + '/college-typeform/logged_in/export.html?q=' + encodeURIComponent(formName);
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(url).then(() => {
                     showNotification('Form link copied!', 'success');

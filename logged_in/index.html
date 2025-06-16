@@ -992,8 +992,8 @@
         document.querySelectorAll('.form-link').forEach(link => {
           link.onclick = function (e) {
             const formName = this.getAttribute('data-form');
-            // Go to /logged_in/content.html?q=form_name instead of form.html
-            window.open(`/logged_in/content.html?q=${encodeURIComponent(formName)}`, '_blank');
+            // Go to /college-typeform/logged_in/content.html?q=form_name instead of form.html
+            window.open(`/college-typeform/logged_in/content.html?q=${encodeURIComponent(formName)}`, '_blank');
           };
         });
       }, 0);
@@ -1034,7 +1034,7 @@
         document.querySelectorAll('.form-link').forEach(link => {
           link.onclick = function (e) {
             const formName = this.getAttribute('data-form');
-            window.open(`/logged_in/content.html?q=${encodeURIComponent(formName)}`, '_blank');
+            window.open(`/college-typeform/logged_in/content.html?q=${encodeURIComponent(formName)}`, '_blank');
           };
         });
       }, 0);
