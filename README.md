@@ -1,6 +1,7 @@
 # Typeform Clone (Frontend Only)
 
 Live Demo: [Visit Website](https://rohanvashisht1234.github.io/college-typeform/)
+Figma Design: [Visit Figma Design](https://www.figma.com/design/KUhC9SJioY77pnS63DxExm/Typeform?node-id=0-1&t=AFGtIZMSNDFKBORi-1)
 
 ---
 
